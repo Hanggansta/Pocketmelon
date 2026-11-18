@@ -1,10 +1,6 @@
 /* =========================================================
    Home: hero extras, principles, case cards, labs, process
    ========================================================= */
-.hero__pill { display: inline-block; }
-.hero__live { grid-column: 10 / 13; justify-self: end; display: grid; gap: .35rem; text-align: right; }
-.hero__live-k { color: var(--muted); }
-.hero__live a { justify-self: end; color: var(--fg); }
 
 /* ---------- principles */
 .principles { margin-top: calc(var(--section) * .6); row-gap: 2.5rem; }

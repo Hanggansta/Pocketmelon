@@ -12,7 +12,6 @@ export function prepareHero() {
   const chars = split.chars;
   if (!reduced) {
     gsap.set(chars, { yPercent: 115, rotate: 8, transformOrigin: '0% 100%' });
-    gsap.set('.hero__pill', { width: 0 });
     gsap.set('.hero .reveal-up', { y: 24, autoAlpha: 0 });
   }
   return chars;
@@ -21,21 +20,8 @@ export function prepareHero() {
 export function introHero(chars) {
   const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
   tl.to(chars, { yPercent: 0, rotate: 0, duration: 1.6, stagger: 0.028 }, 0)
-    .to('.hero__pill', { width: () => (window.innerWidth <= 560 ? '0.9em' : '1.55em'), duration: 1.4, ease: 'expo.inOut', clearProps: 'width' }, 0.35)
     .to('.hero .reveal-up', { y: 0, autoAlpha: 1, duration: 1.2, stagger: 0.06 }, 0.5);
   return tl;
-}
-
-export function initPillCycle() {
-  const imgs = [...document.querySelectorAll('.hero__pill img')];
-  let i = 0;
-  imgs[0].classList.add('is-active');
-  if (reduced) return;
-  setInterval(() => {
-    imgs[i].classList.remove('is-active');
-    i = (i + 1) % imgs.length;
-    imgs[i].classList.add('is-active');
-  }, 850);
 }
 
 export function initProximity(chars) {

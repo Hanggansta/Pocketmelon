@@ -51,6 +51,12 @@ export class PixelCat {
 
     this.resize = this.resize.bind(this);
     this.loop = this.loop.bind(this);
+    if (this.opts.manual) {
+      // driven externally (e.g. the bead hero): no DOM observers, no own loop
+      this.ro = this.io = { disconnect() {} };
+      this.render();
+      return;
+    }
     this.ro = new ResizeObserver(this.resize);
     this.ro.observe(canvas.parentElement || canvas);
     this.io = new IntersectionObserver(([e]) => (this.visible = e.isIntersecting));
@@ -205,7 +211,7 @@ export class PixelCat {
 
     // eyes follow the pointer
     if (this.opts.track && pointer.active && s.eyes === 'open') {
-      const r = this.canvas.getBoundingClientRect();
+      const r = this.opts.rect ? this.opts.rect() : this.canvas.getBoundingClientRect();
       const dx = pointer.x - (r.left + r.width / 2);
       const dy = pointer.y - (r.top + r.height * 0.35);
       s.eyeDX = Math.abs(dx) < r.width * 0.25 ? 0 : Math.sign(dx);
@@ -343,6 +349,20 @@ export class PixelCat {
       changed = true;
     }
     if (changed) this.render();
+  }
+
+  /** advance by dt ms when used in manual mode; returns true if the buffer changed */
+  step(dt) {
+    this.acc += Math.min(200, dt);
+    const stepMs = 1000 / this.opts.fps;
+    let changed = false;
+    while (this.acc >= stepMs) {
+      this.acc -= stepMs;
+      this.tick();
+      changed = true;
+    }
+    if (changed) this.render();
+    return changed;
   }
 
   destroy() {

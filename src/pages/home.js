@@ -1,13 +1,30 @@
 import { boot, initSharedScroll, initThemes, lenis, gsap, ScrollTrigger, SplitText, reduced } from '../core.js';
 import { initSeeds } from '../modules/seeds.js';
-import { prepareHero, introHero, initPillCycle, initProximity } from '../modules/hero.js';
+import { prepareHero, introHero, initProximity } from '../modules/hero.js';
+import { BeadHero } from '../modules/beadhero.js';
 import { PixelCat, CAT_SIZE } from '../modules/pixelcat.js';
 import { BeadBoard } from '../modules/beadboard.js';
 
 const transitions = boot();
 const heroChars = prepareHero();
-initSeeds(document.querySelector('.hero__seeds'));
-initPillCycle();
+const pxDot = [...document.querySelectorAll('.hero__line--3 .char')].pop();
+pxDot?.classList.add('px-dot');
+const heroEl = document.querySelector('.hero');
+const beadHero = new BeadHero(document.querySelector('.hero__stage'), {
+  hero: heroEl,
+  logo: document.querySelector('.logo__cat'),
+});
+alignPegs();
+window.addEventListener('resize', alignPegs);
+
+/** line the CSS pegboard up with the bead grid, so empty pegs show where beads sat */
+function alignPegs() {
+  const p = beadHero.pitch;
+  const hx = heroEl.getBoundingClientRect().left;
+  heroEl.style.setProperty('--peg', `${p}px`);
+  heroEl.style.setProperty('--peg-x', `${(beadHero.sx - hx) % p}px`);
+  heroEl.style.setProperty('--peg-y', `${(beadHero.sy - heroEl.offsetTop) % p}px`);
+}
 
 // labs
 const labSeeds = document.querySelector('.lab__seeds');
@@ -20,7 +37,15 @@ if (transitions.arriving) document.querySelector('.loader')?.remove();
 (transitions.arriving ? transitions.reveal() : runLoader()).then(() => {
   document.documentElement.classList.remove('is-loading');
   lenis?.start();
-  if (!reduced) introHero(heroChars).add(() => initProximity(heroChars), 1.2);
+  beadHero.start();
+  if (!reduced) {
+    introHero(heroChars).add(() => initProximity(heroChars), 1.2);
+    // once the beads have landed the cat takes its first bite, and the pixel full stop hops
+    gsap.delayedCall(2.4, () => {
+      beadHero.nibble();
+      gsap.delayedCall(0.3, () => pxDot?.classList.add('is-pop'));
+    });
+  }
   initHomeScroll();
   initSharedScroll();
   initThemes();
@@ -89,6 +114,7 @@ function initHomeScroll() {
   mm.add({ desktop: '(min-width: 901px)', mobile: '(max-width: 900px)' }, (ctx) => {
     const from = ctx.conditions.desktop ? 'inset(22% 31% 22% 31% round 28px)' : 'inset(30% 14% 30% 14% round 20px)';
     const header = document.querySelector('.header');
+    const featureMedia = document.querySelector('.feature__media');
     gsap
       .timeline({
         scrollTrigger: {
@@ -96,13 +122,17 @@ function initHomeScroll() {
           start: 'top top',
           end: 'bottom bottom',
           scrub: 1,
-          onUpdate: (self) => header.classList.toggle('on-media', self.progress > 0.35 && self.progress < 0.995),
+          onUpdate: (self) => {
+            header.classList.toggle('on-media', self.progress > 0.35 && self.progress < 0.995);
+            // a bead pattern that sharpens into the product as it fills the screen
+            featureMedia._mosaic?.set(reduced ? 1 : Math.max(14, Math.min(28, innerWidth / 50)) * Math.pow(1 - Math.min(1, self.progress / 0.62), 1.6));
+          },
           onLeave: () => header.classList.remove('on-media'),
           onLeaveBack: () => header.classList.remove('on-media'),
         },
       })
       .fromTo('.feature__media', { clipPath: from }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'power2.inOut', duration: 1 }, 0)
-      .fromTo('.feature__media img', { scale: 1.35 }, { scale: 1, ease: 'power2.inOut', duration: 1 }, 0)
+      .fromTo('.feature__media img, .feature__media .mosaic__canvas', { scale: 1.35 }, { scale: 1, ease: 'power2.inOut', duration: 1 }, 0)
       .to('.feature__shade', { opacity: 1, duration: 0.4 }, 0.6)
       .fromTo('.feature__copy > *, .feature__corner > *', { y: 40, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.06, duration: 0.35, ease: 'power3.out' }, 0.72)
       .to({}, { duration: 0.15 });

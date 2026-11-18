@@ -23,8 +23,6 @@
   <main id="main">
     <!-- ============ HERO ============ -->
     <section class="hero" id="top" data-theme-section="light">
-      <canvas class="hero__seeds" aria-hidden="true"></canvas>
-
       <div class="hero__meta grid mono">
         <p class="col-a reveal-up">(Independent digital studio)</p>
         <p class="col-b reveal-up">Tokyo, Japan</p>
@@ -32,40 +30,33 @@
         <p class="col-d reveal-up"><span class="dot-live"></span>Open for new projects</p>
       </div>
 
-      <h1 class="hero__title" aria-label="Digital things worth biting into.">
-        <span class="hero__line" aria-hidden="true"><span class="hero__words">Digital things</span></span>
-        <span class="hero__line hero__line--2" aria-hidden="true">
-          <span class="hero__words">worth</span>
-          <a href="#work" class="hero__pill" data-cursor="Our work" tabindex="-1">
-            <img src="/work/whisperleaf/hero.webp" alt="" />
-            <img src="/work/beads/hero.webp" alt="" />
-            <img src="/work/whisperleaf/detail.webp" alt="" />
-            <img src="/work/beads/detail.webp" alt="" />
-          </a>
-          <span class="hero__words"><em>biting</em></span>
-        </span>
-        <span class="hero__line hero__line--3" aria-hidden="true"><span class="hero__words">into.</span></span>
-      </h1>
+      <div class="hero__body">
+        <h1 class="hero__title" aria-label="Digital things worth biting into.">
+          <span class="hero__line" aria-hidden="true"><span class="hero__words">Digital</span></span>
+          <span class="hero__line hero__line--2" aria-hidden="true"><span class="hero__words">things worth</span></span>
+          <span class="hero__line hero__line--3" aria-hidden="true"><span class="hero__words"><em class="hero__bitten">biting</em> into.</span></span>
+        </h1>
+
+        <div class="hero__stage" data-cursor="Feed me" role="img" aria-label="The Pocketmelon cat, made of fuse beads, holding a watermelon slice. Click to feed it.">
+        </div>
+      </div>
 
       <div class="hero__foot grid">
         <p class="hero__intro reveal-up">
-          A small design &amp; engineering studio. We make products people keep coming back to, from a bead-pattern maker to a companion for reading English originals.
+          A small design &amp; engineering studio in Tokyo. We make products people keep coming back to, like a bead-pattern maker and a companion for reading English originals.
         </p>
-        <a href="#work" class="hero__scroll mono reveal-up" aria-label="Scroll to work">
-          <span class="hero__scroll-line"></span> Scroll to explore
-        </a>
-        <div class="hero__live mono reveal-up">
-          <span class="hero__live-k">Live now</span>
-          <a href="/work/whisperleaf/" class="roll"><span data-text="Whisperleaf →">Whisperleaf →</span></a>
-          <a href="/work/beads/" class="roll"><span data-text="Beads →">Beads →</span></a>
+        <div class="hero__ctas reveal-up">
+          <a href="#work" class="btn btn--melon magnetic" data-cursor="hide"><span>See the work</span><i aria-hidden="true">↓</i></a>
+          <a href="#contact" class="btn btn--ghost"><span>Start a project</span></a>
         </div>
+        <p class="hero__hint mono reveal-up"><span class="hero__hint-k">Psst</span> Brush it, click it, then scroll. It goes back in its pocket.</p>
       </div>
     </section>
 
     <!-- ============ FEATURE EXPAND ============ -->
     <section class="feature" aria-label="Featured case study: Whisperleaf">
       <div class="feature__pin">
-        <a href="/work/whisperleaf/" class="feature__media" data-cursor="Read case">
+        <a href="/work/whisperleaf/" class="feature__media mosaic" data-mosaic data-mosaic-scrub data-cursor="Read case">
           <img src="/work/whisperleaf/hero.webp" alt="A blue cloth-bound book with a pink spine and a pressed leaf on the cover — the Whisperleaf brand world" />
           <span class="feature__shade"></span>
         </a>

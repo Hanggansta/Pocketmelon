@@ -16,6 +16,7 @@ import { initMagnetic, initClocks, initCopy } from './modules/ui.js';
 import { initTransitions } from './modules/transition.js';
 import { PixelCat } from './modules/pixelcat.js';
 import { initMosaics } from './modules/mosaic.js';
+import { BeadText } from './modules/beadtext.js';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -92,14 +93,9 @@ export function initSharedScroll() {
     });
   }
 
-  if (document.querySelector('.footer__word')) {
-    gsap.from('.footer__word span', {
-      yPercent: 100,
-      ease: 'none',
-      stagger: 0.04,
-      scrollTrigger: { trigger: '.footer__word', start: 'top bottom', end: 'bottom bottom', scrub: 0.6 },
-    });
-  }
+  // the closing wordmark, in beads
+  const word = document.querySelector('.footer__word');
+  if (word) new BeadText(word, { text: 'Pocketmelon', splitAt: 6 });
 }
 
 /** Background breathes between paper and rind as sections pass. Call last. */

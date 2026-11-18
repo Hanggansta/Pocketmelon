@@ -40,6 +40,21 @@ It shows up in the header logo, the loader (it eats the melon as the page loads)
 
 Videos autoplay muted and loop, and pause when off-screen. Use H.264 MP4 at 1440px wide or less, 8–15 s, no audio.
 
+## Art direction: everything is made of beads
+
+One material carries the whole site: **fuse beads on a pegboard** (our Beads product, our pixel mascot).
+
+| Moment | What happens | Module |
+|---|---|---|
+| Hero | ~1,900 beads pour onto a pegboard and become the cat. Brush them to part them, click for a shockwave. On the first bite, melon beads fall off. On scroll every bead flies back into the header logo ("back in its pocket"). | `src/modules/beadhero.js` |
+| Headline | The full stop in "into." is a square pixel, like the dot in the wordmark. It hops when the cat bites. | `home.css` `.px-dot` |
+| Feature | The Whisperleaf card starts as a bead pattern and sharpens into the photograph as it expands to full bleed. | `mosaic.js` (`data-mosaic-scrub`) |
+| Any photo | A fast scroll flick breaks every on-screen image into beads, which settle back when you stop. | `mosaic.js` velocity loop |
+| Case images | Bead-resolve on enter, pixel-swap on hover. | `mosaic.js` |
+| Footer | The closing "Pocketmelon" wordmark is rebuilt in beads. It pours in column by column and parts under the cursor. | `src/modules/beadtext.js` |
+
+Everything respects `prefers-reduced-motion` and falls back to a finished, static state.
+
 ## Design system
 | Token | Value | Role |
 |---|---|---|
