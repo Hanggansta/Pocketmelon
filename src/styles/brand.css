@@ -1,0 +1,59 @@
+/* =========================================================
+   Brand layer: mascot, pixel wordmark, loader, transitions
+   ========================================================= */
+:root {
+  --f-pixel: "PM Glyphs", "Pixelify Sans Variable", "Geist Mono Variable", monospace;
+  --beads-cream: #fdf9ef;
+  --leaf: #6b8a4e;
+}
+
+/* ---------- logo */
+.logo { display: inline-flex; align-items: center; gap: 10px; justify-self: start; }
+.logo__cat { width: 44px; height: 44px; display: grid; place-items: center; flex: none; }
+.logo__cat canvas { display: block; image-rendering: pixelated; }
+.logo__word {
+  font-family: var(--f-pixel); font-weight: 600; font-size: 1.32rem; letter-spacing: 0.01em; line-height: 1;
+  display: inline-flex; align-items: baseline;
+}
+.logo__o { position: relative; display: inline-block; }
+.logo__o::after {
+  content: ""; position: absolute; left: 50%; top: 58%; width: 0.2em; height: 0.2em;
+  background: var(--melon); transform: translate(-50%, -50%);
+  transition: transform .4s var(--ease-out);
+}
+.logo:hover .logo__o::after { transform: translate(-50%, -50%) scale(1.6) rotate(45deg); }
+
+/* ---------- loader */
+.loader {
+  position: fixed; inset: 0; z-index: 1000;
+  background: var(--rind); color: var(--paper);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.6rem;
+}
+.loader__cat { display: grid; place-items: center; }
+.loader__cat canvas { image-rendering: pixelated; }
+.loader__meta { position: absolute; left: 0; right: 0; bottom: var(--pad); display: flex; justify-content: space-between; align-items: baseline; padding-inline: var(--pad); }
+.loader__num { font-family: var(--f-pixel); font-size: clamp(2.6rem, 6vw, 5rem); line-height: 1; font-variant-numeric: tabular-nums; }
+.loader__label { font-family: var(--f-pixel); font-size: 1rem; color: var(--rind-light); letter-spacing: .04em; }
+
+/* ---------- pixel transition */
+.px-transition { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 996; pointer-events: none; visibility: hidden; }
+html.is-arriving body::before { content: ""; position: fixed; inset: 0; z-index: 995; background: var(--rind); }
+
+/* ---------- bead-resolve imagery */
+.mosaic { position: relative; overflow: hidden; margin: 0; }
+.mosaic img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mosaic__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.mosaic.is-ready img { opacity: 0; }
+
+/* ---------- chips / tags */
+.tags { display: flex; flex-wrap: wrap; gap: .45rem; }
+.tags li { border: 1px solid var(--line); border-radius: 999px; padding: .42em .9em; }
+
+.u-link { background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat; transition: background-size .5s var(--ease-out); }
+.u-link:hover { background-size: 0 1px; background-position: 100% 100%; }
+
+/* ---------- pixel accents */
+.px-badge {
+  font-family: var(--f-pixel); font-size: .85rem; letter-spacing: .02em;
+  display: inline-flex; align-items: center; gap: .5em;
+}

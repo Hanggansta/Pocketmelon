@@ -1,89 +1,24 @@
 <!doctype html>
 <html lang="en" data-theme="light" class="is-loading">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pocketmelon — Independent Digital Studio, Tokyo &amp; Lisbon</title>
-  <meta name="description" content="Pocketmelon is an independent design & technology studio crafting brands, products and web experiences worth biting into." />
-  <meta name="theme-color" content="#EFEBE3" />
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="preload" as="image" href="/work/northwind.webp" />
+  <!-- @include head -->
+  <title>Pocketmelon — Independent digital studio, Tokyo</title>
+  <meta name="description" content="Pocketmelon (口袋瓜) is a small design & engineering studio in Tokyo. We make digital products people keep coming back to — like Whisperleaf and Pocketmelon Beads." />
+  <meta property="og:title" content="Pocketmelon — Digital things worth biting into" />
+  <meta property="og:description" content="A small design & engineering studio in Tokyo. Makers of Whisperleaf and Pocketmelon Beads." />
+  <link rel="preload" as="image" href="/work/whisperleaf/hero.webp" />
 </head>
-<body>
-  <a class="skip" href="#main">Skip to content</a>
-
-  <!-- ============ LOADER ============ -->
+<body data-page="home">
+  <!-- LOADER: the mascot eats the watermelon while the page loads -->
   <div class="loader" aria-hidden="true">
-    <div class="loader__inner">
-      <svg class="loader__slice" viewBox="0 0 120 64">
-        <defs>
-          <clipPath id="sliceClip"><path d="M4 4h112a56 56 0 0 1-112 0z" /></clipPath>
-        </defs>
-        <path d="M4 4h112a56 56 0 0 1-112 0z" fill="none" stroke="currentColor" stroke-width="1.5" />
-        <g clip-path="url(#sliceClip)">
-          <rect class="loader__fill" x="0" y="0" width="120" height="64" fill="var(--melon)" />
-        </g>
-      </svg>
-      <div class="loader__count"><span class="loader__num">000</span></div>
-      <p class="loader__label mono">Ripening pixels</p>
+    <div class="loader__cat"><canvas></canvas></div>
+    <div class="loader__meta">
+      <span class="loader__num">000</span>
+      <span class="loader__label">nom nom · loading</span>
     </div>
   </div>
 
-  <!-- ============ CURSOR ============ -->
-  <div class="cursor" aria-hidden="true">
-    <div class="cursor__dot"></div>
-    <div class="cursor__ring"><span class="cursor__label"></span></div>
-  </div>
-
-  <!-- grain -->
-  <div class="grain" aria-hidden="true"></div>
-
-  <!-- ============ HEADER ============ -->
-  <header class="header">
-    <a href="#top" class="logo" data-scroll-to aria-label="Pocketmelon — home">
-      <svg class="logo__mark" viewBox="0 0 40 22" aria-hidden="true">
-        <path d="M1 1h38a19 19 0 0 1-38 0z" fill="var(--rind-light)" />
-        <path d="M4 1h32a16 16 0 0 1-32 0z" fill="var(--melon)" />
-        <g fill="var(--ink)"><ellipse cx="13" cy="8" rx="1.3" ry="2.1" transform="rotate(-22 13 8)"/><ellipse cx="20" cy="11" rx="1.3" ry="2.1"/><ellipse cx="27" cy="8" rx="1.3" ry="2.1" transform="rotate(22 27 8)"/></g>
-      </svg>
-      <span class="logo__word">Pocketmelon<sup>®</sup></span>
-    </a>
-
-    <nav class="nav" aria-label="Primary">
-      <ul>
-        <li><a href="#work" data-scroll-to class="roll"><span data-text="Work">Work</span></a></li>
-        <li><a href="#studio" data-scroll-to class="roll"><span data-text="Studio">Studio</span></a></li>
-        <li><a href="#services" data-scroll-to class="roll"><span data-text="Services">Services</span></a></li>
-        <li><a href="#recognition" data-scroll-to class="roll"><span data-text="Awards">Awards</span></a></li>
-      </ul>
-    </nav>
-
-    <div class="header__right">
-      <p class="header__clock mono"><span class="pulse"></span>TYO <span data-clock="Asia/Tokyo">00:00:00</span></p>
-      <a href="#contact" data-scroll-to class="pill magnetic" data-cursor="hide">
-        <span class="pill__bg"></span>
-        <span class="pill__text roll"><span data-text="Start a project">Start a project</span></span>
-      </a>
-      <button class="burger" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
-        <span></span><span></span>
-      </button>
-    </div>
-  </header>
-
-  <!-- mobile menu -->
-  <div class="menu" id="menu" aria-hidden="true">
-    <ul class="menu__list">
-      <li><a href="#work" data-scroll-to><span class="mono">01</span>Work</a></li>
-      <li><a href="#studio" data-scroll-to><span class="mono">02</span>Studio</a></li>
-      <li><a href="#services" data-scroll-to><span class="mono">03</span>Services</a></li>
-      <li><a href="#recognition" data-scroll-to><span class="mono">04</span>Awards</a></li>
-      <li><a href="#contact" data-scroll-to><span class="mono">05</span>Contact</a></li>
-    </ul>
-    <div class="menu__foot mono">
-      <span>hello@pocketmelon.studio</span>
-      <span>Tokyo — Lisbon</span>
-    </div>
-  </div>
+  <!-- @include header -->
 
   <main id="main">
     <!-- ============ HERO ============ -->
@@ -92,22 +27,21 @@
 
       <div class="hero__meta grid mono">
         <p class="col-a reveal-up">(Independent digital studio)</p>
-        <p class="col-b reveal-up">Tokyo &amp; Lisbon</p>
-        <p class="col-c reveal-up">Est. 2016</p>
-        <p class="col-d reveal-up"><span class="dot-live"></span>Booking Q1 — 2027</p>
+        <p class="col-b reveal-up">Tokyo, Japan</p>
+        <p class="col-c reveal-up">口袋瓜 · Pocketmelon</p>
+        <p class="col-d reveal-up"><span class="dot-live"></span>Open for new projects</p>
       </div>
 
       <h1 class="hero__title" aria-label="Digital things worth biting into.">
         <span class="hero__line" aria-hidden="true"><span class="hero__words">Digital things</span></span>
         <span class="hero__line hero__line--2" aria-hidden="true">
           <span class="hero__words">worth</span>
-          <span class="hero__pill" data-cursor="Our work">
-            <img src="/work/northwind.webp" alt="" />
-            <img src="/work/koyo.webp" alt="" />
-            <img src="/work/tides.webp" alt="" />
-            <img src="/work/fieldnotes.webp" alt="" />
-            <img src="/work/sora.webp" alt="" />
-          </span>
+          <a href="#work" class="hero__pill" data-cursor="Our work" tabindex="-1">
+            <img src="/work/whisperleaf/hero.webp" alt="" />
+            <img src="/work/beads/hero.webp" alt="" />
+            <img src="/work/whisperleaf/detail.webp" alt="" />
+            <img src="/work/beads/detail.webp" alt="" />
+          </a>
           <span class="hero__words"><em>biting</em></span>
         </span>
         <span class="hero__line hero__line--3" aria-hidden="true"><span class="hero__words">into.</span></span>
@@ -115,140 +49,162 @@
 
       <div class="hero__foot grid">
         <p class="hero__intro reveal-up">
-          We’re a design &amp; technology studio crafting brands, products and web experiences that people actually want to touch.
+          A small design &amp; engineering studio. We make products people keep coming back to, from a bead-pattern maker to a companion for reading English originals.
         </p>
-        <a href="#work" data-scroll-to class="hero__scroll mono reveal-up" aria-label="Scroll to work">
+        <a href="#work" class="hero__scroll mono reveal-up" aria-label="Scroll to work">
           <span class="hero__scroll-line"></span> Scroll to explore
         </a>
-        <p class="hero__awards mono reveal-up">
-          <span>Awwwards SOTD ×14</span>
-          <span>FWA ×6</span>
-          <span>Webby ×3</span>
-        </p>
+        <div class="hero__live mono reveal-up">
+          <span class="hero__live-k">Live now</span>
+          <a href="/work/whisperleaf/" class="roll"><span data-text="Whisperleaf →">Whisperleaf →</span></a>
+          <a href="/work/beads/" class="roll"><span data-text="Beads →">Beads →</span></a>
+        </div>
       </div>
     </section>
 
     <!-- ============ FEATURE EXPAND ============ -->
-    <section class="feature" aria-label="Featured project">
+    <section class="feature" aria-label="Featured case study: Whisperleaf">
       <div class="feature__pin">
-        <div class="feature__media" data-cursor="View case">
-          <img src="/work/northwind.webp" alt="Floating white headphones on a coral background — Northwind Audio launch" />
-          <div class="feature__shade"></div>
-        </div>
+        <a href="/work/whisperleaf/" class="feature__media" data-cursor="Read case">
+          <img src="/work/whisperleaf/hero.webp" alt="A blue cloth-bound book with a pink spine and a pressed leaf on the cover — the Whisperleaf brand world" />
+          <span class="feature__shade"></span>
+        </a>
         <div class="feature__copy">
-          <p class="mono feature__tag">Featured — 2025</p>
-          <h2 class="feature__title"><span>Northwind</span> <em>Audio</em></h2>
-          <p class="feature__desc">A launch experience where sound became something you could see. Real-time WebGL, spatial audio, 4.2M visits in week one.</p>
+          <p class="mono feature__tag">Case study 01 — Whisperleaf</p>
+          <h2 class="feature__title"><span>Whisper</span><em>leaf</em></h2>
+          <p class="feature__desc">A reading desk for people going further in English. Read originals, keep what matters, return with the story still attached.</p>
         </div>
         <div class="feature__corner mono">
-          <span>Launch campaign</span>
-          <span>WebGL · Spatial audio</span>
+          <span>Product · Brand · Engineering</span>
+          <span>whisperleaf.pocketmelon.com</span>
         </div>
       </div>
     </section>
 
-    <!-- ============ MANIFESTO ============ -->
+    <!-- ============ STUDIO ============ -->
     <section class="manifesto" id="studio" data-theme-section="light">
       <div class="grid">
         <p class="mono label col-label"><span class="label__idx">(01)</span> Studio</p>
         <p class="manifesto__text" data-words>
-          We’re a small, stubborn team of designers and engineers who believe the web should feel <em>alive</em> — crafted, tactile and a little bit sweet. No templates, no autopilot. Just ideas grown slowly and served fresh.
+          We’re a small, stubborn studio of designers and engineers who believe software should feel <em>alive</em>: crafted, tactile and a little bit sweet. We build our own products first, so every client project gets the care we give our own.
         </p>
       </div>
 
-      <div class="stats grid">
-        <div class="stat">
-          <p class="stat__num"><span data-count="10">0</span></p>
-          <p class="mono stat__label">Years of craft</p>
-        </div>
-        <div class="stat">
-          <p class="stat__num"><span data-count="140">0</span><sup>+</sup></p>
-          <p class="mono stat__label">Launches shipped</p>
-        </div>
-        <div class="stat">
-          <p class="stat__num"><span data-count="38">0</span></p>
-          <p class="mono stat__label">International awards</p>
-        </div>
-        <div class="stat">
-          <p class="stat__num"><span data-count="14">0</span></p>
-          <p class="mono stat__label">Humans, two cities</p>
-        </div>
+      <div class="principles grid">
+        <article class="principle" data-reveal>
+          <span class="principle__px" aria-hidden="true"></span>
+          <p class="mono principle__idx">01</p>
+          <h3 class="principle__title">Makers, not middlemen</h3>
+          <p class="principle__text">You talk to the people designing and writing the code. No account layers, no lost hand-offs.</p>
+        </article>
+        <article class="principle" data-reveal>
+          <span class="principle__px" aria-hidden="true"></span>
+          <p class="mono principle__idx">02</p>
+          <h3 class="principle__title">Product-minded</h3>
+          <p class="principle__text">We run live products of our own, so we think about onboarding, retention and edge cases, not just launch day.</p>
+        </article>
+        <article class="principle" data-reveal>
+          <span class="principle__px" aria-hidden="true"></span>
+          <p class="mono principle__idx">03</p>
+          <h3 class="principle__title">Craft that lasts</h3>
+          <p class="principle__text">Accessible, fast, maintainable. Delight is the top layer, never a replacement for the foundations.</p>
+        </article>
       </div>
     </section>
 
-    <!-- ============ WORK INDEX ============ -->
+    <!-- ============ WORK ============ -->
     <section class="work" id="work" data-theme-section="light">
       <div class="section-head grid">
         <p class="mono label col-label"><span class="label__idx">(02)</span> Selected work</p>
-        <h2 class="section-title" data-split>Recent <em>harvest</em></h2>
-        <p class="mono section-meta">2024 — 2026 <span class="count">/05</span></p>
+        <h2 class="section-title" data-split>Fresh from the <em>pocket</em></h2>
+        <p class="mono section-meta">Live products <span class="count">/02</span></p>
       </div>
 
-      <ul class="work__list" role="list">
-        <li class="work__item" data-img="/work/koyo.webp">
-          <a href="#contact" data-scroll-to data-cursor="View" class="work__link">
-            <span class="mono work__idx">01</span>
-            <span class="work__title">Koyo Tea House</span>
-            <span class="work__cat">Brand identity · E-commerce</span>
-            <span class="mono work__year">2026</span>
-            <span class="work__arrow" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M5 19L19 5M19 5H8M19 5v11" /></svg>
-            </span>
-            <img class="work__thumb" src="/work/koyo.webp" alt="" loading="lazy" />
+      <div class="cases">
+        <article class="case-card" data-mosaic-host>
+          <a href="/work/whisperleaf/" class="case-card__link" data-cursor="Read case">
+            <div class="case-card__frame">
+              <figure class="case-card__media mosaic" data-mosaic data-alt="/work/whisperleaf/detail.webp">
+                <img src="/work/whisperleaf/hero.webp" alt="Whisperleaf brand still life: blue book, pink spine, pressed leaf" loading="lazy" />
+              </figure>
+            </div>
+            <div class="case-card__info">
+              <p class="mono case-card__idx">01 / Reading &amp; learning</p>
+              <h3 class="case-card__title">Whisper<em>leaf</em></h3>
+              <p class="case-card__tagline">Read originals. Make the words yours.</p>
+              <ul class="tags mono"><li>Product design</li><li>Brand</li><li>Web app</li><li>AI-assisted learning</li></ul>
+              <span class="case-card__cta mono">View case study <i aria-hidden="true">→</i></span>
+            </div>
           </a>
-        </li>
-        <li class="work__item" data-img="/work/northwind.webp">
-          <a href="#contact" data-scroll-to data-cursor="View" class="work__link">
-            <span class="mono work__idx">02</span>
-            <span class="work__title">Northwind Audio</span>
-            <span class="work__cat">Launch campaign · WebGL</span>
-            <span class="mono work__year">2025</span>
-            <span class="work__arrow" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M5 19L19 5M19 5H8M19 5v11" /></svg>
-            </span>
-            <img class="work__thumb" src="/work/northwind.webp" alt="" loading="lazy" />
-          </a>
-        </li>
-        <li class="work__item" data-img="/work/tides.webp">
-          <a href="#contact" data-scroll-to data-cursor="View" class="work__link">
-            <span class="mono work__idx">03</span>
-            <span class="work__title">Atlas of Tides</span>
-            <span class="work__cat">Data storytelling · Editorial</span>
-            <span class="mono work__year">2025</span>
-            <span class="work__arrow" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M5 19L19 5M19 5H8M19 5v11" /></svg>
-            </span>
-            <img class="work__thumb" src="/work/tides.webp" alt="" loading="lazy" />
-          </a>
-        </li>
-        <li class="work__item" data-img="/work/fieldnotes.webp">
-          <a href="#contact" data-scroll-to data-cursor="View" class="work__link">
-            <span class="mono work__idx">04</span>
-            <span class="work__title">Fieldnotes</span>
-            <span class="work__cat">Product design · iOS</span>
-            <span class="mono work__year">2024</span>
-            <span class="work__arrow" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M5 19L19 5M19 5H8M19 5v11" /></svg>
-            </span>
-            <img class="work__thumb" src="/work/fieldnotes.webp" alt="" loading="lazy" />
-          </a>
-        </li>
-        <li class="work__item" data-img="/work/sora.webp">
-          <a href="#contact" data-scroll-to data-cursor="View" class="work__link">
-            <span class="mono work__idx">05</span>
-            <span class="work__title">Sora Mobility</span>
-            <span class="work__cat">Identity system · Web</span>
-            <span class="mono work__year">2024</span>
-            <span class="work__arrow" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M5 19L19 5M19 5H8M19 5v11" /></svg>
-            </span>
-            <img class="work__thumb" src="/work/sora.webp" alt="" loading="lazy" />
-          </a>
-        </li>
-      </ul>
+        </article>
 
-      <div class="work__preview" aria-hidden="true">
-        <div class="work__preview-inner"></div>
+        <article class="case-card case-card--flip" data-mosaic-host>
+          <a href="/work/beads/" class="case-card__link" data-cursor="Read case">
+            <div class="case-card__frame">
+              <figure class="case-card__media mosaic" data-mosaic data-alt="/work/beads/detail.webp">
+                <img src="/work/beads/hero.webp" alt="The Pocketmelon cat mascot made from ironed fuse beads" loading="lazy" />
+              </figure>
+            </div>
+            <div class="case-card__info">
+              <p class="mono case-card__idx">02 / Craft tools</p>
+              <h3 class="case-card__title">Beads <span class="case-card__cn">口袋瓜拼豆</span></h3>
+              <p class="case-card__tagline">A warm little studio for fuse-bead patterns.</p>
+              <ul class="tags mono"><li>Product design</li><li>Pixel tools</li><li>PWA</li><li>Mascot</li></ul>
+              <span class="case-card__cta mono">View case study <i aria-hidden="true">→</i></span>
+            </div>
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ LABS ============ -->
+    <section class="labs" id="labs" data-theme-section="light">
+      <div class="section-head grid">
+        <p class="mono label col-label"><span class="label__idx">(03)</span> Labs</p>
+        <h2 class="section-title" data-split>Things we make <em>for fun</em></h2>
+        <p class="mono section-meta">All live. Go on, poke them.</p>
+      </div>
+
+      <div class="labs__grid">
+        <article class="lab lab--pet" data-reveal>
+          <div class="lab__stage lab__stage--pet">
+            <span class="lab__pet" data-cat="pet" data-cursor="Feed me"><canvas></canvas></span>
+          </div>
+          <div class="lab__info">
+            <h3 class="lab__title">Pixel pet</h3>
+            <p class="lab__text">Our mascot, rebuilt from the logo as a 44×44 living sprite. Hover to say hi, click to feed. It regrows its melon when it’s done.</p>
+            <p class="mono lab__tech">Canvas · 12 fps · 1 sprite, 9 layers</p>
+          </div>
+        </article>
+
+        <article class="lab lab--beads" data-reveal>
+          <div class="lab__stage lab__stage--beads"><div data-lab-beads data-cursor="Paint"></div></div>
+          <div class="lab__info">
+            <h3 class="lab__title">Self-beading board</h3>
+            <p class="lab__text">A pegboard that beads the mascot colour by colour, then irons it. Click to add beads of your own.</p>
+            <p class="mono lab__tech">Canvas · 1,936 pegs</p>
+          </div>
+        </article>
+
+        <article class="lab lab--seeds" data-reveal>
+          <div class="lab__stage lab__stage--seeds"><canvas class="lab__seeds" aria-hidden="true"></canvas><span class="lab__hint mono">Move your cursor here</span></div>
+          <div class="lab__info">
+            <h3 class="lab__title">Seed field</h3>
+            <p class="lab__text">A lattice of melon seeds that turn to watch you, swell, ripen red and step aside. On touch screens they drift on their own.</p>
+            <p class="mono lab__tech">Canvas 2D · Path2D</p>
+          </div>
+        </article>
+
+        <article class="lab lab--mosaic" data-reveal data-mosaic-host>
+          <div class="lab__stage lab__stage--mosaic">
+            <figure class="mosaic" data-mosaic data-alt="/work/beads/hero.webp"><img src="/work/beads/detail.webp" alt="Hands placing fuse beads on a pegboard" loading="lazy" /></figure>
+          </div>
+          <div class="lab__info">
+            <h3 class="lab__title">Bead-resolve</h3>
+            <p class="lab__text">Photos that come together like a bead pattern, used for every image on this site. Hover to see it re-bead.</p>
+            <p class="mono lab__tech">Canvas · nearest-neighbour</p>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -256,7 +212,7 @@
     <section class="services" id="services" data-theme-section="dark">
       <div class="services__pin">
         <div class="services__head grid">
-          <p class="mono label col-label"><span class="label__idx">(03)</span> Services</p>
+          <p class="mono label col-label"><span class="label__idx">(04)</span> Services</p>
           <h2 class="section-title" data-split>What we <em>grow</em></h2>
           <div class="services__progress" aria-hidden="true"><span></span></div>
         </div>
@@ -274,8 +230,8 @@
             <span class="svc__num">02</span>
             <div class="svc__body">
               <h3 class="svc__title">Identity</h3>
-              <p class="svc__lead">Brands with a bite — systems that move, speak and scale across every surface.</p>
-              <ul class="svc__list mono"><li>Visual identity</li><li>Motion systems</li><li>Type &amp; voice</li><li>Guidelines</li></ul>
+              <p class="svc__lead">Brands with a bite: systems, mascots and motion that speak and scale across every surface.</p>
+              <ul class="svc__list mono"><li>Visual identity</li><li>Mascots &amp; pixel art</li><li>Motion systems</li><li>Guidelines</li></ul>
             </div>
           </article>
           <article class="svc">
@@ -283,104 +239,77 @@
             <div class="svc__body">
               <h3 class="svc__title">Digital product</h3>
               <p class="svc__lead">Interfaces that feel ripe: intuitive on first touch, delightful on the hundredth.</p>
-              <ul class="svc__list mono"><li>UX / UI</li><li>Design systems</li><li>Prototyping</li><li>Web &amp; native apps</li></ul>
+              <ul class="svc__list mono"><li>UX / UI</li><li>Design systems</li><li>Prototyping</li><li>Web apps &amp; PWAs</li></ul>
             </div>
           </article>
           <article class="svc">
             <span class="svc__num">04</span>
             <div class="svc__body">
               <h3 class="svc__title">Creative tech</h3>
-              <p class="svc__lead">Code as craft. WebGL, real-time 3D and the quiet engineering that makes it fly.</p>
-              <ul class="svc__list mono"><li>WebGL &amp; 3D</li><li>Creative development</li><li>Headless CMS</li><li>Installations</li></ul>
+              <p class="svc__lead">Code as craft. Interactive canvas, WebGL and the quiet engineering that makes it fly.</p>
+              <ul class="svc__list mono"><li>Creative development</li><li>Canvas &amp; WebGL</li><li>AI features</li><li>Performance</li></ul>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- ============ MARQUEE ============ -->
-    <section class="clients" data-theme-section="light" aria-label="Clients">
-      <p class="mono label clients__label"><span class="label__idx">(04)</span> Trusted by the curious</p>
-      <div class="marquee" data-marquee>
-        <div class="marquee__track">
-          <span>Koyo</span><i>✺</i><span class="alt">Northwind</span><i>✺</i><span>Hanabi Bank</span><i>✺</i><span class="alt">Sora</span><i>✺</i><span>Meridian</span><i>✺</i><span class="alt">Field&amp;Co</span><i>✺</i><span>Lumen Labs</span><i>✺</i><span class="alt">Tatami</span><i>✺</i>
-        </div>
-      </div>
-      <div class="marquee marquee--rev" data-marquee data-dir="-1">
-        <div class="marquee__track">
-          <span class="alt">Atlas Fdn.</span><i>✺</i><span>Okane</span><i>✺</i><span class="alt">Moss &amp; Stone</span><i>✺</i><span>Paperplane</span><i>✺</i><span class="alt">Kumo Air</span><i>✺</i><span>Verdant</span><i>✺</i><span class="alt">Omi</span><i>✺</i><span>Halcyon</span><i>✺</i>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ RECOGNITION ============ -->
-    <section class="recognition" id="recognition" data-theme-section="light">
+    <!-- ============ PROCESS ============ -->
+    <section class="process" id="process" data-theme-section="light">
       <div class="section-head grid">
-        <p class="mono label col-label"><span class="label__idx">(05)</span> Recognition</p>
-        <h2 class="section-title" data-split>Kind <em>words</em></h2>
-        <p class="mono section-meta">Since 2016</p>
+        <p class="mono label col-label"><span class="label__idx">(05)</span> Process</p>
+        <h2 class="section-title" data-split>How we <em>work</em></h2>
+        <p class="mono section-meta">Quote within 48h</p>
       </div>
-      <ul class="awards" role="list">
-        <li class="award"><span class="award__name">Awwwards</span><span class="award__what">Site of the Day · Developer Award</span><span class="mono award__count">×14</span></li>
-        <li class="award"><span class="award__name">FWA</span><span class="award__what">FWA of the Day</span><span class="mono award__count">×06</span></li>
-        <li class="award"><span class="award__name">Webby Awards</span><span class="award__what">Winner · People’s Voice</span><span class="mono award__count">×03</span></li>
-        <li class="award"><span class="award__name">CSS Design Awards</span><span class="award__what">Website of the Day · UI · UX</span><span class="mono award__count">×09</span></li>
-        <li class="award"><span class="award__name">Tokyo TDC</span><span class="award__what">Excellence in Typography</span><span class="mono award__count">×02</span></li>
-        <li class="award"><span class="award__name">D&amp;AD</span><span class="award__what">Wood Pencil · Digital Design</span><span class="mono award__count">×04</span></li>
-      </ul>
+
+      <div class="process__body grid">
+        <div class="process__rail" aria-hidden="true"><span></span></div>
+        <ol class="process__steps">
+          <li class="step">
+            <p class="mono step__when">Week 0</p>
+            <h3 class="step__title">Listen</h3>
+            <p class="step__text">A free 45-minute call. We learn what you’re making, who it’s for and what success looks like.</p>
+          </li>
+          <li class="step">
+            <p class="mono step__when">Weeks 1–2</p>
+            <h3 class="step__title">Shape</h3>
+            <p class="step__text">Research, a workshop or two and a clear plan: scope, milestones and a fixed quote. No surprises later.</p>
+          </li>
+          <li class="step">
+            <p class="mono step__when">Weeks 2–10</p>
+            <h3 class="step__title">Make</h3>
+            <p class="step__text">Design and engineering side by side, with a live staging link from week one so you watch it grow.</p>
+          </li>
+          <li class="step">
+            <p class="mono step__when">Ongoing</p>
+            <h3 class="step__title">Grow</h3>
+            <p class="step__text">Launch, measure, iterate. We stay on as your product team, or hand over clean, documented code.</p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="engage grid">
+        <article class="engage__card" data-reveal>
+          <p class="mono engage__k">2–4 weeks</p>
+          <h3 class="engage__title">Sprint</h3>
+          <p>Landing page, brand refresh, interactive prototype or a mascot that moves.</p>
+        </article>
+        <article class="engage__card engage__card--hot" data-reveal>
+          <p class="mono engage__k">2–4 months</p>
+          <h3 class="engage__title">Product build</h3>
+          <p>A website or web app from first sketch to launch, designed and engineered in-house.</p>
+        </article>
+        <article class="engage__card" data-reveal>
+          <p class="mono engage__k">Ongoing</p>
+          <h3 class="engage__title">Partnership</h3>
+          <p>A dedicated slice of the studio for your team: design, engineering and steady improvements.</p>
+        </article>
+      </div>
     </section>
   </main>
 
-  <!-- ============ FOOTER / CONTACT ============ -->
-  <footer class="footer" id="contact" data-theme-section="dark">
-    <div class="footer__top grid">
-      <p class="mono label col-label"><span class="label__idx">(06)</span> Contact</p>
-      <h2 class="footer__title" data-split>Got a <em>juicy</em><br />idea?</h2>
-      <a href="mailto:hello@pocketmelon.studio" class="cta magnetic" data-cursor="hide">
-        <span class="cta__bg"></span>
-        <span class="cta__label">Let’s talk</span>
-        <svg class="cta__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19L19 5M19 5H8M19 5v11" /></svg>
-      </a>
-    </div>
+  <!-- @include footer -->
 
-    <div class="footer__mid grid">
-      <div class="footer__col">
-        <p class="mono footer__k">New business</p>
-        <button class="copy" data-copy="hello@pocketmelon.studio" data-cursor="Copy">
-          <span class="copy__text">hello@pocketmelon.studio</span>
-          <span class="copy__done mono" aria-live="polite">Copied ✓</span>
-        </button>
-      </div>
-      <div class="footer__col">
-        <p class="mono footer__k">Tokyo</p>
-        <p class="footer__v">2-14-5 Kitazawa, Setagaya<br /><span class="mono" data-clock="Asia/Tokyo">00:00:00</span></p>
-      </div>
-      <div class="footer__col">
-        <p class="mono footer__k">Lisbon</p>
-        <p class="footer__v">Rua da Rosa 112, Bairro Alto<br /><span class="mono" data-clock="Europe/Lisbon">00:00:00</span></p>
-      </div>
-      <div class="footer__col">
-        <p class="mono footer__k">Follow</p>
-        <ul class="socials">
-          <li><a href="https://www.instagram.com" class="roll" target="_blank" rel="noopener"><span data-text="Instagram">Instagram</span></a></li>
-          <li><a href="https://www.linkedin.com" class="roll" target="_blank" rel="noopener"><span data-text="LinkedIn">LinkedIn</span></a></li>
-          <li><a href="https://dribbble.com" class="roll" target="_blank" rel="noopener"><span data-text="Dribbble">Dribbble</span></a></li>
-          <li><a href="https://github.com" class="roll" target="_blank" rel="noopener"><span data-text="GitHub">GitHub</span></a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="footer__word" aria-hidden="true">
-      <span>P</span><span>o</span><span>c</span><span>k</span><span>e</span><span>t</span><span class="em">m</span><span class="em">e</span><span class="em">l</span><span class="em">o</span><span class="em">n</span>
-    </div>
-
-    <div class="footer__bottom mono">
-      <span>© 2026 Pocketmelon Studio K.K.</span>
-      <span class="footer__made">Grown slowly, served fresh.</span>
-      <a href="#top" data-scroll-to class="totop roll"><span data-text="Back to top ↑">Back to top ↑</span></a>
-    </div>
-  </footer>
-
-  <script type="module" src="/src/main.js"></script>
+  <script type="module" src="/src/pages/home.js"></script>
 </body>
 </html>
