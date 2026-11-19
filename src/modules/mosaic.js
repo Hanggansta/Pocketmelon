@@ -33,9 +33,12 @@ function velocityLoop(now) {
   requestAnimationFrame(velocityLoop);
 }
 
+const VELOCITY = false;
+
 export function initMosaics(root = document) {
   root.querySelectorAll('[data-mosaic]').forEach((el) => mosaic(el));
-  if (!reduced && !looping) {
+  // v5: the scroll-flick pixelation is retired; one strong moment (the hero) beats many small ones
+  if (VELOCITY && !reduced && !looping) {
     looping = true;
     lastY = scrollY;
     requestAnimationFrame(velocityLoop);

@@ -23,49 +23,44 @@
   <main id="main">
     <!-- ============ HERO ============ -->
     <section class="hero" id="top" data-theme-section="light">
-      <div class="hero__meta grid mono">
-        <p class="col-a reveal-up">(Independent digital studio)</p>
-        <p class="col-b reveal-up">Tokyo, Japan</p>
-        <p class="col-c reveal-up">口袋瓜 · Pocketmelon</p>
-        <p class="col-d reveal-up"><span class="dot-live"></span>Open for new projects</p>
-      </div>
+      <div class="hero__frame" data-cursor="Feed me">
+        <img class="hero__still" src="/hero/still.webp" alt="" width="1600" height="1000" decoding="async" aria-hidden="true">
+        <p class="sr-only">The Pocketmelon cat, built from around twelve hundred glossy cubes, holds a slice of watermelon. Move through it to push the cubes around; click to feed it.</p>
 
-      <div class="hero__body">
-        <h1 class="hero__title" aria-label="Digital things worth biting into.">
-          <span class="hero__line" aria-hidden="true"><span class="hero__words">Digital</span></span>
-          <span class="hero__line hero__line--2" aria-hidden="true"><span class="hero__words">things worth</span></span>
-          <span class="hero__line hero__line--3" aria-hidden="true"><span class="hero__words"><em class="hero__bitten">biting</em> into.</span></span>
-        </h1>
+        <div class="hero__corners mono" aria-hidden="true">
+          <span class="hero__corner hero__corner--tl reveal-up">Independent studio<br><span class="muted">Design &amp; engineering</span></span>
+          <span class="hero__corner hero__corner--tr reveal-up"><span class="dot-live"></span>Booking Q1 2027</span>
+        </div>
 
-        <div class="hero__stage" data-cursor="Feed me" role="img" aria-label="The Pocketmelon cat, drawn in pixels, holding a watermelon slice. Click to feed it.">
-          <div class="artboard" aria-hidden="true">
-            <span class="artboard__name mono"><i class="artboard__ico"></i>Mascot / Pocketcat</span>
-            <span class="artboard__size mono" data-art-size>44 × 44</span>
-            <i class="artboard__h artboard__h--tl"></i><i class="artboard__h artboard__h--tr"></i><i class="artboard__h artboard__h--bl"></i><i class="artboard__h artboard__h--br"></i>
-          </div>
-          <div class="ghost" aria-hidden="true">
-            <svg class="ghost__arrow" viewBox="0 0 16 20" width="16" height="20"><path d="M1.5 1.5v14.2l3.9-3.7 2.6 6.3 2.6-1.1-2.6-6.2h5.5z"/></svg>
-            <span class="ghost__tag mono">Pocketmelon</span>
+        <div class="hero__content">
+          <h1 class="hero__title" aria-label="Digital things worth biting into.">
+            <span class="hero__line" aria-hidden="true"><span class="hero__words">Digital things</span></span>
+            <span class="hero__line" aria-hidden="true"><span class="hero__words">worth biting into.</span></span>
+          </h1>
+          <div class="hero__aside">
+            <p class="hero__intro reveal-up">A small Tokyo studio designing and building websites, products and brands, with the kind of detail people notice and come back for.</p>
+            <div class="hero__ctas reveal-up">
+              <a href="#work" class="btn btn--ink magnetic" data-cursor="hide"><span>See the work</span></a>
+              <a href="#contact" class="btn btn--ghost"><span>Start a project</span></a>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="hero__foot grid">
-        <p class="hero__intro reveal-up">
-          A design &amp; engineering studio in Tokyo. We design and build websites, products and brands with the kind of detail people notice, then come back for.
-        </p>
-        <div class="hero__ctas reveal-up">
-          <a href="#work" class="btn btn--melon magnetic" data-cursor="hide"><span>See the work</span><i aria-hidden="true">↓</i></a>
-          <a href="#contact" class="btn btn--ghost"><span>Start a project</span></a>
-        </div>
-        <p class="hero__hint mono reveal-up"><span class="hero__hint-k">Psst</span> Brush the pixels, click to feed, then scroll. It goes back in its pocket.</p>
+        <a href="#studio" class="hero__scroll mono reveal-up" aria-label="Scroll to explore">
+          <span class="hero__cross" aria-hidden="true"><i></i><i></i></span>
+          <span>Scroll to explore</span>
+        </a>
+        <p class="hero__hint mono reveal-up" aria-hidden="true">Move through it <span class="muted">·</span> Click to feed</p>
+        <button class="hero__sound mono reveal-up" type="button" aria-pressed="false" data-sound>
+          <span class="hero__bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span data-sound-label>Sound off</span>
+        </button>
       </div>
     </section>
 
     <!-- ============ FEATURE EXPAND ============ -->
     <section class="feature" aria-label="Featured case study: Whisperleaf">
       <div class="feature__pin">
-        <a href="/work/whisperleaf/" class="feature__media mosaic" data-mosaic data-mosaic-scrub data-cursor="Read case">
+        <a href="/work/whisperleaf/" class="feature__media" data-cursor="Read case">
           <img src="/work/whisperleaf/hero.webp" alt="A blue cloth-bound book with a pink spine and a pressed leaf on the cover — the Whisperleaf brand world" />
           <span class="feature__shade"></span>
         </a>
@@ -129,7 +124,6 @@
                 <img src="/work/whisperleaf/hero.webp" alt="Whisperleaf brand still life: blue book, pink spine, pressed leaf" loading="lazy" />
               </figure>
               </div>
-              <div class="sel" aria-hidden="true"><span class="sel__name mono"><i class="artboard__ico"></i>Case / Whisperleaf</span><span class="sel__size mono" data-sel-size></span><i class="sel__h sel__h--tl"></i><i class="sel__h sel__h--tr"></i><i class="sel__h sel__h--bl"></i><i class="sel__h sel__h--br"></i></div>
             </div>
             <div class="case-card__info">
               <p class="mono case-card__idx">01 / Reading &amp; learning</p>
@@ -149,7 +143,6 @@
                 <img src="/work/beads/hero.webp" alt="The Pocketmelon cat mascot made from ironed fuse beads" loading="lazy" />
               </figure>
               </div>
-              <div class="sel" aria-hidden="true"><span class="sel__name mono"><i class="artboard__ico"></i>Case / Beads</span><span class="sel__size mono" data-sel-size></span><i class="sel__h sel__h--tl"></i><i class="sel__h sel__h--tr"></i><i class="sel__h sel__h--bl"></i><i class="sel__h sel__h--br"></i></div>
             </div>
             <div class="case-card__info">
               <p class="mono case-card__idx">02 / Craft tools</p>

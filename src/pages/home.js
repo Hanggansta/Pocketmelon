@@ -1,64 +1,49 @@
 import { boot, initSharedScroll, initThemes, lenis, gsap, ScrollTrigger, SplitText, reduced } from '../core.js';
 import { initSeeds } from '../modules/seeds.js';
-import { prepareHero, introHero, initProximity } from '../modules/hero.js';
-import { PixelHero } from '../modules/pixelhero.js';
+import { prepareHero, introHero } from '../modules/hero.js';
+import { sound } from '../modules/sound.js';
 import { PixelCat, CAT_SIZE } from '../modules/pixelcat.js';
 import { initTypeLab } from '../modules/typelab.js';
 import { initPixelIcons } from '../modules/pixelicons.js';
 
 const transitions = boot();
 const heroChars = prepareHero();
-const pxDot = [...document.querySelectorAll('.hero__line--3 .char')].pop();
-pxDot?.classList.add('px-dot');
 const heroEl = document.querySelector('.hero');
-const heroStage = document.querySelector('.hero__stage');
-const artSize = document.querySelector('[data-art-size]');
-const pixelHero = new PixelHero(heroStage, {
-  hero: heroEl,
-  logo: document.querySelector('.logo__cat'),
-});
-/** line the artboard grid up with the mascot's pixels (one cell = 4 × 4 pixels) and keep the size tag live */
-function alignGrid(h) {
-  const g = h.pitch * 4;
-  const hx = heroEl.getBoundingClientRect().left;
-  heroEl.style.setProperty('--grid', `${g}px`);
-  heroEl.style.setProperty('--grid-x', `${(((h.sx - hx) % g) + g) % g}px`);
-  heroEl.style.setProperty('--grid-y', `${(((h.sy - heroEl.offsetTop) % g) + g) % g}px`);
-  // hug the artwork, like a selected layer
-  const bb = h.bbox;
-  const art = heroStage.querySelector('.artboard');
-  if (bb && art) {
-    const pad = h.pitch * 1.2;
-    const off = (heroStage.offsetWidth - h.pitch * 44) / 2;
-    Object.assign(art.style, {
-      inset: 'auto',
-      left: `${off + bb.x * h.pitch - pad}px`,
-      top: `${off + bb.y * h.pitch - pad}px`,
-      width: `${bb.w * h.pitch + pad * 2}px`,
-      height: `${bb.h * h.pitch + pad * 2}px`,
-    });
-    if (artSize) artSize.textContent = `${Math.round(bb.w * h.pitch)} × ${Math.round(bb.h * h.pitch)}`;
-  }
-}
-pixelHero.onMeasure = alignGrid;
-alignGrid(pixelHero);
+const heroFrame = document.querySelector('.hero__frame');
 
-/** a collaborator's cursor glides in and selects the mascot, like a shared design file */
-function selectMascot() {
-  const ghost = heroStage.querySelector('.ghost');
-  const w = heroStage.offsetWidth;
-  if (!ghost || reduced) {
-    heroEl.classList.add('is-selected');
-    return;
+/* ---------------------------------------------------------
+   Hero scene: lazy-loaded (three + rapier + postprocessing
+   only ship on the home page, after first paint).
+   Reduced motion renders one still frame; no WebGL keeps the image.
+   --------------------------------------------------------- */
+let voxel = null;
+const heroReady = (async () => {
+  const { VoxelHero, webglAvailable } = await import('../modules/voxelhero.js');
+  if (!webglAvailable()) return null;
+  try {
+    voxel = await VoxelHero.create(heroFrame, {
+      still: reduced,
+      onPush: (n) => sound.tick(Math.min(1, n / 40)),
+      onBite: () => sound.nom(),
+    });
+    if (import.meta.env.DEV) window.__hero = voxel;
+    // reveal the live canvas once it has drawn a frame
+    requestAnimationFrame(() => requestAnimationFrame(() => heroEl.classList.add('has-gl')));
+    return voxel;
+  } catch (err) {
+    console.warn('[hero] WebGL scene unavailable, keeping the still', err);
+    return null;
   }
-  gsap.timeline()
-    .set(ghost, { x: w * 1.15, y: w * 1.05, opacity: 0 })
-    .to(ghost, { opacity: 1, duration: 0.3 })
-    .to(ghost, { x: w * 0.62, y: w * 0.56, duration: 1.1, ease: 'power3.inOut' }, 0)
-    .to(ghost.querySelector('.ghost__arrow'), { scale: 0.82, duration: 0.09, yoyo: true, repeat: 1, transformOrigin: '10% 10%' })
-    .add(() => heroEl.classList.add('is-selected'))
-    .to(ghost, { x: w * 1.04, y: w * 1.08, duration: 1.1, ease: 'power2.inOut' }, '+=0.35')
-    .to(ghost, { opacity: 0, duration: 0.5 }, '-=0.35');
+})();
+
+// sound toggle: off by default
+const soundBtn = document.querySelector('[data-sound]');
+if (soundBtn) {
+  soundBtn.addEventListener('click', () => sound.toggle());
+  sound.subscribe((on) => {
+    soundBtn.setAttribute('aria-pressed', String(on));
+    soundBtn.querySelector('[data-sound-label]').textContent = on ? 'Sound on' : 'Sound off';
+  });
 }
 
 // labs
@@ -67,33 +52,13 @@ if (labSeeds) initSeeds(labSeeds);
 initTypeLab(document.querySelector('[data-type-lab]'));
 initPixelIcons();
 
-// selection tags on the case images report their real rendered size
-document.querySelectorAll('.case-card__frame').forEach((frame) => {
-  const tag = frame.querySelector('[data-sel-size]');
-  if (!tag) return;
-  new ResizeObserver(([e]) => {
-    const { width, height } = e.contentRect;
-    tag.textContent = `${Math.round(width)} × ${Math.round(height)}`;
-  }).observe(frame);
-});
-
 lenis?.stop();
 if (transitions.arriving) document.querySelector('.loader')?.remove();
 (transitions.arriving ? transitions.reveal() : runLoader()).then(() => {
   document.documentElement.classList.remove('is-loading');
   lenis?.start();
-  pixelHero.start();
-  if (!reduced) {
-    introHero(heroChars).add(() => initProximity(heroChars), 1.2);
-    gsap.delayedCall(1.0, selectMascot);
-    // once it is selected the cat takes its first bite, and the pixel full stop hops
-    gsap.delayedCall(3.0, () => {
-      pixelHero.nibble();
-      gsap.delayedCall(0.3, () => pxDot?.classList.add('is-pop'));
-    });
-  } else {
-    heroEl.classList.add('is-selected');
-  }
+  heroReady.then((v) => v?.start());
+  if (!reduced) introHero(heroChars);
   initHomeScroll();
   initSharedScroll();
   initThemes();
@@ -157,6 +122,23 @@ function runLoader() {
 function initHomeScroll() {
   if (reduced) return;
   const mm = gsap.matchMedia();
+
+  // Hero: the card opens to full bleed, the cat comes apart into a cloud the camera flies into
+  gsap.timeline({
+    scrollTrigger: {
+      trigger: heroEl,
+      start: 'top top',
+      end: '+=85%',
+      pin: true,
+      pinSpacing: true,
+      scrub: 0.8,
+      onUpdate: (st) => voxel?.setExplode(gsap.parseEase('power1.inOut')(st.progress)),
+    },
+  })
+    .to(heroEl, { '--k': 0, ease: 'power2.inOut', duration: 0.55 }, 0)
+    .fromTo('.hero__content', { yPercent: 0, opacity: 1 }, { yPercent: -18, opacity: 0, ease: 'power2.in', duration: 0.45, immediateRender: false }, 0)
+    .fromTo('.hero__corners, .hero__scroll, .hero__hint, .hero__sound', { opacity: 1 }, { opacity: 0, duration: 0.25, immediateRender: false }, 0)
+    .to({}, { duration: 0.45 });
 
   // Feature card expands into full-bleed
   mm.add({ desktop: '(min-width: 901px)', mobile: '(max-width: 900px)' }, (ctx) => {

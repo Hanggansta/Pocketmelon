@@ -40,22 +40,33 @@ It shows up in the header logo, the loader (it eats the melon as the page loads)
 
 Videos autoplay muted and loop, and pause when off-screen. Use H.264 MP4 at 1440px wide or less, 8–15 s, no audio.
 
-## Art direction: the pixel, on a design artboard
+## Art direction (v5): one strong real-time scene, quiet everything else
 
-Pocketmelon is a digital design studio, so the site speaks the language of the craft: **the screen pixel and the design tool**. Editorial serif type carries the voice; the pixel is the accent (the square full stop, the pixel wordmark, the mascot). Beads belong to the Beads case study only.
+Researched against Lusion, Active Theory, Immersive Garden and basement.studio. What we took from **Lusion's thinking**, not just its look:
+
+1. **Show, in real time.** The hero is a live scene you can touch before you read a word, not a video.
+2. **Frame the 3D.** The scene lives in a rounded card, so navigation and the headline stay calm, readable HTML (a real `<h1>`, sentence case, short mono labels, a centred crosshair "Scroll to explore").
+3. **Film, not demo.** Depth of field, soft shadows, grain and a gentle vignette.
+4. **One idea, fewer effects.** v4's ghost cursor, artboard grid, selection frames and scroll-flick pixelation were retired so the hero is the single focal point.
+5. **Sound is optional.** A side toggle, off by default.
 
 | Moment | What happens | Module |
 |---|---|---|
-| Hero | The mascot assembles from ~1,900 screen pixels on a hairline artboard grid. A collaborator's cursor ("Pocketmelon") glides in and selects it: frame, handles, layer name and a live size tag. Brush to part the pixels, click to ripple and feed. Bitten pixels break off. On scroll every pixel flies into the header logo ("back in its pocket"). | `src/modules/pixelhero.js` |
-| Headline | The full stop in "into." is a square pixel, like the dot in the wordmark. It hops when the cat bites. | `home.css` `.px-dot` |
-| Feature | The Whisperleaf card starts as a low-res pixel grid and sharpens into the photograph as it expands to full bleed. | `mosaic.js` (`data-mosaic-scrub`) |
-| Work | Hovering a case image selects it like a layer: frame, handles, name and its real rendered size. | `sections.css` `.sel` |
-| Any photo | A fast scroll flick breaks on-screen images into pixels, which settle back when you stop. | `mosaic.js` velocity loop |
-| Labs | Elastic type: each letter of "Juicy" sets its own weight, optical size and softness from the cursor, with a live axis readout. | `src/modules/typelab.js` |
-| Services | 12×12 pixel icons render in on enter and re-render on hover. | `src/modules/pixelicons.js` |
-| Footer | The closing "Pocketmelon" wordmark is rebuilt in live pixels. It rains in column by column and parts under the cursor. | `src/modules/pixeltext.js` |
+| Hero | The mascot as ~1,200 glossy rounded voxels (three.js `InstancedMesh`, clearcoat, studio light, soft shadows). A small custom solver (no WASM) treats each voxel as a spring to its home cell. The cursor is a sphere collider that shoves them; a click is a radial impulse and feeds the cat. Bitten melon voxels drop and bounce on the floor. The sprite still blinks, twitches and follows you with its eyes, and changed pixels flip physically. | `src/modules/voxelhero.js` |
+| Hero → scroll | The section pins: the card opens to full bleed, the copy lifts away, the cat comes apart into a cloud and the camera flies into it. Reversible. | `src/pages/home.js` |
+| Post | Depth of field (desktop), film grain, vignette, SMAA or MSAA. | `postprocessing` |
+| Sound | Synthesized WebAudio ticks when voxels are shoved, a soft "nom" per bite. Off by default, remembered per session. | `src/modules/sound.js` |
+| Loader | 000→100 counter; the cat eats the melon as assets arrive (first visit per session). | `src/pages/home.js` |
+| Labs | Elastic type, pixel-resolve on hover, the pet. | `typelab.js`, `mosaic.js` |
+| Services | 12×12 pixel icons. | `pixelicons.js` |
+| Footer | The pixel wordmark. | `pixeltext.js` |
 
-Everything respects `prefers-reduced-motion` and falls back to a finished, static state.
+**Performance and fallbacks**
+- three + postprocessing (~212 kB gzipped) load only on the home page, as a lazy chunk after first paint.
+- Quality tiers: mobile has no DOF, DPR ≤ 1.5 and a smaller shadow map. A frame-time governor sheds resolution, then DOF, if frames run long. Resting voxels sleep, and the loop pauses off-screen.
+- Phones tilt the sculpture with the device (where orientation is available without a prompt).
+- `prefers-reduced-motion`: one settled frame, no simulation, no pin.
+- No WebGL: `public/hero/still.webp`, rendered from the live scene. To regenerate it, screenshot the frame with reduced motion on.
 
 ## Design system
 | Token | Value | Role |
