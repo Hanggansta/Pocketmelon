@@ -1,8 +1,8 @@
 import { reduced } from './env.js';
 
 /**
- * Bead-resolve imagery.
- * Images enter as chunky "beads" that resolve to full detail, and pixelate
+ * Pixel-resolve imagery.
+ * Images enter as chunky pixels that resolve to full detail, and pixelate
  * into an alternate frame on hover. The <img> stays in the DOM for semantics,
  * SEO and no-JS; the canvas sits on top once the image is decoded.
  *
@@ -11,10 +11,11 @@ import { reduced } from './env.js';
  *   </figure>
  */
 const STEPS = [56, 40, 28, 20, 14, 10, 7, 5, 3, 2, 1];
+const PAPER = '#efebe3';
 const LADDER = [1, 2, 3, 5, 7, 10, 14, 20, 28];
-const BEAD_MIN = 7; // from this block size up, cells render as round fuse beads
+const GRID_MIN = 7; // from this block size up, cells render as discrete screen pixels with a hairline gap
 
-/* ---- shared scroll velocity: fast scrolling breaks every visible photo into beads */
+/* ---- shared scroll velocity: fast scrolling breaks every visible photo into pixels */
 const live = new Set();
 let vBlock = 1;
 let lastY = 0;
@@ -80,7 +81,7 @@ function mosaic(el) {
       draw();
     },
   };
-  // scroll-scrubbed hosts drive the bead size themselves: el._mosaic.set(px)
+  // scroll-scrubbed hosts drive the pixel size themselves: el._mosaic.set(px)
   let want = scrub && !reduced ? Math.max(14, Math.min(28, innerWidth / 50)) : 1;
   want = LADDER.filter((b) => b <= want).pop();
   el._mosaic = {
@@ -116,30 +117,21 @@ function mosaic(el) {
     small.height = ch;
     sctx.imageSmoothingEnabled = true;
     sctx.drawImage(im, sx, sy, sw, sh, 0, 0, cw, ch);
-    if (block < BEAD_MIN) {
-      ctx.imageSmoothingEnabled = false;
+    ctx.imageSmoothingEnabled = false;
+    if (block < GRID_MIN) {
       ctx.drawImage(small, 0, 0, cw, ch, 0, 0, cw * b, ch * b);
       return;
     }
-    // bead rendering: each cell becomes a fuse bead (ring + hole) on a pegboard
+    // large blocks: discrete pixels on the page colour, the same language as the hero mascot
     const data = sctx.getImageData(0, 0, cw, ch).data;
-    ctx.fillStyle = '#e6dfd2';
+    const gap = Math.max(1, Math.round(b * 0.1));
+    ctx.fillStyle = PAPER;
     ctx.fillRect(0, 0, w, h);
-    const r = b * 0.47;
-    const hole = b * 0.15;
     for (let y = 0; y < ch; y++) {
       for (let x = 0; x < cw; x++) {
         const i = (y * cw + x) * 4;
-        const R = data[i], G = data[i + 1], B = data[i + 2];
-        const cx = x * b + b / 2, cy = y * b + b / 2;
-        ctx.fillStyle = `rgb(${R},${G},${B})`;
-        ctx.beginPath();
-        ctx.arc(cx, cy, r, 0, 6.2832);
-        ctx.fill();
-        ctx.fillStyle = `rgba(${(R * 0.55) | 0},${(G * 0.55) | 0},${(B * 0.55) | 0},.75)`;
-        ctx.beginPath();
-        ctx.arc(cx, cy, hole, 0, 6.2832);
-        ctx.fill();
+        ctx.fillStyle = `rgb(${data[i]},${data[i + 1]},${data[i + 2]})`;
+        ctx.fillRect(x * b, y * b, b - gap, b - gap);
       }
     }
   };

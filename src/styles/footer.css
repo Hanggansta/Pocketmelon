@@ -57,9 +57,9 @@
   overflow: clip; padding-bottom: .04em;
 }
 .footer__word span { display: inline-block; will-change: transform; }
-.footer__word.is-beaded { display: block; position: relative; font-size: 0; cursor: default; }
-.footer__word.is-beaded > span { display: none; }
-.bead-text { display: block; }
+.footer__word.is-pixelated { display: block; position: relative; font-size: 0; cursor: default; }
+.footer__word.is-pixelated > span { display: none; }
+.pixel-text { display: block; }
 .footer__word .em { font-style: italic; color: var(--melon); font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; font-weight: 290; }
 
 .footer__bottom {

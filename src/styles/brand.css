@@ -39,7 +39,7 @@
 .px-transition { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 996; pointer-events: none; visibility: hidden; }
 html.is-arriving body::before { content: ""; position: fixed; inset: 0; z-index: 995; background: var(--rind); }
 
-/* ---------- bead-resolve imagery */
+/* ---------- pixel-resolve imagery */
 .mosaic { position: relative; overflow: hidden; margin: 0; }
 .mosaic img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .mosaic__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
