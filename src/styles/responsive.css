@@ -10,13 +10,12 @@
   .header__clock { display: none; }
   .step { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
   .step__text { grid-column: 2; }
-  .case-card__frame { grid-column: 1 / 8; }
 }
 
 @media (max-width: 900px) {
   :root { --header-h: 64px; }
   .header { grid-template-columns: 1fr auto; }
-  .nav, .header__right .pill { display: none; }
+  .nav, .header__right .pill, .header__cta, .header .lang, .logo__cn { display: none; }
   .burger { display: block; }
 
   .hero__frame { min-height: 640px; }
@@ -38,9 +37,6 @@
   .section-title, .services__head .section-title { grid-column: 1 / 10; }
   .section-meta { grid-column: 10 / 13; }
 
-  .case-card__link { row-gap: 1.6rem; }
-  .case-card__frame, .case-card--flip .case-card__frame { grid-column: 1 / -1; grid-row: 1; }
-  .case-card__info, .case-card--flip .case-card__info { grid-column: 1 / -1; grid-row: 2; }
 
   .labs__grid { grid-template-columns: minmax(0, 1fr); }
 

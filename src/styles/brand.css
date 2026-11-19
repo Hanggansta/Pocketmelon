@@ -37,7 +37,7 @@
 
 /* ---------- pixel transition */
 .px-transition { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 996; pointer-events: none; visibility: hidden; }
-html.is-arriving body::before { content: ""; position: fixed; inset: 0; z-index: 995; background: var(--rind); }
+html.is-arriving body::before { content: ""; position: fixed; inset: 0; z-index: 995; background: #12110e; }
 
 /* ---------- pixel-resolve imagery */
 .mosaic { position: relative; overflow: hidden; margin: 0; }

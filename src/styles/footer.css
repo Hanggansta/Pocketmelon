@@ -46,22 +46,6 @@
 .copy.is-copied .copy__done { transform: translateY(0); }
 .socials { display: grid; gap: .25rem; }
 
-.footer__word {
-  display: flex; justify-content: space-between;
-  padding-inline: calc(var(--pad) * .6);
-  margin-top: clamp(4rem, 9vw, 8rem);
-  font-family: var(--f-display); font-weight: 330;
-  font-variation-settings: "opsz" 144, "SOFT" 100;
-  font-size: 18.6vw; line-height: .78; letter-spacing: -0.05em;
-  color: var(--paper);
-  overflow: clip; padding-bottom: .04em;
-}
-.footer__word span { display: inline-block; will-change: transform; }
-.footer__word.is-pixelated { display: block; position: relative; font-size: 0; cursor: default; }
-.footer__word.is-pixelated > span { display: none; }
-.pixel-text { display: block; }
-.footer__word .em { font-style: italic; color: var(--melon); font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; font-weight: 290; }
-
 .footer__bottom {
   display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
   padding: 1.4rem var(--pad) var(--pad); color: var(--muted);

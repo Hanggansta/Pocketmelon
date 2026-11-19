@@ -1,5 +1,6 @@
 import { getCatPixels, CAT_SIZE } from './pixelcat.js';
 import { reduced } from './env.js';
+import { t } from './i18n.js';
 
 /**
  * BeadBoard — a playable miniature of Pocketmelon Beads.
@@ -7,16 +8,16 @@ import { reduced } from './env.js';
  * count your beads and save the sheet. Keyboard: arrows to move, Space to place.
  */
 export const BEAD_COLORS = [
-  { name: 'Ink', hex: '#2b2421' },
-  { name: 'Peach', hex: '#f6b98a' },
-  { name: 'Cream', hex: '#fff4e2' },
-  { name: 'Blush', hex: '#f2877a' },
-  { name: 'Melon', hex: '#f26d60' },
-  { name: 'Leaf', hex: '#6b8a4e' },
-  { name: 'Moss', hex: '#536f3b' },
-  { name: 'Sky', hex: '#5b7fb8' },
-  { name: 'Butter', hex: '#f4c85b' },
-  { name: 'White', hex: '#ffffff' },
+  { name: 'Ink', zh: '墨', hex: '#2b2421' },
+  { name: 'Peach', zh: '蜜桃', hex: '#f6b98a' },
+  { name: 'Cream', zh: '奶油', hex: '#fff4e2' },
+  { name: 'Blush', zh: '腮红', hex: '#f2877a' },
+  { name: 'Melon', zh: '瓜红', hex: '#f26d60' },
+  { name: 'Leaf', zh: '叶绿', hex: '#6b8a4e' },
+  { name: 'Moss', zh: '苔绿', hex: '#536f3b' },
+  { name: 'Sky', zh: '天蓝', hex: '#5b7fb8' },
+  { name: 'Butter', zh: '黄油', hex: '#f4c85b' },
+  { name: 'White', zh: '白', hex: '#ffffff' },
 ];
 
 export class BeadBoard {
@@ -48,20 +49,20 @@ export class BeadBoard {
     if (this.opts.compact) r.classList.add('bb--compact');
     r.innerHTML = `
       <div class="bb__stage"><canvas class="bb__canvas" tabindex="0" role="img"
-        aria-label="Bead pegboard. Use arrow keys to move and Space to place a bead."></canvas></div>
+        aria-label="${t('拼豆豆板。方向键移动，空格键放豆。', 'Bead pegboard. Use arrow keys to move and Space to place a bead.')}"></canvas></div>
       ${this.opts.compact ? '' : `
       <div class="bb__bar">
-        <div class="bb__palette" role="radiogroup" aria-label="Bead colour">
-          ${BEAD_COLORS.map((c, i) => `<button class="bb__swatch" role="radio" aria-checked="${i === 4}" aria-label="${c.name}" style="--c:${c.hex}" data-color="${c.hex}"></button>`).join('')}
+        <div class="bb__palette" role="radiogroup" aria-label="${t('豆子颜色', 'Bead colour')}">
+          ${BEAD_COLORS.map((c, i) => `<button class="bb__swatch" role="radio" aria-checked="${i === 4}" aria-label="${t(c.zh, c.name)}" style="--c:${c.hex}" data-color="${c.hex}"></button>`).join('')}
         </div>
         <div class="bb__tools">
-          <button class="bb__btn" data-act="erase" aria-pressed="false">Eraser</button>
-          <button class="bb__btn" data-act="cat">Load mascot</button>
-          <button class="bb__btn" data-act="clear">Clear</button>
-          <button class="bb__btn bb__btn--hot" data-act="iron" aria-pressed="false">Iron it</button>
-          <button class="bb__btn" data-act="save">Save PNG</button>
+          <button class="bb__btn" data-act="erase" aria-pressed="false">${t('橡皮', 'Eraser')}</button>
+          <button class="bb__btn" data-act="cat">${t('载入吉祥物', 'Load mascot')}</button>
+          <button class="bb__btn" data-act="clear">${t('清空', 'Clear')}</button>
+          <button class="bb__btn bb__btn--hot" data-act="iron" aria-pressed="false">${t('熨烫', 'Iron it')}</button>
+          <button class="bb__btn" data-act="save">${t('保存 PNG', 'Save PNG')}</button>
         </div>
-        <p class="bb__count mono" aria-live="polite"><b data-count>0</b> beads · <b data-colors>0</b> colours</p>
+        <p class="bb__count mono" aria-live="polite">${t('<b data-count>0</b> 颗豆 · <b data-colors>0</b> 种颜色', '<b data-count>0</b> beads · <b data-colors>0</b> colours')}</p>
       </div>`}
     `;
     this.stage = r.querySelector('.bb__stage');
@@ -186,7 +187,7 @@ export class BeadBoard {
     if (force === false) this.iron = 0;
     this.root.querySelector('[data-act="iron"]')?.setAttribute('aria-pressed', !!this.ironTarget);
     const b = this.root.querySelector('[data-act="iron"]');
-    if (b) b.textContent = this.ironTarget ? 'Un-iron' : 'Iron it';
+    if (b) b.textContent = this.ironTarget ? t('取消熨烫', 'Un-iron') : t('熨烫', 'Iron it');
     this.dirty = true;
   }
 

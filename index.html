@@ -1,20 +1,20 @@
 <!doctype html>
-<html lang="en" data-theme="light" class="is-loading">
+<html lang="[[zh-CN||en]]" data-theme="light" class="is-loading">
 <head>
   <!-- @include head -->
-  <title>Pocketmelon — Independent digital studio, Tokyo</title>
-  <meta name="description" content="Pocketmelon (口袋瓜) is a small design & engineering studio in Tokyo. We make digital products people keep coming back to — like Whisperleaf and Pocketmelon Beads." />
-  <meta property="og:title" content="Pocketmelon — Digital things worth biting into" />
-  <meta property="og:description" content="A small design & engineering studio in Tokyo. Makers of Whisperleaf and Pocketmelon Beads." />
-  <link rel="preload" as="image" href="/work/whisperleaf/hero.webp" />
+  <title>[[口袋瓜 Pocketmelon — 东京独立数字设计工作室||Pocketmelon — Independent digital studio, Tokyo]]</title>
+  <meta name="description" content="[[口袋瓜（Pocketmelon）是一家位于东京的小型设计与工程工作室，为品牌与产品设计并开发网站、应用和视觉系统。Whisperleaf 与口袋瓜拼豆都出自这里。||Pocketmelon (口袋瓜) is a small design & engineering studio in Tokyo. We make digital products people keep coming back to — like Whisperleaf and Pocketmelon Beads.]]" />
+  <meta property="og:title" content="[[口袋瓜 — 让人想咬一口的数字作品||Pocketmelon — Digital things worth biting into]]" />
+  <meta property="og:description" content="[[东京的小型设计与工程工作室。Whisperleaf 与口袋瓜拼豆的出品方。||A small design & engineering studio in Tokyo. Makers of Whisperleaf and Pocketmelon Beads.]]" />
+  <link rel="preload" as="image" href="/hero/still.webp" />
 </head>
 <body data-page="home">
-  <!-- LOADER: the mascot eats the watermelon while the page loads -->
+  <!-- LOADER: ink is ground while the page loads, then the seal is pressed and the ink opens -->
   <div class="loader" aria-hidden="true">
-    <div class="loader__cat"><canvas></canvas></div>
+    <svg class="seal loader__seal" viewBox="0 0 100 100"><use href="#seal" /></svg>
     <div class="loader__meta">
       <span class="loader__num">000</span>
-      <span class="loader__label">nom nom · loading</span>
+      <span class="loader__label">[[研墨中||Grinding the ink]]</span>
     </div>
   </div>
 
@@ -23,187 +23,202 @@
   <main id="main">
     <!-- ============ HERO ============ -->
     <section class="hero" id="top" data-theme-section="light">
-      <div class="hero__frame" data-cursor="Feed me">
+      <div class="hero__frame" data-cursor="[[喂我||Feed me]]">
         <img class="hero__still" src="/hero/still.webp" alt="" width="1600" height="1000" decoding="async" aria-hidden="true">
-        <p class="sr-only">The Pocketmelon cat, built from around twelve hundred glossy cubes, holds a slice of watermelon. Move through it to push the cubes around; click to feed it.</p>
+        <p class="sr-only">[[口袋瓜的小猫由大约一千二百个有光泽的小方块组成，怀里抱着一块西瓜。移动光标可以推开方块，点击可以喂它。||The Pocketmelon cat, built from around twelve hundred glossy cubes, holds a slice of watermelon. Move through it to push the cubes around; click to feed it.]]</p>
 
         <div class="hero__corners mono" aria-hidden="true">
-          <span class="hero__corner hero__corner--tl reveal-up">Independent studio<br><span class="muted">Design &amp; engineering</span></span>
-          <span class="hero__corner hero__corner--tr reveal-up"><span class="dot-live"></span>Booking Q1 2027</span>
+          <span class="hero__corner hero__corner--tl reveal-up">[[独立设计工作室<br><span class="muted">设计 · 工程 · 东京</span>||Independent studio<br><span class="muted">Design &amp; engineering</span>]]</span>
+          <span class="hero__corner hero__corner--tr reveal-up"><span class="dot-live"></span>[[2027 年第一季度 · 可预约||Booking Q1 2027]]</span>
         </div>
 
         <div class="hero__content">
-          <h1 class="hero__title" aria-label="Digital things worth biting into.">
-            <span class="hero__line" aria-hidden="true"><span class="hero__words">Digital things</span></span>
-            <span class="hero__line" aria-hidden="true"><span class="hero__words">worth biting into.</span></span>
+          <h1 class="hero__title" aria-label="[[让人想咬一口的数字作品。||Digital things worth biting into.]]">
+            <span class="hero__line" aria-hidden="true"><span class="hero__words">[[让人想咬一口的||Digital things]]</span></span>
+            <span class="hero__line" aria-hidden="true"><span class="hero__words">[[数字作品。||worth biting into.]]</span></span>
           </h1>
           <div class="hero__aside">
-            <p class="hero__intro reveal-up">A small Tokyo studio designing and building websites, products and brands, with the kind of detail people notice and come back for.</p>
+            <p class="hero__intro reveal-up">[[东京的一家小型设计与工程工作室。我们为品牌与产品设计并开发网站、应用和视觉系统，在别人忽略的细节上用心，让人愿意一再回来。||A small Tokyo studio designing and building websites, products and brands, with the kind of detail people notice and come back for.]]</p>
             <div class="hero__ctas reveal-up">
-              <a href="#work" class="btn btn--ink magnetic" data-cursor="hide"><span>See the work</span></a>
-              <a href="#contact" class="btn btn--ghost"><span>Start a project</span></a>
+              <a href="#work" class="btn btn--ink magnetic" data-cursor="hide">
+                <span class="btn__label">[[查看作品||See the work]]</span>
+                <span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M8 3v10M4 9l4 4 4-4" /></svg></span>
+              </a>
+              <a href="#contact" class="btn btn--line">
+                <span class="btn__label">[[开始合作||Start a project]]</span>
+                <span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" /></svg></span>
+              </a>
             </div>
           </div>
         </div>
 
-        <a href="#studio" class="hero__scroll mono reveal-up" aria-label="Scroll to explore">
+        <a href="#studio" class="hero__scroll mono reveal-up" aria-label="[[向下探索||Scroll to explore]]">
           <span class="hero__cross" aria-hidden="true"><i></i><i></i></span>
-          <span>Scroll to explore</span>
+          <span>[[向下探索||Scroll to explore]]</span>
         </a>
-        <p class="hero__hint mono reveal-up" aria-hidden="true">Move through it <span class="muted">·</span> Click to feed</p>
+        <p class="hero__hint mono reveal-up" aria-hidden="true">[[穿过它 <span class="muted">·</span> 点击投喂||Move through it <span class="muted">·</span> Click to feed]]</p>
         <button class="hero__sound mono reveal-up" type="button" aria-pressed="false" data-sound>
-          <span class="hero__bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span data-sound-label>Sound off</span>
+          <span class="hero__bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span data-sound-label>[[声音 关||Sound off]]</span>
         </button>
       </div>
     </section>
 
     <!-- ============ FEATURE EXPAND ============ -->
-    <section class="feature" aria-label="Featured case study: Whisperleaf">
+    <section class="feature" aria-label="[[精选案例：Whisperleaf||Featured case study: Whisperleaf]]">
       <div class="feature__pin">
-        <a href="/work/whisperleaf/" class="feature__media" data-cursor="Read case">
-          <img src="/work/whisperleaf/hero.webp" alt="A blue cloth-bound book with a pink spine and a pressed leaf on the cover — the Whisperleaf brand world" />
+        <a href="/work/whisperleaf/" class="feature__media" data-cursor="[[查看案例||Read case]]">
+          <img src="/work/whisperleaf/hero.webp" alt="[[一本蓝色布面精装书，粉色书脊，封面压着一片叶子——Whisperleaf 的品牌世界||A blue cloth-bound book with a pink spine and a pressed leaf on the cover — the Whisperleaf brand world]]" />
           <span class="feature__shade"></span>
         </a>
         <div class="feature__copy">
-          <p class="mono feature__tag">Case study 01 — Whisperleaf</p>
+          <p class="mono feature__tag">[[案例 01 — Whisperleaf||Case study 01 — Whisperleaf]]</p>
           <h2 class="feature__title"><span>Whisper</span><em>leaf</em></h2>
-          <p class="feature__desc">A reading desk for people going further in English. Read originals, keep what matters, return with the story still attached.</p>
+          <p class="feature__desc">[[为想读得更远的英语学习者打造的阅读桌。读原著，留下真正重要的，再回来时，故事依然在那一页。||A reading desk for people going further in English. Read originals, keep what matters, return with the story still attached.]]</p>
         </div>
         <div class="feature__corner mono">
-          <span>Product · Brand · Engineering</span>
+          <span>[[产品 · 品牌 · 工程||Product · Brand · Engineering]]</span>
           <span>whisperleaf.pocketmelon.com</span>
         </div>
       </div>
     </section>
 
     <!-- ============ STUDIO ============ -->
-    <section class="manifesto" id="studio" data-theme-section="light">
-      <div class="grid">
-        <p class="mono label col-label"><span class="label__idx">(01)</span> Studio</p>
-        <p class="manifesto__text" data-words>
-          We’re a small, stubborn studio of designers and engineers who believe software should feel <em>alive</em>: crafted, tactile and a little bit sweet. We build our own products first, so every client project gets the care we give our own.
-        </p>
+    <section class="studio" id="studio" data-theme-section="light">
+      <div class="grid studio__head">
+        <p class="mono label col-label"><span class="label__idx">[[壹||01]]</span><span class="label__rule"></span><span>[[工作室||Studio]]</span></p>
+        <p class="studio__lead" data-words>[[我们是一支小而固执的设计师与工程师团队，相信软件应当是“活”的：有手感，有温度，还带一点甜。我们先为自己做产品，所以每个客户项目，都会得到我们对待自己作品的那份用心。||We’re a small, stubborn studio of designers and engineers who believe software should feel alive: crafted, tactile and a little bit sweet. We build our own products first, so every client project gets the care we give our own.]]</p>
+      </div>
+
+      <div class="pin grid">
+        <div class="pin__art">
+          <div class="ink-glyph pin__brush" data-ink="品" data-ink-fill="0.92" data-ink-duration="3" role="img" aria-label="[[“品”字书法||Calligraphy: the character 品 (pǐn)]]"></div>
+          <span class="pin__marks mono" aria-hidden="true"><i>口</i><i>口</i><i>口</i></span>
+        </div>
+        <div class="pin__copy">
+          <p class="mono pin__k">[[三口成品||Three mouths make 品]]</p>
+          <h2 class="pin__title" data-split>[[一口给客户，<br>一口给用户，<br>一口留给我们自己。||One for the client.<br>One for the people who use it.<br>One for us.]]</h2>
+          <p class="pin__text">[[“品”由三个“口”组成，既是品味，也是品质。三方都点头，才算一件作品。我们的中文名“口袋瓜”，恰好也以一个“口”字开头。||The character 品 (pǐn) is three mouths stacked together. It means taste, and it means quality. When all three say yes, the work is ready. Our Chinese name, 口袋瓜, happens to begin with a mouth too.]]</p>
+        </div>
       </div>
 
       <div class="principles grid">
         <article class="principle" data-reveal>
-          <span class="principle__px" aria-hidden="true"></span>
           <p class="mono principle__idx">01</p>
-          <h3 class="principle__title">Makers, not middlemen</h3>
-          <p class="principle__text">You talk to the people designing and writing the code. No account layers, no lost hand-offs.</p>
+          <h3 class="principle__title">[[亲手去做||Makers, not middlemen]]</h3>
+          <p class="principle__text">[[和你沟通的，就是做设计、写代码的人。没有层层转手，也不会在交接里丢掉细节。||You talk to the people designing and writing the code. No account layers, no lost hand-offs.]]</p>
         </article>
         <article class="principle" data-reveal>
-          <span class="principle__px" aria-hidden="true"></span>
           <p class="mono principle__idx">02</p>
-          <h3 class="principle__title">Product-minded</h3>
-          <p class="principle__text">We run live products of our own, so we think about onboarding, retention and edge cases, not just launch day.</p>
+          <h3 class="principle__title">[[产品思维||Product-minded]]</h3>
+          <p class="principle__text">[[我们自己也在运营线上产品，所以会考虑新手引导、留存和各种边界情况，而不只是上线那一天。||We run live products of our own, so we think about onboarding, retention and edge cases, not just launch day.]]</p>
         </article>
         <article class="principle" data-reveal>
-          <span class="principle__px" aria-hidden="true"></span>
           <p class="mono principle__idx">03</p>
-          <h3 class="principle__title">Craft that lasts</h3>
-          <p class="principle__text">Accessible, fast, maintainable. Delight is the top layer, never a replacement for the foundations.</p>
+          <h3 class="principle__title">[[经得起时间||Craft that lasts]]</h3>
+          <p class="principle__text">[[无障碍、够快、易维护。惊喜是最上面的一层，从来不能代替地基。||Accessible, fast, maintainable. Delight is the top layer, never a replacement for the foundations.]]</p>
         </article>
       </div>
     </section>
 
-    <!-- ============ WORK ============ -->
+    <!-- ============ WORK (index list) ============ -->
     <section class="work" id="work" data-theme-section="light">
       <div class="section-head grid">
-        <p class="mono label col-label"><span class="label__idx">(02)</span> Selected work</p>
-        <h2 class="section-title" data-split>Fresh from the <em>pocket</em></h2>
-        <p class="mono section-meta">Live products <span class="count">/02</span></p>
+        <p class="mono label col-label"><span class="label__idx">[[贰||02]]</span><span class="label__rule"></span><span>[[精选作品||Selected work]]</span></p>
+        <h2 class="section-title" data-split>[[新鲜摘下||Fresh from the vine]]</h2>
+        <p class="mono section-meta">[[在线产品||Live products]] <span class="count">/02</span></p>
       </div>
 
-      <div class="cases">
-        <article class="case-card" data-mosaic-host>
-          <a href="/work/whisperleaf/" class="case-card__link" data-cursor="Read case">
-            <div class="case-card__frame">
-              <div class="case-card__clip">
-              <figure class="case-card__media mosaic" data-mosaic data-alt="/work/whisperleaf/detail.webp">
-                <img src="/work/whisperleaf/hero.webp" alt="Whisperleaf brand still life: blue book, pink spine, pressed leaf" loading="lazy" />
-              </figure>
-              </div>
-            </div>
-            <div class="case-card__info">
-              <p class="mono case-card__idx">01 / Reading &amp; learning</p>
-              <h3 class="case-card__title">Whisper<em>leaf</em></h3>
-              <p class="case-card__tagline">Read originals. Make the words yours.</p>
-              <ul class="tags mono"><li>Product design</li><li>Brand</li><li>Web app</li><li>AI-assisted learning</li></ul>
-              <span class="case-card__cta mono">View case study <i aria-hidden="true">→</i></span>
-            </div>
+      <ol class="wl" data-worklist>
+        <li class="wl__row">
+          <a class="wl__link" href="/work/whisperleaf/" data-preview="/work/whisperleaf/hero.webp" data-cursor="[[查看案例||View case]]">
+            <span class="wl__idx mono">01</span>
+            <span class="wl__name">Whisper<em>leaf</em></span>
+            <span class="wl__kind">[[英文原著阅读||Reading &amp; learning]]</span>
+            <span class="wl__tags mono">[[产品 • 品牌 • 设计 • 开发||Product • Brand • Design • Engineering]]</span>
+            <span class="wl__status mono"><i class="dot-live"></i>[[已上线||Live]]</span>
+            <span class="wl__thumb"><img src="/work/whisperleaf/hero.webp" alt="" loading="lazy" /></span>
+            <span class="wl__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6" /></svg></span>
           </a>
-        </article>
-
-        <article class="case-card case-card--flip" data-mosaic-host>
-          <a href="/work/beads/" class="case-card__link" data-cursor="Read case">
-            <div class="case-card__frame">
-              <div class="case-card__clip">
-              <figure class="case-card__media mosaic" data-mosaic data-alt="/work/beads/detail.webp">
-                <img src="/work/beads/hero.webp" alt="The Pocketmelon cat mascot made from ironed fuse beads" loading="lazy" />
-              </figure>
-              </div>
-            </div>
-            <div class="case-card__info">
-              <p class="mono case-card__idx">02 / Craft tools</p>
-              <h3 class="case-card__title">Beads <span class="case-card__cn">口袋瓜拼豆</span></h3>
-              <p class="case-card__tagline">A warm little studio for fuse-bead patterns.</p>
-              <ul class="tags mono"><li>Product design</li><li>Pixel tools</li><li>PWA</li><li>Mascot</li></ul>
-              <span class="case-card__cta mono">View case study <i aria-hidden="true">→</i></span>
-            </div>
+        </li>
+        <li class="wl__row">
+          <a class="wl__link" href="/work/beads/" data-preview="/work/beads/hero.webp" data-cursor="[[查看案例||View case]]">
+            <span class="wl__idx mono">02</span>
+            <span class="wl__name">[[口袋瓜拼豆||Beads]]</span>
+            <span class="wl__kind">[[拼豆图纸工具||Craft tools]]</span>
+            <span class="wl__tags mono">[[产品 • 像素工具 • PWA • 吉祥物||Product • Pixel tools • PWA • Mascot]]</span>
+            <span class="wl__status mono"><i class="dot-live"></i>[[已上线||Live]]</span>
+            <span class="wl__thumb"><img src="/work/beads/hero.webp" alt="" loading="lazy" /></span>
+            <span class="wl__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6" /></svg></span>
           </a>
-        </article>
-      </div>
+        </li>
+        <li class="wl__row wl__row--next">
+          <a class="wl__link" href="#contact" data-cursor="[[聊聊||Let’s talk]]">
+            <span class="wl__idx mono">03</span>
+            <span class="wl__name">[[下一个，或许是你的||Yours, next]]</span>
+            <span class="wl__kind">[[正在接 2027 年第一季度的项目||Booking projects for Q1 2027]]</span>
+            <span class="wl__tags mono">[[网站 • 产品 • 品牌||Website • Product • Brand]]</span>
+            <span class="wl__status mono">[[开放中||Open]]</span>
+            <span class="wl__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6" /></svg></span>
+          </a>
+        </li>
+      </ol>
     </section>
 
     <!-- ============ LABS ============ -->
     <section class="labs" id="labs" data-theme-section="light">
       <div class="section-head grid">
-        <p class="mono label col-label"><span class="label__idx">(03)</span> Labs</p>
-        <h2 class="section-title" data-split>Things we make <em>for fun</em></h2>
-        <p class="mono section-meta">All live. Go on, poke them.</p>
+        <p class="mono label col-label"><span class="label__idx">[[叁||03]]</span><span class="label__rule"></span><span>[[实验室||Labs]]</span></p>
+        <h2 class="section-title" data-split>[[做着好玩的东西||Things we make for fun]]</h2>
+        <p class="mono section-meta">[[全部可玩，动手试试||All live. Go on, poke them.]]</p>
       </div>
 
       <div class="labs__grid">
-        <article class="lab lab--pet" data-reveal>
-          <div class="lab__stage lab__stage--pet">
-            <span class="lab__pet" data-cat="pet" data-cursor="Feed me"><canvas></canvas></span>
+        <article class="lab lab--ink" data-reveal>
+          <div class="lab__stage lab__stage--ink">
+            <div class="ink-glyph lab__glyph" data-ink="墨" data-ink-fill="0.78" data-ink-manual role="img" aria-live="polite" aria-label="[[书法：墨||Calligraphy: 墨]]"></div>
+            <form class="inklab" data-ink-lab>
+              <label class="sr-only" for="inklab-input">[[输入一个汉字||Type a Chinese character]]</label>
+              <input id="inklab-input" class="inklab__input" maxlength="2" autocomplete="off" placeholder="[[写一个字||Type a character]]" lang="zh-CN" />
+              <div class="inklab__picks mono" role="group" aria-label="[[试试这些字||Try these]]">
+                <button type="button" data-char="品">品</button><button type="button" data-char="瓜">瓜</button><button type="button" data-char="甜">甜</button><button type="button" data-char="慢">慢</button><button type="button" data-char="福">福</button>
+              </div>
+            </form>
           </div>
           <div class="lab__info">
-            <h3 class="lab__title">Pixel pet</h3>
-            <p class="lab__text">Our mascot, rebuilt from the logo as a 44×44 living sprite. Hover to say hi, click to feed. It regrows its melon when it’s done.</p>
-            <p class="mono lab__tech">Canvas · 12 fps · 1 sprite, 9 layers</p>
+            <h3 class="lab__title">[[一笔墨||Ink, written]]</h3>
+            <p class="lab__text">[[写下任意一个汉字，它会被即时“写”成水墨：笔画从中锋向外生长，飞白、洇墨与墨边，全部在 GPU 上实时生成。||Type any Chinese character and it is written in ink on the spot: strokes grow out from the spine, with dry-brush streaks, bleed and pooled edges, all generated live on the GPU.]]</p>
+            <p class="mono lab__tech">WebGL · [[志莽行书||Zhi Mang Xing]] · 3 layers</p>
           </div>
         </article>
 
         <article class="lab lab--type" data-reveal>
-          <div class="lab__stage lab__stage--type" data-type-lab data-cursor="Stretch">
+          <div class="lab__stage lab__stage--type" data-type-lab data-cursor="[[拉伸||Stretch]]">
             <p class="typelab__word">Juicy</p>
             <p class="typelab__axes mono" aria-hidden="true"><span>wght <b data-ax="wght">300</b></span><span>opsz <b data-ax="opsz">144</b></span><span>SOFT <b data-ax="SOFT">100</b></span></p>
           </div>
           <div class="lab__info">
-            <h3 class="lab__title">Elastic type</h3>
-            <p class="lab__text">Our display face has four variable axes. Here every letter reads your cursor and sets its own weight, optical size and softness.</p>
-            <p class="mono lab__tech">Fraunces · 3 live axes · per-glyph</p>
+            <h3 class="lab__title">[[弹性字体||Elastic type]]</h3>
+            <p class="lab__text">[[我们的标题字体有四个可变轴。在这里，每个字母都会读取你的光标，各自决定字重、光学尺寸与柔和度。||Our display face has four variable axes. Here every letter reads your cursor and sets its own weight, optical size and softness.]]</p>
+            <p class="mono lab__tech">Fraunces · [[3 个可变轴||3 live axes]]</p>
           </div>
         </article>
 
         <article class="lab lab--seeds" data-reveal>
-          <div class="lab__stage lab__stage--seeds"><canvas class="lab__seeds" aria-hidden="true"></canvas><span class="lab__hint mono">Move your cursor here</span></div>
+          <div class="lab__stage lab__stage--seeds"><canvas class="lab__seeds" aria-hidden="true"></canvas><span class="lab__hint mono">[[把光标移到这里||Move your cursor here]]</span></div>
           <div class="lab__info">
-            <h3 class="lab__title">Seed field</h3>
-            <p class="lab__text">A lattice of melon seeds that turn to watch you, swell, ripen red and step aside. On touch screens they drift on their own.</p>
+            <h3 class="lab__title">[[瓜子阵||Seed field]]</h3>
+            <p class="lab__text">[[一片会转头看你的西瓜子：它们会膨胀、变红，再给你让路。在触屏上，它们会自己漂动。||A lattice of melon seeds that turn to watch you, swell, ripen red and step aside. On touch screens they drift on their own.]]</p>
             <p class="mono lab__tech">Canvas 2D · Path2D</p>
           </div>
         </article>
 
         <article class="lab lab--mosaic" data-reveal data-mosaic-host>
           <div class="lab__stage lab__stage--mosaic">
-            <figure class="mosaic" data-mosaic data-alt="/work/whisperleaf/detail.webp"><img src="/work/whisperleaf/hero.webp" alt="A blue cloth-bound book with a pink spine and a pressed leaf on the cover" loading="lazy" /></figure>
+            <figure class="mosaic" data-mosaic data-alt="/work/whisperleaf/detail.webp"><img src="/work/whisperleaf/hero.webp" alt="[[一本蓝色布面精装书，粉色书脊，封面压着一片叶子||A blue cloth-bound book with a pink spine and a pressed leaf on the cover]]" loading="lazy" /></figure>
           </div>
           <div class="lab__info">
-            <h3 class="lab__title">Pixel-resolve</h3>
-            <p class="lab__text">Images that render in from low resolution, used across this site. Hover to watch it re-render, or flick-scroll anywhere to break the photos apart.</p>
+            <h3 class="lab__title">[[像素显影||Pixel-resolve]]</h3>
+            <p class="lab__text">[[从低分辨率逐步显影的图像。把光标放上去，看它重新渲染一次。||Images that render in from low resolution. Hover to watch it render again.]]</p>
             <p class="mono lab__tech">Canvas · nearest-neighbour</p>
           </div>
         </article>
@@ -214,8 +229,8 @@
     <section class="services" id="services" data-theme-section="dark">
       <div class="services__pin">
         <div class="services__head grid">
-          <p class="mono label col-label"><span class="label__idx">(04)</span> Services</p>
-          <h2 class="section-title" data-split>What we <em>grow</em></h2>
+          <p class="mono label col-label"><span class="label__idx">[[肆||04]]</span><span class="label__rule"></span><span>[[服务||Services]]</span></p>
+          <h2 class="section-title" data-split>[[我们种什么||What we grow]]</h2>
           <div class="services__progress" aria-hidden="true"><span></span></div>
         </div>
 
@@ -223,33 +238,33 @@
           <article class="svc">
             <div class="svc__top"><span class="svc__num">01</span><canvas class="px-icon" data-icon="target" aria-hidden="true"></canvas></div>
             <div class="svc__body">
-              <h3 class="svc__title">Strategy</h3>
-              <p class="svc__lead">Finding the sweet spot between what your audience craves and what only you can offer.</p>
-              <ul class="svc__list mono"><li>Research &amp; insight</li><li>Positioning</li><li>Naming</li><li>Product strategy</li></ul>
+              <h3 class="svc__title">[[策略||Strategy]]</h3>
+              <p class="svc__lead">[[在用户真正想要的，和只有你能给的之间，找到那个甜蜜点。||Finding the sweet spot between what your audience craves and what only you can offer.]]</p>
+              <ul class="svc__list mono">[[<li>调研与洞察</li><li>品牌定位</li><li>命名</li><li>产品策略</li>||<li>Research &amp; insight</li><li>Positioning</li><li>Naming</li><li>Product strategy</li>]]</ul>
             </div>
           </article>
           <article class="svc">
-            <div class="svc__top"><span class="svc__num">02</span><canvas class="px-icon" data-icon="cat" aria-hidden="true"></canvas></div>
+            <div class="svc__top"><span class="svc__num">02</span><canvas class="px-icon" data-icon="brush" aria-hidden="true"></canvas></div>
             <div class="svc__body">
-              <h3 class="svc__title">Identity</h3>
-              <p class="svc__lead">Brands with a bite: systems, mascots and motion that speak and scale across every surface.</p>
-              <ul class="svc__list mono"><li>Visual identity</li><li>Mascots &amp; pixel art</li><li>Motion systems</li><li>Guidelines</li></ul>
+              <h3 class="svc__title">[[品牌||Identity]]</h3>
+              <p class="svc__lead">[[有记忆点的品牌：在每个触点上都能说话、也能规模化的视觉系统、吉祥物与动态。||Brands with a bite: systems, mascots and motion that speak and scale across every surface.]]</p>
+              <ul class="svc__list mono">[[<li>视觉识别</li><li>吉祥物与像素艺术</li><li>动态系统</li><li>品牌规范</li>||<li>Visual identity</li><li>Mascots &amp; pixel art</li><li>Motion systems</li><li>Guidelines</li>]]</ul>
             </div>
           </article>
           <article class="svc">
             <div class="svc__top"><span class="svc__num">03</span><canvas class="px-icon" data-icon="browser" aria-hidden="true"></canvas></div>
             <div class="svc__body">
-              <h3 class="svc__title">Digital product</h3>
-              <p class="svc__lead">Interfaces that feel ripe: intuitive on first touch, delightful on the hundredth.</p>
-              <ul class="svc__list mono"><li>UX / UI</li><li>Design systems</li><li>Prototyping</li><li>Web apps &amp; PWAs</li></ul>
+              <h3 class="svc__title">[[数字产品||Digital product]]</h3>
+              <p class="svc__lead">[[第一次上手就直观，用到第一百次依然愉快的界面。||Interfaces that feel ripe: intuitive on first touch, delightful on the hundredth.]]</p>
+              <ul class="svc__list mono">[[<li>UX / UI</li><li>设计系统</li><li>原型</li><li>Web 应用与 PWA</li>||<li>UX / UI</li><li>Design systems</li><li>Prototyping</li><li>Web apps &amp; PWAs</li>]]</ul>
             </div>
           </article>
           <article class="svc">
             <div class="svc__top"><span class="svc__num">04</span><canvas class="px-icon" data-icon="code" aria-hidden="true"></canvas></div>
             <div class="svc__body">
-              <h3 class="svc__title">Creative tech</h3>
-              <p class="svc__lead">Code as craft. Interactive canvas, WebGL and the quiet engineering that makes it fly.</p>
-              <ul class="svc__list mono"><li>Creative development</li><li>Canvas &amp; WebGL</li><li>AI features</li><li>Performance</li></ul>
+              <h3 class="svc__title">[[创意技术||Creative tech]]</h3>
+              <p class="svc__lead">[[把代码当作手艺：交互画布、WebGL，以及让这一切流畅运行的安静工程。||Code as craft. Interactive canvas, WebGL and the quiet engineering that makes it fly.]]</p>
+              <ul class="svc__list mono">[[<li>创意开发</li><li>Canvas 与 WebGL</li><li>AI 功能</li><li>性能优化</li>||<li>Creative development</li><li>Canvas &amp; WebGL</li><li>AI features</li><li>Performance</li>]]</ul>
             </div>
           </article>
         </div>
@@ -259,52 +274,52 @@
     <!-- ============ PROCESS ============ -->
     <section class="process" id="process" data-theme-section="light">
       <div class="section-head grid">
-        <p class="mono label col-label"><span class="label__idx">(05)</span> Process</p>
-        <h2 class="section-title" data-split>How we <em>work</em></h2>
-        <p class="mono section-meta">Quote within 48h</p>
+        <p class="mono label col-label"><span class="label__idx">[[伍||05]]</span><span class="label__rule"></span><span>[[流程||Process]]</span></p>
+        <h2 class="section-title" data-split>[[我们如何工作||How we work]]</h2>
+        <p class="mono section-meta">[[48 小时内报价||Quote within 48h]]</p>
       </div>
 
       <div class="process__body grid">
         <div class="process__rail" aria-hidden="true"><span></span></div>
         <ol class="process__steps">
           <li class="step">
-            <p class="mono step__when">Week 0</p>
-            <h3 class="step__title">Listen</h3>
-            <p class="step__text">A free 45-minute call. We learn what you’re making, who it’s for and what success looks like.</p>
+            <p class="mono step__when">[[第 0 周||Week 0]]</p>
+            <h3 class="step__title">[[倾听||Listen]]</h3>
+            <p class="step__text">[[一次免费的 45 分钟通话。了解你在做什么、为谁而做，以及怎样才算成功。||A free 45-minute call. We learn what you’re making, who it’s for and what success looks like.]]</p>
           </li>
           <li class="step">
-            <p class="mono step__when">Weeks 1–2</p>
-            <h3 class="step__title">Shape</h3>
-            <p class="step__text">Research, a workshop or two and a clear plan: scope, milestones and a fixed quote. No surprises later.</p>
+            <p class="mono step__when">[[第 1–2 周||Weeks 1–2]]</p>
+            <h3 class="step__title">[[塑形||Shape]]</h3>
+            <p class="step__text">[[调研、一两次工作坊，然后是一份清晰的计划：范围、里程碑和固定报价。之后不会有意外。||Research, a workshop or two and a clear plan: scope, milestones and a fixed quote. No surprises later.]]</p>
           </li>
           <li class="step">
-            <p class="mono step__when">Weeks 2–10</p>
-            <h3 class="step__title">Make</h3>
-            <p class="step__text">Design and engineering side by side, with a live staging link from week one so you watch it grow.</p>
+            <p class="mono step__when">[[第 2–10 周||Weeks 2–10]]</p>
+            <h3 class="step__title">[[制作||Make]]</h3>
+            <p class="step__text">[[设计与工程并肩推进。从第一周起就有可访问的预览链接，你可以看着它一点点长大。||Design and engineering side by side, with a live staging link from week one so you watch it grow.]]</p>
           </li>
           <li class="step">
-            <p class="mono step__when">Ongoing</p>
-            <h3 class="step__title">Grow</h3>
-            <p class="step__text">Launch, measure, iterate. We stay on as your product team, or hand over clean, documented code.</p>
+            <p class="mono step__when">[[持续||Ongoing]]</p>
+            <h3 class="step__title">[[生长||Grow]]</h3>
+            <p class="step__text">[[上线、度量、迭代。我们可以继续作为你的产品团队，也可以交付干净、文档齐全的代码。||Launch, measure, iterate. We stay on as your product team, or hand over clean, documented code.]]</p>
           </li>
         </ol>
       </div>
 
       <div class="engage grid">
         <article class="engage__card" data-reveal>
-          <p class="mono engage__k">2–4 weeks</p>
-          <h3 class="engage__title">Sprint</h3>
-          <p>Landing page, brand refresh, interactive prototype or a mascot that moves.</p>
+          <p class="mono engage__k">[[2–4 周||2–4 weeks]]</p>
+          <h3 class="engage__title">[[冲刺||Sprint]]</h3>
+          <p>[[落地页、品牌焕新、交互原型，或是一个会动的吉祥物。||Landing page, brand refresh, interactive prototype or a mascot that moves.]]</p>
         </article>
         <article class="engage__card engage__card--hot" data-reveal>
-          <p class="mono engage__k">2–4 months</p>
-          <h3 class="engage__title">Product build</h3>
-          <p>A website or web app from first sketch to launch, designed and engineered in-house.</p>
+          <p class="mono engage__k">[[2–4 个月||2–4 months]]</p>
+          <h3 class="engage__title">[[产品打造||Product build]]</h3>
+          <p>[[从第一张草图到正式上线的网站或 Web 应用，设计与工程全部由我们完成。||A website or web app from first sketch to launch, designed and engineered in-house.]]</p>
         </article>
         <article class="engage__card" data-reveal>
-          <p class="mono engage__k">Ongoing</p>
-          <h3 class="engage__title">Partnership</h3>
-          <p>A dedicated slice of the studio for your team: design, engineering and steady improvements.</p>
+          <p class="mono engage__k">[[持续||Ongoing]]</p>
+          <h3 class="engage__title">[[长期合作||Partnership]]</h3>
+          <p>[[为你的团队留出工作室的一部分：设计、工程与持续的改进。||A dedicated slice of the studio for your team: design, engineering and steady improvements.]]</p>
         </article>
       </div>
     </section>

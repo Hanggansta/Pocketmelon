@@ -17,9 +17,15 @@
   --melon: #ff4f3f;
   --melon-deep: #e23a2b;
 
-  --f-display: "PM Glyphs", "Fraunces Variable", "Times New Roman", serif;
-  --f-sans: "PM Glyphs", "Geist Variable", system-ui, -apple-system, "Segoe UI", "Hiragino Sans", "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
-  --f-mono: "PM Glyphs", "Geist Mono Variable", ui-monospace, "SF Mono", Menlo, "Hiragino Sans", "PingFang SC", "Noto Sans CJK SC", monospace;
+  --cinnabar: #b8382b; /* 朱砂: seals and the rare red accent */
+  --ink-wash: #2a2925;
+
+  /* Latin first, then the Chinese face: mixed lines get the right glyphs from each */
+  --f-display: "PM Glyphs", "Fraunces Variable", "Noto Serif SC Variable", "Songti SC", "STSong", serif;
+  --f-song: "Noto Serif SC Variable", "Songti SC", "STSong", serif;
+  --f-sans: "PM Glyphs", "Geist Variable", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC Variable", system-ui, sans-serif;
+  --f-mono: "PM Glyphs", "Geist Mono Variable", ui-monospace, "SF Mono", Menlo, "PingFang SC", "Noto Sans SC Variable", monospace;
+  --f-brush: "Zhi Mang Xing", "Noto Serif SC Variable", serif;
 
   /* fluid scale (min @ 360px → max @ 1920px) */
   --fs-hero: clamp(3.6rem, 13.4vw, 17rem);
@@ -80,7 +86,7 @@ a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
 ul { list-style: none; }
 em { font-style: italic; }
-::selection { background: var(--melon); color: var(--paper); }
+::selection { background: var(--ink); color: var(--paper); }
 
 :focus-visible { outline: 2px solid var(--melon); outline-offset: 4px; border-radius: 4px; }
 
@@ -109,19 +115,38 @@ em { font-style: italic; }
 /* display type defaults */
 h1, h2, h3, .display {
   font-family: var(--f-display);
-  font-weight: 340;
-  font-variation-settings: "opsz" 144, "SOFT" 50, "WONK" 0;
-  letter-spacing: -0.035em;
-  line-height: 0.9;
+  font-weight: 300;
+  font-variation-settings: "opsz" 144, "SOFT" 0, "WONK" 0;
+  letter-spacing: -0.032em;
+  line-height: 0.95;
+  font-kerning: normal;
 }
 h1 em, h2 em, h3 em {
   font-weight: 300;
-  font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+  font-variation-settings: "opsz" 144, "SOFT" 0, "WONK" 0;
   letter-spacing: -0.02em;
 }
 
-.label { color: var(--muted); display: flex; gap: 0.9em; }
+/* section label: index — rule — name */
+.label { color: var(--muted); display: flex; align-items: center; gap: 0.9em; }
 .label__idx { color: var(--fg); }
+.label__rule { width: 2.2em; height: 1px; background: currentColor; opacity: .5; }
+
+/* =========================================================
+   Chinese typography
+   - no synthetic italics or bold on CJK
+   - taller line-heights, gentle tracking, CJK/Latin auto spacing
+   ========================================================= */
+html:lang(zh) { font-synthesis: none; }
+html:lang(zh) body { line-height: 1.8; letter-spacing: 0.02em; text-autospace: normal; text-spacing-trim: space-first; line-break: strict; }
+html:lang(zh) h1, html:lang(zh) h2, html:lang(zh) h3, html:lang(zh) .display {
+  font-weight: 350; line-height: 1.22; letter-spacing: 0.01em;
+}
+html:lang(zh) h1 em, html:lang(zh) h2 em, html:lang(zh) h3 em, html:lang(zh) em { font-style: normal; }
+html:lang(zh) .mono { text-transform: none; letter-spacing: 0.14em; }
+/* 壹贰叁: Chinese numerals in Song, the classical way to count sections */
+html:lang(zh) .label__idx { font-family: var(--f-song); font-size: 1.15em; letter-spacing: 0; font-weight: 500; }
+.zh-brush { font-family: var(--f-brush); font-weight: 400; }
 
 /* =========================================================
    Grain
@@ -153,9 +178,9 @@ html[data-theme="dark"] .grain { opacity: 0.11; mix-blend-mode: screen; filter: 
   transition: width .35s var(--ease-out), height .35s var(--ease-out), margin .35s var(--ease-out), opacity .3s;
 }
 .cursor__ring {
-  width: 96px; height: 96px; margin: -48px 0 0 -48px;
+  width: 88px; height: 88px; margin: -44px 0 0 -44px;
   display: grid; place-items: center;
-  background: var(--melon); color: var(--paper);
+  background: var(--ink); color: var(--paper);
   transform-origin: center;
 }
 .cursor__label {
@@ -212,9 +237,6 @@ html.has-cursor, html.has-cursor a, html.has-cursor button { cursor: none; }
 .roll > span::after {
   content: attr(data-text);
   position: absolute; left: 0; top: 100%;
-  font-style: italic;
-  font-family: var(--f-display);
-  font-variation-settings: "opsz" 24, "SOFT" 100, "WONK" 1;
 }
 .roll:hover > span, .roll:focus-visible > span { transform: translateY(-100%); }
 
@@ -228,11 +250,11 @@ html.has-cursor, html.has-cursor a, html.has-cursor button { cursor: none; }
 }
 .pill__bg {
   position: absolute; inset: -1px; z-index: -1; border-radius: inherit;
-  background: var(--melon);
+  background: var(--fg);
   transform: translateY(101%); border-radius: 50% 50% 0 0;
   transition: transform .6s var(--ease-out), border-radius .6s var(--ease-out);
 }
-.pill:hover { color: var(--paper); border-color: var(--melon); }
+.pill:hover { color: var(--bg); }
 .pill:hover .pill__bg { transform: translateY(0); border-radius: 0; }
 .pill__text { pointer-events: none; }
 .pill:hover .pill__text > span { transform: translateY(-100%); }

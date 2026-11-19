@@ -1,4 +1,4 @@
-<a class="skip" href="#main">Skip to content</a>
+<a class="skip" href="#main">[[跳到正文||Skip to content]]</a>
 
   <div class="cursor" aria-hidden="true">
     <div class="cursor__dot"></div>
@@ -6,28 +6,56 @@
   </div>
   <div class="grain" aria-hidden="true"></div>
 
+  <!-- shared SVG: the studio seal 口袋瓜印 (白文, read right column first) -->
+  <svg class="svg-defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="seal-rough" x="-4%" y="-4%" width="108%" height="108%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="7" result="grain" />
+        <feDisplacementMap in="SourceGraphic" in2="grain" scale="2.4" xChannelSelector="R" yChannelSelector="G" result="rough" />
+        <feTurbulence type="fractalNoise" baseFrequency="0.13" numOctaves="3" seed="11" result="wear" />
+        <feColorMatrix in="wear" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -10 0 0 0 6.9" result="spots" />
+        <feComposite in="rough" in2="spots" operator="in" />
+      </filter>
+      <mask id="seal-cut" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
+        <rect width="100" height="100" fill="#fff" />
+        <g font-family="'Noto Serif SC Variable','Songti SC','STSong',serif" font-weight="800" font-size="41" text-anchor="middle" fill="#000">
+          <text x="70.5" y="45">口</text><text x="70.5" y="88">袋</text>
+          <text x="29.5" y="45">瓜</text><text x="29.5" y="88">印</text>
+        </g>
+      </mask>
+      <symbol id="seal" viewBox="0 0 100 100">
+        <g filter="url(#seal-rough)"><rect x="5" y="5" width="90" height="90" rx="4" fill="currentColor" mask="url(#seal-cut)" /></g>
+      </symbol>
+    </defs>
+  </svg>
+
   <header class="header">
-    <a href="/" class="logo" aria-label="Pocketmelon — home">
+    <a href="/" class="logo" aria-label="[[口袋瓜 Pocketmelon，返回首页||Pocketmelon — home]]">
       <span class="logo__cat" data-cat="logo" aria-hidden="true"><canvas></canvas></span>
       <span class="logo__word" aria-hidden="true">P<span class="logo__o">o</span>cketmelon</span>
+      <span class="logo__cn" aria-hidden="true">口袋瓜</span>
     </a>
 
-    <nav class="nav" aria-label="Primary">
+    <nav class="nav" aria-label="[[主导航||Primary]]">
       <ul>
-        <li><a href="/#work" class="roll"><span data-text="Work">Work</span></a></li>
-        <li><a href="/#labs" class="roll"><span data-text="Labs">Labs</span></a></li>
-        <li><a href="/#services" class="roll"><span data-text="Services">Services</span></a></li>
-        <li><a href="/#process" class="roll"><span data-text="Process">Process</span></a></li>
+        <li><a href="/#work" class="roll"><span data-text="[[作品||Work]]">[[作品||Work]]</span></a></li>
+        <li><a href="/#labs" class="roll"><span data-text="[[实验室||Labs]]">[[实验室||Labs]]</span></a></li>
+        <li><a href="/#services" class="roll"><span data-text="[[服务||Services]]">[[服务||Services]]</span></a></li>
+        <li><a href="/#process" class="roll"><span data-text="[[流程||Process]]">[[流程||Process]]</span></a></li>
       </ul>
     </nav>
 
     <div class="header__right">
-      <p class="header__clock mono"><span class="pulse"></span>TYO <span data-clock="Asia/Tokyo">00:00:00</span></p>
-      <a href="#contact" class="pill magnetic" data-cursor="hide">
-        <span class="pill__bg"></span>
-        <span class="pill__text roll"><span data-text="Let’s talk">Let’s talk</span></span>
+      <p class="lang mono" aria-label="[[语言||Language]]">
+        <a hreflang="zh-CN" lang="zh-CN" href="%PATH%" class="lang__opt [[is-current||]]" [[aria-current="true"||]]>中文</a>
+        <span class="lang__sep" aria-hidden="true">/</span>
+        <a hreflang="en" lang="en" href="/en%PATH%" class="lang__opt [[||is-current]]" [[||aria-current="true"]]>EN</a>
+      </p>
+      <a href="#contact" class="btn btn--line btn--sm header__cta magnetic" data-cursor="hide">
+        <span class="btn__label">[[聊聊项目||Let’s talk]]</span>
+        <span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" /></svg></span>
       </a>
-      <button class="burger" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
+      <button class="burger" aria-expanded="false" aria-controls="menu" aria-label="[[打开菜单||Open menu]]">
         <span></span><span></span>
       </button>
     </div>
@@ -35,14 +63,14 @@
 
   <div class="menu" id="menu" aria-hidden="true">
     <ul class="menu__list">
-      <li><a href="/#work"><span class="mono">01</span>Work</a></li>
-      <li><a href="/#labs"><span class="mono">02</span>Labs</a></li>
-      <li><a href="/#services"><span class="mono">03</span>Services</a></li>
-      <li><a href="/#process"><span class="mono">04</span>Process</a></li>
-      <li><a href="#contact"><span class="mono">05</span>Contact</a></li>
+      <li><a href="/#work"><span class="mono">01</span>[[作品||Work]]</a></li>
+      <li><a href="/#labs"><span class="mono">02</span>[[实验室||Labs]]</a></li>
+      <li><a href="/#services"><span class="mono">03</span>[[服务||Services]]</a></li>
+      <li><a href="/#process"><span class="mono">04</span>[[流程||Process]]</a></li>
+      <li><a href="#contact"><span class="mono">05</span>[[联系我们||Contact]]</a></li>
     </ul>
     <div class="menu__foot mono">
       <span>hello@pocketmelon.com</span>
-      <span>Tokyo, Japan</span>
+      <span class="menu__lang"><a hreflang="zh-CN" href="%PATH%">中文</a> / <a hreflang="en" href="/en%PATH%">EN</a></span>
     </div>
   </div>

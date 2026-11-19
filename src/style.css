@@ -5,4 +5,6 @@
 @import './styles/sections.css';
 @import './styles/case.css';
 @import './styles/footer.css';
+@import './styles/components.css';
+@import './styles/ink.css';
 @import './styles/responsive.css';

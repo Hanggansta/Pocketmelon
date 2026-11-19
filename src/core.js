@@ -3,6 +3,8 @@ import '@fontsource-variable/fraunces/full-italic.css';
 import '@fontsource-variable/geist';
 import '@fontsource-variable/geist-mono';
 import '@fontsource-variable/pixelify-sans';
+// Chinese: 思源宋体 for display, 思源黑体 as the web fallback behind PingFang / YaHei,
+// 志莽行书 for brush calligraphy. All three are unicode-range sliced, so only the glyphs a page uses download.
 import './style.css';
 
 import gsap from 'gsap';
@@ -16,7 +18,9 @@ import { initMagnetic, initClocks, initCopy } from './modules/ui.js';
 import { initTransitions } from './modules/transition.js';
 import { PixelCat } from './modules/pixelcat.js';
 import { initMosaics } from './modules/mosaic.js';
-import { PixelText } from './modules/pixeltext.js';
+import { InkMountains } from './modules/ink/mountains.js';
+import { initInkGlyphs } from './modules/ink/glyph.js';
+import { t, splitOpts } from './modules/i18n.js';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -24,6 +28,9 @@ const html = document.documentElement;
 export let lenis = null;
 
 /** Shared boot for every page. Returns once the page is ready to animate in. */
+export { cjkReady } from './modules/fonts.js';
+import { cjkReady } from './modules/fonts.js';
+
 export function boot() {
   history.scrollRestoration = 'manual';
   if (!location.hash) window.scrollTo(0, 0);
@@ -47,6 +54,10 @@ export function boot() {
   initMagnetic();
   initMosaics();
   initInquiry();
+  initLandscape();
+  // never open the ink onto half-swapped headlines
+  const reveal = transitions.reveal;
+  transitions.reveal = () => cjkReady.then(reveal);
   return transitions;
 }
 
@@ -56,6 +67,7 @@ export function initSharedScroll() {
 
   document.querySelectorAll('[data-split]').forEach((el) => {
     SplitText.create(el, {
+      ...splitOpts,
       type: 'lines',
       mask: 'lines',
       linesClass: 'line',
@@ -93,9 +105,14 @@ export function initSharedScroll() {
     });
   }
 
-  // the closing wordmark, in live pixels
-  const word = document.querySelector('.footer__word');
-  if (word) new PixelText(word, { text: 'Pocketmelon', splitAt: 6 });
+}
+
+/* --------------------------------------------------------- footer landscape */
+function initLandscape() {
+  const hills = document.querySelector('[data-mountains]');
+  if (hills) new InkMountains(hills);
+  const footer = document.querySelector('.footer');
+  if (footer) initInkGlyphs(footer);
 }
 
 /** Background breathes between paper and rind as sections pass. Call last. */
@@ -167,7 +184,7 @@ function initMenu() {
     open = state;
     html.classList.toggle('menu-open', open);
     btn.setAttribute('aria-expanded', open);
-    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    btn.setAttribute('aria-label', open ? t('关闭菜单', 'Close menu') : t('打开菜单', 'Open menu'));
     menu.setAttribute('aria-hidden', !open);
     if (open) {
       document.querySelector('.header').classList.remove('is-hidden');
@@ -211,20 +228,20 @@ function initInquiry() {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const data = new FormData(form);
-    const needs = data.getAll('need').join(', ') || '—';
+    const needs = data.getAll('need').join(t('、', ', ')) || '—';
     const timeline = data.get('timeline') || '—';
     const body = [
-      `Hi Pocketmelon,`,
+      t('你好，口袋瓜：', 'Hi Pocketmelon,'),
       ``,
       data.get('message') || '',
       ``,
-      `Looking for: ${needs}`,
-      `Timeline: ${timeline}`,
+      `${t('需要', 'Looking for')}: ${needs}`,
+      `${t('时间', 'Timeline')}: ${timeline}`,
       ``,
       `${data.get('name') || ''}`,
       `${data.get('email') || ''}`,
     ].join('\n');
-    const subject = `New project — ${needs}`;
+    const subject = `${t('新项目', 'New project')} — ${needs}`;
     cat()?.nibble();
     form.classList.add('is-sent');
     setTimeout(() => {

@@ -68,6 +68,22 @@ Researched against Lusion, Active Theory, Immersive Garden and basement.studio. 
 - `prefers-reduced-motion`: one settled frame, no simulation, no pin.
 - No WebGL: `public/hero/still.webp`, rendered from the live scene. To regenerate it, screenshot the frame with reduced motion on.
 
+## Languages (v6): Chinese first
+
+- **中文 is the default** at `/`, English lives at `/en/**`. Each page is written once; copy is inline as `[[中文||English]]` and resolved by the `htmlPartials` plugin in `vite.config.js`, which also sets `<html lang>`, hreflang alternates and prefixes internal links with `/en` on English pages. English entry points are one-line `@page` stubs in `en/`.
+- JS strings use `t('中文', 'English')` from `src/modules/i18n.js`.
+- Chinese typography: Noto Serif SC (headlines, 300–500), system sans + Noto Sans SC (body, 1.8 line-height), Zhi Mang Xing only inside the calligraphy canvases. CJK fonts load from an async chunk (`src/fonts-cjk.js`) so ~300 KB of `@font-face` rules never block render; reveals wait for them.
+- Line breaking follows 避头尾: SplitText gets `Intl.Segmenter` word boundaries with punctuation glued (`splitOpts`), per-character reveals use `splitCJK()`.
+
+## Ink layer (v6)
+
+Restraint is the rule: one calligraphic artefact per view, cinnabar only for the seal and a single mark.
+
+- `ink/glyph.js`: real-time brush calligraphy (WebGL). Text is rasterised, then written along the reading order with stroke growth, 飞白 dry streaks and 洇 bleed. Used for 品 (studio), the 一笔墨 lab and the vertical 瓜熟蒂落 in the footer.
+- `ink/mountains.js`: the footer scroll painting: five ridges of ink density, mist and cloud bands, a small cinnabar sun.
+- `transition.js`: ink spreads from the click point, the studio seal (口袋瓜印, `#seal` in the header defs) stamps, the next page opens out of the ink.
+- `worklist.js`: the work index; on desktop a floating preview follows the cursor and changes project through an ink blot.
+
 ## Design system
 | Token | Value | Role |
 |---|---|---|

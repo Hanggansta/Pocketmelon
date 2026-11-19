@@ -1,8 +1,10 @@
-import { boot, initSharedScroll, initThemes, lenis, gsap, ScrollTrigger, SplitText, reduced } from '../core.js';
+import { boot, initSharedScroll, initThemes, lenis, gsap, ScrollTrigger, SplitText, reduced, cjkReady } from '../core.js';
 import { initSeeds } from '../modules/seeds.js';
 import { prepareHero, introHero } from '../modules/hero.js';
 import { sound } from '../modules/sound.js';
-import { PixelCat, CAT_SIZE } from '../modules/pixelcat.js';
+import { initWorkList } from '../modules/worklist.js';
+import { initInkGlyphs } from '../modules/ink/glyph.js';
+import { t, isZh, splitCJK } from '../modules/i18n.js';
 import { initTypeLab } from '../modules/typelab.js';
 import { initPixelIcons } from '../modules/pixelicons.js';
 
@@ -42,7 +44,7 @@ if (soundBtn) {
   soundBtn.addEventListener('click', () => sound.toggle());
   sound.subscribe((on) => {
     soundBtn.setAttribute('aria-pressed', String(on));
-    soundBtn.querySelector('[data-sound-label]').textContent = on ? 'Sound on' : 'Sound off';
+    soundBtn.querySelector('[data-sound-label]').textContent = on ? t('声音 开', 'Sound on') : t('声音 关', 'Sound off');
   });
 }
 
@@ -51,6 +53,39 @@ const labSeeds = document.querySelector('.lab__seeds');
 if (labSeeds) initSeeds(labSeeds);
 initTypeLab(document.querySelector('[data-type-lab]'));
 initPixelIcons();
+initWorkList(document.querySelector('[data-worklist]'));
+const glyphs = initInkGlyphs(document.querySelector('main'));
+initInkLab(glyphs.find((g) => g.el.classList.contains('lab__glyph')));
+
+/** Labs: type a character, it is written in ink */
+function initInkLab(glyph) {
+  const form = document.querySelector('[data-ink-lab]');
+  if (!form || !glyph) return;
+  const input = form.querySelector('input');
+  const han = /\p{Script=Han}/u;
+  let busy = false;
+  const write = async (ch) => {
+    if (!ch || busy) return;
+    busy = true;
+    glyph.el.setAttribute('aria-label', t(`书法：${ch}`, `Calligraphy: ${ch}`));
+    form.querySelectorAll('[data-char]').forEach((b) => b.classList.toggle('is-on', b.dataset.char === ch));
+    await glyph.setText(ch);
+    busy = false;
+  };
+  form.addEventListener('submit', (e) => e.preventDefault());
+  input.addEventListener('input', () => {
+    const ch = [...input.value].reverse().find((c) => han.test(c));
+    if (ch) write(ch);
+  });
+  form.querySelectorAll('[data-char]').forEach((b) => b.addEventListener('click', () => write(b.dataset.char)));
+  // write the first one when it scrolls in
+  const io = new IntersectionObserver(([e]) => {
+    if (!e.isIntersecting) return;
+    io.disconnect();
+    glyph.ready.then(() => glyph.write());
+  }, { threshold: 0.4 });
+  io.observe(glyph.el);
+}
 
 lenis?.stop();
 if (transitions.arriving) document.querySelector('.loader')?.remove();
@@ -65,8 +100,8 @@ if (transitions.arriving) document.querySelector('.loader')?.remove();
 });
 
 /* ---------------------------------------------------------
-   Loader: the mascot eats the watermelon as assets arrive.
-   Only on the first visit of a session.
+   Loader: ink is ground (000→100) while assets arrive, the seal is
+   pressed, then the ink opens onto the page. First visit per session.
    --------------------------------------------------------- */
 function runLoader() {
   const loader = document.querySelector('.loader');
@@ -78,39 +113,33 @@ function runLoader() {
   }
   sessionStorage.setItem('pm:loaded', '1');
   const num = loader.querySelector('.loader__num');
-  const holder = loader.querySelector('.loader__cat');
-  // size the cat to match the page-transition mascot for a seamless hand-off
-  const scale = Math.max(3, Math.floor(Math.min(innerWidth * 0.5, innerHeight * 0.3) / CAT_SIZE.w));
-  holder.style.width = holder.style.height = `${CAT_SIZE.w * scale}px`;
-  const cat = new PixelCat(holder.querySelector('canvas'), { autoplay: true, nibble: false, interactive: false, track: false, forceMotion: true });
+  const seal = loader.querySelector('.loader__seal');
 
-  const sources = ['/work/whisperleaf/hero.webp', '/work/beads/hero.webp'];
+  const sources = ['/hero/still.webp', '/work/whisperleaf/hero.webp'];
   let done = 0;
-  const total = sources.length + 1;
+  const total = sources.length + 2;
   const progress = { v: 0, target: 0 };
   const bump = () => (progress.target = ++done / total);
   sources.forEach((src) => Object.assign(new Image(), { onload: bump, onerror: bump, src }));
-  (document.fonts?.ready ?? Promise.resolve()).then(bump);
+  cjkReady.then(bump);
+  heroReady.then(bump, bump); // the 3D scene counts as an asset
 
   return new Promise((resolve) => {
-    const minTime = performance.now() + 1400;
+    const minTime = performance.now() + 1500;
     const tick = () => {
-      progress.v += (progress.target - progress.v) * 0.08;
+      progress.v += (progress.target - progress.v) * 0.07;
       if (progress.target >= 1 && performance.now() > minTime && progress.v > 0.985) progress.v = 1;
       num.textContent = String(Math.round(progress.v * 100)).padStart(3, '0');
-      cat.setProgress(progress.v);
       if (progress.v < 1) return requestAnimationFrame(tick);
-      setTimeout(() => {
-        cat.celebrate().then(() => {
-          gsap.to(loader.querySelectorAll('.loader__meta'), { autoAlpha: 0, duration: 0.3 });
-          setTimeout(() => {
-            loader.remove();
-            cat.destroy();
-            transitions.reveal().then(() => {});
-            setTimeout(resolve, 250);
-          }, 250);
-        });
-      }, 350);
+      // press the seal, hold a beat, then open the ink
+      gsap.timeline()
+        .fromTo(seal, { scale: 1.35, autoAlpha: 0, rotate: -4 }, { scale: 1, autoAlpha: 1, rotate: 0, duration: 0.45, ease: 'back.out(2.2)' })
+        .to(loader.querySelector('.loader__meta'), { autoAlpha: 0, duration: 0.35 }, 0.2)
+        .add(() => {
+          loader.remove();
+          transitions.reveal();
+          setTimeout(resolve, 300);
+        }, 0.95);
     };
     requestAnimationFrame(tick);
   });
@@ -170,27 +199,33 @@ function initHomeScroll() {
 
   // Manifesto words light up
   const manifesto = document.querySelector('[data-words]');
-  const ms = SplitText.create(manifesto, { type: 'words', wordsClass: 'word' });
-  gsap.to(ms.words, {
+  const msParts = isZh ? splitCJK(manifesto) : SplitText.create(manifesto, { type: 'words', wordsClass: 'word' }).words;
+  gsap.to(msParts, {
     opacity: 1,
     stagger: 0.1,
     ease: 'none',
     scrollTrigger: { trigger: manifesto, start: 'top 78%', end: 'bottom 50%', scrub: 0.6 },
   });
 
-  // Case cards: media parallax + meta slide
-  gsap.utils.toArray('.case-card').forEach((card) => {
-    const media = card.querySelector('.case-card__media');
-    gsap.fromTo(media, { yPercent: 8 }, { yPercent: -8, ease: 'none', scrollTrigger: { trigger: card, start: 'top bottom', end: 'bottom top', scrub: true } });
-    gsap.from(card.querySelectorAll('.case-card__info > *'), {
-      y: 40,
+  // Work list: rows draw their rule and slide in
+  gsap.utils.toArray('.wl__row').forEach((row, i) => {
+    gsap.from(row.querySelectorAll('.wl__link > *:not(.wl__thumb)'), {
+      yPercent: 60,
       autoAlpha: 0,
-      stagger: 0.07,
-      duration: 1.2,
+      duration: 1.1,
       ease: 'expo.out',
-      scrollTrigger: { trigger: card, start: 'top 75%', once: true },
+      stagger: 0.04,
+      delay: i * 0.05,
+      scrollTrigger: { trigger: row, start: 'top 88%', once: true },
     });
+    gsap.fromTo(row, { '--rule': 0 }, { '--rule': 1, duration: 1.4, ease: 'expo.inOut', scrollTrigger: { trigger: row, start: 'top 92%', once: true } });
   });
+
+  // 三口成品: the three mouths stack, then the character is written
+  const marks = gsap.utils.toArray('.pin__marks i');
+  if (marks.length) {
+    gsap.from(marks, { y: 30, autoAlpha: 0, stagger: 0.12, duration: 0.9, ease: 'expo.out', scrollTrigger: { trigger: '.pin', start: 'top 70%', once: true } });
+  }
 
   // Services horizontal (desktop)
   mm.add('(min-width: 901px)', () => {

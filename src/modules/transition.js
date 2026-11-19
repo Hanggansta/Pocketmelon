@@ -1,117 +1,151 @@
-import { drawStaticCat, CAT_SIZE } from './pixelcat.js';
+import { getGL, makeProgram, fit, NOISE, easeInOut } from './ink/gl.js';
 import { reduced } from './env.js';
 
 /**
- * Pixel-dissolve page transitions.
- * Leaving a page: square pixels fill the screen in a diagonal wave with jitter,
- * the mascot appears in the middle, then we navigate. On arrival the page starts
- * covered (see the inline guard in each HTML <head>) and the pixels clear in the
- * same order.
+ * 水墨 page transitions.
+ * Leaving: ink drops land where you clicked and spread until they swallow the page, with
+ * wet, darker rims and a grey bleed running ahead of the front. The studio seal is pressed
+ * in the centre. Arriving: the page starts covered (inline guard in <head>) and the ink
+ * opens from the centre like paper drying through.
  */
 const KEY = 'pm:transition';
-const COLORS = ['#15231a', '#15231a', '#15231a', '#1c2e22'];
+export const INK_BG = '#12110e';
+
+const FRAG = /* glsl */ `
+${NOISE}
+uniform vec2 uRes;
+uniform vec2 uOrigin;
+uniform float uP, uMode, uSeed;
+varying vec2 vUv;
+
+void main() {
+  vec2 uv = vUv;
+  float asp = uRes.x / uRes.y;
+  vec2 st = vec2(uv.x * asp, uv.y);
+  vec2 o = vec2(uOrigin.x * asp, uOrigin.y);
+
+  float n = fbm(st * 2.6 + uSeed);
+  float n2 = fbm3(st * 14.0 - uSeed);
+  // three drops that merge: the click, and two satellites
+  vec2 o2 = o + vec2(0.22, -0.16) * vec2(sin(uSeed), cos(uSeed * 1.7));
+  vec2 o3 = o + vec2(-0.25, 0.2) * vec2(cos(uSeed * 0.7), sin(uSeed * 2.1));
+  float d = min(length(st - o), min(length(st - o2) + 0.14, length(st - o3) + 0.22));
+  float field = d + (n - 0.5) * 0.42 + (n2 - 0.5) * 0.05;
+
+  float far = length(vec2(asp, 1.0)) + 0.5;
+  float front = uP * far;
+
+  float inside = smoothstep(front + 0.004, front - 0.004, field);
+  float rim = smoothstep(0.1, 0.0, front - field) * inside;         // wet edge, denser ink
+  float bleed = smoothstep(front + 0.07, front, field) * (1.0 - inside); // grey running ahead
+
+  // revealing = the inverse: a hole that grows from the centre
+  if (uMode > 0.5) {
+    inside = 1.0 - inside;
+    rim = smoothstep(0.1, 0.0, front - field) * inside * step(0.001, uP);
+    bleed = 0.0;
+  }
+
+  vec3 ink = vec3(0.071, 0.067, 0.055);
+  float shade = 0.05 * (fbm3(st * 5.0 + 9.0) - 0.5);
+  vec3 col = ink + shade - rim * 0.03;
+  float a = clamp(inside + bleed * 0.35 * (0.6 + n2), 0.0, 1.0);
+  gl_FragColor = vec4(col * a, a);
+}`;
 
 export function initTransitions() {
-  const canvas = document.createElement('canvas');
-  canvas.className = 'px-transition';
-  canvas.setAttribute('aria-hidden', 'true');
-  document.body.appendChild(canvas);
-  const ctx = canvas.getContext('2d');
-  let cells = [];
-  let cols = 0, rows = 0, size = 0, dpr = 1, maxDelay = 1;
+  const wrap = document.createElement('div');
+  wrap.className = 'ink-transition';
+  wrap.setAttribute('aria-hidden', 'true');
+  wrap.innerHTML = '<canvas></canvas><svg class="ink-transition__seal seal" viewBox="0 0 100 100"><use href="#seal"></use></svg>';
+  document.body.appendChild(wrap);
+  const canvas = wrap.querySelector('canvas');
+  const seal = wrap.querySelector('.ink-transition__seal');
+  const gl = getGL(canvas);
+  let prog = null;
+  try {
+    if (gl) prog = makeProgram(gl, FRAG);
+  } catch (e) {
+    console.warn('[ink transition]', e);
+  }
+  const seed = Math.random() * 20;
 
-  const build = () => {
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = innerWidth * dpr;
-    canvas.height = innerHeight * dpr;
-    size = Math.ceil(Math.max(innerWidth, innerHeight) / (innerWidth < 700 ? 12 : 22));
-    cols = Math.ceil(innerWidth / size);
-    rows = Math.ceil(innerHeight / size);
-    cells = [];
-    for (let y = 0; y < rows; y++) {
-      for (let x = 0; x < cols; x++) {
-        cells.push({ x, y, d: (x / cols) * 0.55 + (1 - y / rows) * 0.25 + Math.random() * 0.2, c: COLORS[(x * 7 + y * 3) % COLORS.length] });
-      }
+  const draw = (p, mode, origin = [0.5, 0.5]) => {
+    if (!prog) {
+      // no WebGL: a plain fade
+      wrap.style.background = INK_BG;
+      wrap.style.opacity = mode ? 1 - p : p;
+      return;
     }
-    maxDelay = 1;
+    fit(canvas, 1, 1600);
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    gl.clearColor(0, 0, 0, 0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    prog.use()
+      .f('uRes', canvas.width, canvas.height)
+      .f('uOrigin', origin[0], origin[1])
+      .f('uP', p)
+      .f('uMode', mode)
+      .f('uSeed', seed)
+      .draw();
   };
 
-  const draw = (t, dir) => {
-    // t: 0..1 coverage progress. dir 'in' = covering, 'out' = clearing
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.clearRect(0, 0, innerWidth, innerHeight);
-    for (const c of cells) {
-      const local = Math.min(1, Math.max(0, (t * 1.25 - c.d) / 0.25));
-      const k = dir === 'in' ? local : 1 - local;
-      if (k <= 0) continue;
-      const s = Math.ceil(size * (k < 1 ? Math.round(k * 4) / 4 : 1));
-      ctx.fillStyle = c.c;
-      ctx.fillRect(c.x * size + (size - s) / 2, c.y * size + (size - s) / 2, s + 0.5, s + 0.5);
-    }
-    // mascot when mostly covered
-    const catK = dir === 'in' ? (t - 0.7) / 0.3 : 1 - t / 0.35;
-    if (catK > 0) {
-      const scale = Math.max(2, Math.floor(Math.min(innerWidth, innerHeight) / 7 / CAT_SIZE.w));
-      ctx.globalAlpha = Math.min(1, catK);
-      drawStaticCat(ctx, innerWidth / 2 - (CAT_SIZE.w * scale) / 2, innerHeight / 2 - (CAT_SIZE.h * scale) / 2, scale);
-      ctx.globalAlpha = 1;
-    }
-  };
-
-  const run = (dir, duration) =>
+  const run = (mode, duration, origin) =>
     new Promise((resolve) => {
-      const start = performance.now();
-      canvas.style.visibility = 'visible';
+      wrap.style.visibility = 'visible';
+      const t0 = performance.now();
       const frame = (now) => {
-        const t = Math.min(1, (now - start) / duration);
-        // stepped easing for a pixel feel
-        const stepped = Math.round(t * 18) / 18;
-        draw(stepped, dir);
+        const t = Math.min(1, (now - t0) / duration);
+        draw(easeInOut(t), mode, origin);
         if (t < 1) requestAnimationFrame(frame);
         else {
-          if (dir === 'out') canvas.style.visibility = 'hidden';
+          if (mode === 1) wrap.style.visibility = 'hidden';
           resolve();
         }
       };
       requestAnimationFrame(frame);
     });
 
-  build();
-  window.addEventListener('resize', build);
-
-  // arrival
   const arriving = sessionStorage.getItem(KEY) === '1';
   sessionStorage.removeItem(KEY);
+
+  /** uncover the page (after arrival or the loader) */
   const reveal = () => {
     document.documentElement.classList.remove('is-arriving');
-    if (reduced) return Promise.resolve();
-    draw(1, 'in');
-    return run('out', 750);
+    if (reduced) {
+      wrap.style.visibility = 'hidden';
+      return Promise.resolve();
+    }
+    wrap.style.visibility = 'visible';
+    draw(0, 1);
+    seal.classList.remove('is-on');
+    return run(1, 1100, [0.5, 0.52]);
   };
 
-  // departures
   document.addEventListener('click', (e) => {
     const a = e.target.closest('a[href]');
     if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     if (a.target === '_blank' || a.hasAttribute('download') || a.dataset.noTransition !== undefined) return;
     const url = new URL(a.href, location.href);
-    if (url.origin !== location.origin) return;
+    if (url.origin !== location.origin || url.protocol === 'mailto:') return;
     if (url.pathname === location.pathname && url.hash) return; // in-page anchor
-    if (url.protocol === 'mailto:') return;
     e.preventDefault();
     sessionStorage.setItem(KEY, '1');
     if (reduced) {
       location.href = url.href;
       return;
     }
-    run('in', 700).then(() => (location.href = url.href));
+    const origin = [e.clientX / innerWidth || 0.5, 1 - (e.clientY / innerHeight || 0.5)];
+    run(0, 950, origin).then(() => {
+      seal.classList.add('is-on');
+      setTimeout(() => (location.href = url.href), 380);
+    });
   });
 
-  // bfcache restore: make sure nothing is left covering the page
   window.addEventListener('pageshow', (e) => {
     if (e.persisted) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      canvas.style.visibility = 'hidden';
+      wrap.style.visibility = 'hidden';
+      seal.classList.remove('is-on');
       document.documentElement.classList.remove('is-arriving');
     }
   });
