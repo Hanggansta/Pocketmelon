@@ -1,50 +1,98 @@
 import { boot, initSharedScroll, initThemes, lenis, gsap, ScrollTrigger, SplitText, reduced } from '../core.js';
 import { initSeeds } from '../modules/seeds.js';
 import { prepareHero, introHero, initProximity } from '../modules/hero.js';
-import { BeadHero } from '../modules/beadhero.js';
+import { PixelHero } from '../modules/pixelhero.js';
 import { PixelCat, CAT_SIZE } from '../modules/pixelcat.js';
-import { BeadBoard } from '../modules/beadboard.js';
+import { initTypeLab } from '../modules/typelab.js';
+import { initPixelIcons } from '../modules/pixelicons.js';
 
 const transitions = boot();
 const heroChars = prepareHero();
 const pxDot = [...document.querySelectorAll('.hero__line--3 .char')].pop();
 pxDot?.classList.add('px-dot');
 const heroEl = document.querySelector('.hero');
-const beadHero = new BeadHero(document.querySelector('.hero__stage'), {
+const heroStage = document.querySelector('.hero__stage');
+const artSize = document.querySelector('[data-art-size]');
+const pixelHero = new PixelHero(heroStage, {
   hero: heroEl,
   logo: document.querySelector('.logo__cat'),
 });
-alignPegs();
-window.addEventListener('resize', alignPegs);
-
-/** line the CSS pegboard up with the bead grid, so empty pegs show where beads sat */
-function alignPegs() {
-  const p = beadHero.pitch;
+/** line the artboard grid up with the mascot's pixels (one cell = 4 × 4 pixels) and keep the size tag live */
+function alignGrid(h) {
+  const g = h.pitch * 4;
   const hx = heroEl.getBoundingClientRect().left;
-  heroEl.style.setProperty('--peg', `${p}px`);
-  heroEl.style.setProperty('--peg-x', `${(beadHero.sx - hx) % p}px`);
-  heroEl.style.setProperty('--peg-y', `${(beadHero.sy - heroEl.offsetTop) % p}px`);
+  heroEl.style.setProperty('--grid', `${g}px`);
+  heroEl.style.setProperty('--grid-x', `${(((h.sx - hx) % g) + g) % g}px`);
+  heroEl.style.setProperty('--grid-y', `${(((h.sy - heroEl.offsetTop) % g) + g) % g}px`);
+  // hug the artwork, like a selected layer
+  const bb = h.bbox;
+  const art = heroStage.querySelector('.artboard');
+  if (bb && art) {
+    const pad = h.pitch * 1.2;
+    const off = (heroStage.offsetWidth - h.pitch * 44) / 2;
+    Object.assign(art.style, {
+      inset: 'auto',
+      left: `${off + bb.x * h.pitch - pad}px`,
+      top: `${off + bb.y * h.pitch - pad}px`,
+      width: `${bb.w * h.pitch + pad * 2}px`,
+      height: `${bb.h * h.pitch + pad * 2}px`,
+    });
+    if (artSize) artSize.textContent = `${Math.round(bb.w * h.pitch)} × ${Math.round(bb.h * h.pitch)}`;
+  }
+}
+pixelHero.onMeasure = alignGrid;
+alignGrid(pixelHero);
+
+/** a collaborator's cursor glides in and selects the mascot, like a shared design file */
+function selectMascot() {
+  const ghost = heroStage.querySelector('.ghost');
+  const w = heroStage.offsetWidth;
+  if (!ghost || reduced) {
+    heroEl.classList.add('is-selected');
+    return;
+  }
+  gsap.timeline()
+    .set(ghost, { x: w * 1.15, y: w * 1.05, opacity: 0 })
+    .to(ghost, { opacity: 1, duration: 0.3 })
+    .to(ghost, { x: w * 0.62, y: w * 0.56, duration: 1.1, ease: 'power3.inOut' }, 0)
+    .to(ghost.querySelector('.ghost__arrow'), { scale: 0.82, duration: 0.09, yoyo: true, repeat: 1, transformOrigin: '10% 10%' })
+    .add(() => heroEl.classList.add('is-selected'))
+    .to(ghost, { x: w * 1.04, y: w * 1.08, duration: 1.1, ease: 'power2.inOut' }, '+=0.35')
+    .to(ghost, { opacity: 0, duration: 0.5 }, '-=0.35');
 }
 
 // labs
 const labSeeds = document.querySelector('.lab__seeds');
 if (labSeeds) initSeeds(labSeeds);
-const labBeads = document.querySelector('[data-lab-beads]');
-if (labBeads) new BeadBoard(labBeads, { compact: true, autoplay: true, board: '#efe8da' });
+initTypeLab(document.querySelector('[data-type-lab]'));
+initPixelIcons();
+
+// selection tags on the case images report their real rendered size
+document.querySelectorAll('.case-card__frame').forEach((frame) => {
+  const tag = frame.querySelector('[data-sel-size]');
+  if (!tag) return;
+  new ResizeObserver(([e]) => {
+    const { width, height } = e.contentRect;
+    tag.textContent = `${Math.round(width)} × ${Math.round(height)}`;
+  }).observe(frame);
+});
 
 lenis?.stop();
 if (transitions.arriving) document.querySelector('.loader')?.remove();
 (transitions.arriving ? transitions.reveal() : runLoader()).then(() => {
   document.documentElement.classList.remove('is-loading');
   lenis?.start();
-  beadHero.start();
+  pixelHero.start();
   if (!reduced) {
     introHero(heroChars).add(() => initProximity(heroChars), 1.2);
-    // once the beads have landed the cat takes its first bite, and the pixel full stop hops
-    gsap.delayedCall(2.4, () => {
-      beadHero.nibble();
+    gsap.delayedCall(1.0, selectMascot);
+    // once it is selected the cat takes its first bite, and the pixel full stop hops
+    gsap.delayedCall(3.0, () => {
+      pixelHero.nibble();
       gsap.delayedCall(0.3, () => pxDot?.classList.add('is-pop'));
     });
+  } else {
+    heroEl.classList.add('is-selected');
   }
   initHomeScroll();
   initSharedScroll();
@@ -124,7 +172,7 @@ function initHomeScroll() {
           scrub: 1,
           onUpdate: (self) => {
             header.classList.toggle('on-media', self.progress > 0.35 && self.progress < 0.995);
-            // a bead pattern that sharpens into the product as it fills the screen
+            // a low-res render that sharpens into the product as it fills the screen
             featureMedia._mosaic?.set(reduced ? 1 : Math.max(14, Math.min(28, innerWidth / 50)) * Math.pow(1 - Math.min(1, self.progress / 0.62), 1.6));
           },
           onLeave: () => header.classList.remove('on-media'),
