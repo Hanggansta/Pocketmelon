@@ -104,7 +104,6 @@
 /* touch: neutralise hover-only effects */
 @media (hover: none) {
   .svc::before { display: none; }
-  .case-card__link:hover .case-card__frame { border-radius: 22px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

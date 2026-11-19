@@ -1,12 +1,11 @@
-import { makeBead } from './beadhero.js';
 import { pointer, reduced } from './env.js';
 
 /**
- * BeadText: a word set in the brand's pixel font, rebuilt as fuse beads.
- * Beads pour in column by column when the word scrolls into view, then part
- * and lift under the cursor and spring back.
+ * PixelText: a word set in the brand's pixel font, rebuilt as live pixels.
+ * Pixels rain in column by column when the word scrolls into view, then part
+ * and swell under the cursor and spring back.
  *
- *   new BeadText(el, { text: 'Pocketmelon', splitAt: 6 })
+ *   new PixelText(el, { text: 'Pocketmelon', splitAt: 6 })
  *   → letters before `splitAt` use colors[0], the rest colors[1]
  */
 const hex = (h) => {
@@ -14,7 +13,7 @@ const hex = (h) => {
   return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
 };
 
-export class BeadText {
+export class PixelText {
   constructor(el, { text, splitAt = text.length, colors = ['#efebe3', '#ff4f3f'], font = '"Pixelify Sans Variable"', weight = 600, px = 22 } = {}) {
     this.el = el;
     this.text = text;
@@ -22,12 +21,11 @@ export class BeadText {
     this.rgb = colors.map(hex);
     this.fontSpec = `${weight} ${px}px ${font}`;
     this.px = px;
-    this.beads = [];
-    this.sprites = [];
+    this.cells = [];
     this.started = false;
     this.visible = false;
     this.canvas = document.createElement('canvas');
-    this.canvas.className = 'bead-text';
+    this.canvas.className = 'pixel-text';
     this.canvas.setAttribute('aria-hidden', 'true');
     this.ctx = this.canvas.getContext('2d');
     this.frame = this.frame.bind(this);
@@ -38,7 +36,7 @@ export class BeadText {
   init() {
     this.bitmap();
     if (!this.cols) return;
-    this.el.classList.add('is-beaded');
+    this.el.classList.add('is-pixelated');
     this.el.appendChild(this.canvas);
     this.layout();
     new ResizeObserver(this.layout).observe(this.el);
@@ -53,7 +51,7 @@ export class BeadText {
     } else requestAnimationFrame(this.frame);
   }
 
-  /** rasterise the word at 1px per bead and keep the solid pixels */
+  /** rasterise the word at 1px per cell and keep the solid pixels */
   bitmap() {
     const c = document.createElement('canvas');
     const g = c.getContext('2d');
@@ -82,7 +80,7 @@ export class BeadText {
     if (!on.length) return;
     this.cols = maxX - minX + 1;
     this.rows = maxY - minY + 1;
-    this.beads = on.map(([x, y]) => ({
+    this.cells = on.map(([x, y]) => ({
       cx: x - minX, cy: y - minY, c: x < splitX ? 0 : 1,
       ox: 0, oy: 0, vx: 0, vy: 0, lift: 0,
       delay: 0, drop: 0,
@@ -100,27 +98,14 @@ export class BeadText {
     this.canvas.height = Math.round(h * this.dpr);
     this.canvas.style.width = `${w}px`;
     this.canvas.style.height = `${h}px`;
-    const size = Math.max(4, Math.ceil(this.pitch * this.dpr));
-    this.sprites = this.rgb.map((c) => makeBead(c, size));
-    this.shadow = (() => {
-      const s = Math.ceil(size * 1.6);
-      const cv = document.createElement('canvas');
-      cv.width = cv.height = s;
-      const gg = cv.getContext('2d');
-      const gr = gg.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2);
-      gr.addColorStop(0, 'rgba(0,0,0,.45)');
-      gr.addColorStop(1, 'rgba(0,0,0,0)');
-      gg.fillStyle = gr;
-      gg.fillRect(0, 0, s, s);
-      return cv;
-    })();
+    this.fills = this.rgb.map((c) => `rgb(${c[0]},${c[1]},${c[2]})`);
     if (reduced && this.started) this.draw(0);
   }
 
   start() {
     this.started = true;
     this.t0 = performance.now();
-    for (const b of this.beads) {
+    for (const b of this.cells) {
       b.delay = (b.cx / this.cols) * 1100 + Math.random() * 260;
       b.drop = this.pitch * (8 + Math.random() * 10);
     }
@@ -136,7 +121,7 @@ export class BeadText {
     const px = pointer.x - r.left, py = pointer.y - r.top;
     const R = this.pitch * 6;
     const P = this.pitch;
-    for (const b of this.beads) {
+    for (const b of this.cells) {
       let tx = 0, ty = 0, tl = 0;
       if (pointer.active) {
         const hx = (b.cx + 0.5) * P, hy = (b.cy + 0.6) * P;
@@ -165,12 +150,11 @@ export class BeadText {
     const P = this.pitch * dpr;
     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     const el = now - this.t0;
-    const SH = this.shadow.width;
-    const list = [];
-    for (const b of this.beads) {
+    const G = 0.88; // pixel size as a share of the pitch
+    for (const b of this.cells) {
       let x = (b.cx + 0.5) * P + b.ox * dpr;
       let y = (b.cy + 0.6) * P + b.oy * dpr;
-      let s = 1, a = 1;
+      let a = 1;
       if (!reduced) {
         const u = Math.min(1, Math.max(0, (el - b.delay) / 650));
         if (u <= 0) continue;
@@ -178,18 +162,10 @@ export class BeadText {
         y -= (1 - e) * b.drop * dpr;
         a = Math.min(1, u * 2.5);
       }
-      s *= 1 + b.lift * 0.25;
-      list.push([x, y, s, a, b]);
-    }
-    for (const [x, y, s, a, b] of list) {
-      ctx.globalAlpha = a * (1 - b.lift * 0.3);
-      const ss = SH * s;
-      ctx.drawImage(this.shadow, x - ss / 2, y - ss / 2 + P * (0.18 + b.lift * 0.4), ss, ss);
-    }
-    for (const [x, y, s, a, b] of list) {
+      const s = P * G * (1 + b.lift * 0.35);
       ctx.globalAlpha = a;
-      const bs = P * s;
-      ctx.drawImage(this.sprites[b.c], x - bs / 2, y - bs / 2 - b.lift * P * 0.25, bs, bs);
+      ctx.fillStyle = this.fills[b.c];
+      ctx.fillRect(x - s / 2, y - s / 2, s, s);
     }
     ctx.globalAlpha = 1;
   }

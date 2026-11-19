@@ -3,9 +3,9 @@ import { reduced } from './env.js';
 
 /**
  * Pixel-dissolve page transitions.
- * Leaving a page: square "beads" fill the screen in a diagonal wave with jitter,
+ * Leaving a page: square pixels fill the screen in a diagonal wave with jitter,
  * the mascot appears in the middle, then we navigate. On arrival the page starts
- * covered (see the inline guard in each HTML <head>) and the beads clear in the
+ * covered (see the inline guard in each HTML <head>) and the pixels clear in the
  * same order.
  */
 const KEY = 'pm:transition';

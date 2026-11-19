@@ -40,18 +40,20 @@ It shows up in the header logo, the loader (it eats the melon as the page loads)
 
 Videos autoplay muted and loop, and pause when off-screen. Use H.264 MP4 at 1440px wide or less, 8–15 s, no audio.
 
-## Art direction: everything is made of beads
+## Art direction: the pixel, on a design artboard
 
-One material carries the whole site: **fuse beads on a pegboard** (our Beads product, our pixel mascot).
+Pocketmelon is a digital design studio, so the site speaks the language of the craft: **the screen pixel and the design tool**. Editorial serif type carries the voice; the pixel is the accent (the square full stop, the pixel wordmark, the mascot). Beads belong to the Beads case study only.
 
 | Moment | What happens | Module |
 |---|---|---|
-| Hero | ~1,900 beads pour onto a pegboard and become the cat. Brush them to part them, click for a shockwave. On the first bite, melon beads fall off. On scroll every bead flies back into the header logo ("back in its pocket"). | `src/modules/beadhero.js` |
+| Hero | The mascot assembles from ~1,900 screen pixels on a hairline artboard grid. A collaborator's cursor ("Pocketmelon") glides in and selects it: frame, handles, layer name and a live size tag. Brush to part the pixels, click to ripple and feed. Bitten pixels break off. On scroll every pixel flies into the header logo ("back in its pocket"). | `src/modules/pixelhero.js` |
 | Headline | The full stop in "into." is a square pixel, like the dot in the wordmark. It hops when the cat bites. | `home.css` `.px-dot` |
-| Feature | The Whisperleaf card starts as a bead pattern and sharpens into the photograph as it expands to full bleed. | `mosaic.js` (`data-mosaic-scrub`) |
-| Any photo | A fast scroll flick breaks every on-screen image into beads, which settle back when you stop. | `mosaic.js` velocity loop |
-| Case images | Bead-resolve on enter, pixel-swap on hover. | `mosaic.js` |
-| Footer | The closing "Pocketmelon" wordmark is rebuilt in beads. It pours in column by column and parts under the cursor. | `src/modules/beadtext.js` |
+| Feature | The Whisperleaf card starts as a low-res pixel grid and sharpens into the photograph as it expands to full bleed. | `mosaic.js` (`data-mosaic-scrub`) |
+| Work | Hovering a case image selects it like a layer: frame, handles, name and its real rendered size. | `sections.css` `.sel` |
+| Any photo | A fast scroll flick breaks on-screen images into pixels, which settle back when you stop. | `mosaic.js` velocity loop |
+| Labs | Elastic type: each letter of "Juicy" sets its own weight, optical size and softness from the cursor, with a live axis readout. | `src/modules/typelab.js` |
+| Services | 12×12 pixel icons render in on enter and re-render on hover. | `src/modules/pixelicons.js` |
+| Footer | The closing "Pocketmelon" wordmark is rebuilt in live pixels. It rains in column by column and parts under the cursor. | `src/modules/pixeltext.js` |
 
 Everything respects `prefers-reduced-motion` and falls back to a finished, static state.
 
