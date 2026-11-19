@@ -21,8 +21,12 @@
   --ink-wash: #2a2925;
 
   /* Latin first, then the Chinese face: mixed lines get the right glyphs from each */
-  --f-display: "PM Glyphs", "Fraunces Variable", "Noto Serif SC Variable", "Songti SC", "STSong", serif;
-  --f-song: "Noto Serif SC Variable", "Songti SC", "STSong", serif;
+  /* v7 type: one editorial serif for Latin display (Instrument Serif), one letterpress Song for
+     Chinese display (京華老宋体), Noto Serif SC for Chinese reading, Geist for utility. */
+  --f-display: "PM Glyphs", "Instrument Serif", "KingHwa_OldSong", "Noto Serif SC Variable", "Songti SC", "STSong", serif;
+  --f-song: "KingHwa_OldSong", "Noto Serif SC Variable", "Songti SC", "STSong", serif;
+  --f-text: "Geist Variable", "Noto Serif SC Variable", "Songti SC", "STSong", serif;
+  --f-fraunces: "Fraunces Variable", serif;
   --f-sans: "PM Glyphs", "Geist Variable", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC Variable", system-ui, sans-serif;
   --f-mono: "PM Glyphs", "Geist Mono Variable", ui-monospace, "SF Mono", Menlo, "PingFang SC", "Noto Sans SC Variable", monospace;
   --f-brush: "Zhi Mang Xing", "Noto Serif SC Variable", serif;
@@ -115,9 +119,8 @@ em { font-style: italic; }
 /* display type defaults */
 h1, h2, h3, .display {
   font-family: var(--f-display);
-  font-weight: 300;
-  font-variation-settings: "opsz" 144, "SOFT" 0, "WONK" 0;
-  letter-spacing: -0.032em;
+  font-weight: 400;
+  letter-spacing: -0.018em;
   line-height: 0.95;
   font-kerning: normal;
 }
@@ -138,7 +141,7 @@ h1 em, h2 em, h3 em {
    - taller line-heights, gentle tracking, CJK/Latin auto spacing
    ========================================================= */
 html:lang(zh) { font-synthesis: none; }
-html:lang(zh) body { line-height: 1.8; letter-spacing: 0.02em; text-autospace: normal; text-spacing-trim: space-first; line-break: strict; }
+html:lang(zh) body { font-family: var(--f-text); line-height: 1.8; letter-spacing: 0.02em; text-autospace: normal; text-spacing-trim: space-first; line-break: strict; }
 html:lang(zh) h1, html:lang(zh) h2, html:lang(zh) h3, html:lang(zh) .display {
   font-weight: 350; line-height: 1.22; letter-spacing: 0.01em;
 }

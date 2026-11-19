@@ -1,7 +1,7 @@
 import { boot, initSharedScroll, initThemes, lenis, gsap, ScrollTrigger, SplitText, reduced, cjkReady } from '../core.js';
 import { initSeeds } from '../modules/seeds.js';
 import { prepareHero, introHero } from '../modules/hero.js';
-import { sound } from '../modules/sound.js';
+import { initHeroInk, enso, initAlum, initInkLab } from '../modules/inkscenes.js';
 import { initWorkList } from '../modules/worklist.js';
 import { initInkGlyphs } from '../modules/ink/glyph.js';
 import { t, isZh, splitCJK } from '../modules/i18n.js';
@@ -14,39 +14,10 @@ const heroEl = document.querySelector('.hero');
 const heroFrame = document.querySelector('.hero__frame');
 
 /* ---------------------------------------------------------
-   Hero scene: lazy-loaded (three + rapier + postprocessing
-   only ship on the home page, after first paint).
-   Reduced motion renders one still frame; no WebGL keeps the image.
+   Hero: a sheet of xuan paper the visitor paints on (WebGL2 ink sim).
+   No WebGL2 keeps the plain paper and the type.
    --------------------------------------------------------- */
-let voxel = null;
-const heroReady = (async () => {
-  const { VoxelHero, webglAvailable } = await import('../modules/voxelhero.js');
-  if (!webglAvailable()) return null;
-  try {
-    voxel = await VoxelHero.create(heroFrame, {
-      still: reduced,
-      onPush: (n) => sound.tick(Math.min(1, n / 40)),
-      onBite: () => sound.nom(),
-    });
-    if (import.meta.env.DEV) window.__hero = voxel;
-    // reveal the live canvas once it has drawn a frame
-    requestAnimationFrame(() => requestAnimationFrame(() => heroEl.classList.add('has-gl')));
-    return voxel;
-  } catch (err) {
-    console.warn('[hero] WebGL scene unavailable, keeping the still', err);
-    return null;
-  }
-})();
-
-// sound toggle: off by default
-const soundBtn = document.querySelector('[data-sound]');
-if (soundBtn) {
-  soundBtn.addEventListener('click', () => sound.toggle());
-  sound.subscribe((on) => {
-    soundBtn.setAttribute('aria-pressed', String(on));
-    soundBtn.querySelector('[data-sound-label]').textContent = on ? t('声音 开', 'Sound on') : t('声音 关', 'Sound off');
-  });
-}
+const heroInk = initHeroInk(heroFrame);
 
 // labs
 const labSeeds = document.querySelector('.lab__seeds');
@@ -54,45 +25,16 @@ if (labSeeds) initSeeds(labSeeds);
 initTypeLab(document.querySelector('[data-type-lab]'));
 initPixelIcons();
 initWorkList(document.querySelector('[data-worklist]'));
-const glyphs = initInkGlyphs(document.querySelector('main'));
-initInkLab(glyphs.find((g) => g.el.classList.contains('lab__glyph')));
-
-/** Labs: type a character, it is written in ink */
-function initInkLab(glyph) {
-  const form = document.querySelector('[data-ink-lab]');
-  if (!form || !glyph) return;
-  const input = form.querySelector('input');
-  const han = /\p{Script=Han}/u;
-  let busy = false;
-  const write = async (ch) => {
-    if (!ch || busy) return;
-    busy = true;
-    glyph.el.setAttribute('aria-label', t(`书法：${ch}`, `Calligraphy: ${ch}`));
-    form.querySelectorAll('[data-char]').forEach((b) => b.classList.toggle('is-on', b.dataset.char === ch));
-    await glyph.setText(ch);
-    busy = false;
-  };
-  form.addEventListener('submit', (e) => e.preventDefault());
-  input.addEventListener('input', () => {
-    const ch = [...input.value].reverse().find((c) => han.test(c));
-    if (ch) write(ch);
-  });
-  form.querySelectorAll('[data-char]').forEach((b) => b.addEventListener('click', () => write(b.dataset.char)));
-  // write the first one when it scrolls in
-  const io = new IntersectionObserver(([e]) => {
-    if (!e.isIntersecting) return;
-    io.disconnect();
-    glyph.ready.then(() => glyph.write());
-  }, { threshold: 0.4 });
-  io.observe(glyph.el);
-}
+initInkGlyphs(document.querySelector('main'));
+initAlum(document.querySelector('[data-alum]'));
+initInkLab(document.querySelector('[data-ink-lab]'));
 
 lenis?.stop();
 if (transitions.arriving) document.querySelector('.loader')?.remove();
 (transitions.arriving ? transitions.reveal() : runLoader()).then(() => {
   document.documentElement.classList.remove('is-loading');
   lenis?.start();
-  heroReady.then((v) => v?.start());
+  setTimeout(() => enso(heroInk), reduced ? 0 : 450);
   if (!reduced) introHero(heroChars);
   initHomeScroll();
   initSharedScroll();
@@ -115,14 +57,13 @@ function runLoader() {
   const num = loader.querySelector('.loader__num');
   const seal = loader.querySelector('.loader__seal');
 
-  const sources = ['/hero/still.webp', '/work/whisperleaf/hero.webp'];
+  const sources = ['/work/whisperleaf/hero.webp'];
   let done = 0;
-  const total = sources.length + 2;
+  const total = sources.length + 1;
   const progress = { v: 0, target: 0 };
   const bump = () => (progress.target = ++done / total);
   sources.forEach((src) => Object.assign(new Image(), { onload: bump, onerror: bump, src }));
   cjkReady.then(bump);
-  heroReady.then(bump, bump); // the 3D scene counts as an asset
 
   return new Promise((resolve) => {
     const minTime = performance.now() + 1500;
@@ -152,7 +93,7 @@ function initHomeScroll() {
   if (reduced) return;
   const mm = gsap.matchMedia();
 
-  // Hero: the card opens to full bleed, the cat comes apart into a cloud the camera flies into
+  // Hero: the mounted sheet opens to full bleed as the type lifts away
   gsap.timeline({
     scrollTrigger: {
       trigger: heroEl,
@@ -161,12 +102,11 @@ function initHomeScroll() {
       pin: true,
       pinSpacing: true,
       scrub: 0.8,
-      onUpdate: (st) => voxel?.setExplode(gsap.parseEase('power1.inOut')(st.progress)),
     },
   })
     .to(heroEl, { '--k': 0, ease: 'power2.inOut', duration: 0.55 }, 0)
     .fromTo('.hero__content', { yPercent: 0, opacity: 1 }, { yPercent: -18, opacity: 0, ease: 'power2.in', duration: 0.45, immediateRender: false }, 0)
-    .fromTo('.hero__corners, .hero__scroll, .hero__hint, .hero__sound', { opacity: 1 }, { opacity: 0, duration: 0.25, immediateRender: false }, 0)
+    .fromTo('.hero__top, .hero__scroll, .hero__hint, .hero__vert', { opacity: 1 }, { opacity: 0, duration: 0.25, immediateRender: false }, 0)
     .to({}, { duration: 0.45 });
 
   // Feature card expands into full-bleed

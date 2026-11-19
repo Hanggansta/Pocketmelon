@@ -6,7 +6,6 @@
   <meta name="description" content="[[口袋瓜（Pocketmelon）是一家位于东京的小型设计与工程工作室，为品牌与产品设计并开发网站、应用和视觉系统。Whisperleaf 与口袋瓜拼豆都出自这里。||Pocketmelon (口袋瓜) is a small design & engineering studio in Tokyo. We make digital products people keep coming back to — like Whisperleaf and Pocketmelon Beads.]]" />
   <meta property="og:title" content="[[口袋瓜 — 让人想咬一口的数字作品||Pocketmelon — Digital things worth biting into]]" />
   <meta property="og:description" content="[[东京的小型设计与工程工作室。Whisperleaf 与口袋瓜拼豆的出品方。||A small design & engineering studio in Tokyo. Makers of Whisperleaf and Pocketmelon Beads.]]" />
-  <link rel="preload" as="image" href="/hero/still.webp" />
 </head>
 <body data-page="home">
   <!-- LOADER: ink is ground while the page loads, then the seal is pressed and the ink opens -->
@@ -23,22 +22,28 @@
   <main id="main">
     <!-- ============ HERO ============ -->
     <section class="hero" id="top" data-theme-section="light">
-      <div class="hero__frame" data-cursor="[[喂我||Feed me]]">
-        <img class="hero__still" src="/hero/still.webp" alt="" width="1600" height="1000" decoding="async" aria-hidden="true">
-        <p class="sr-only">[[口袋瓜的小猫由大约一千二百个有光泽的小方块组成，怀里抱着一块西瓜。移动光标可以推开方块，点击可以喂它。||The Pocketmelon cat, built from around twelve hundred glossy cubes, holds a slice of watermelon. Move through it to push the cubes around; click to feed it.]]</p>
+      <div class="hero__frame" data-cursor="[[落笔||Paint]]">
+        <canvas class="hero__ink" aria-hidden="true"></canvas>
+        <p class="sr-only">[[首屏是一张宣纸：移动光标就会在纸上留下墨迹，点击会滴下一滴墨。||The opening screen is a sheet of rice paper: move your cursor to paint on it, click to drop ink.]]</p>
 
-        <div class="hero__corners mono" aria-hidden="true">
-          <span class="hero__corner hero__corner--tl reveal-up">[[独立设计工作室<br><span class="muted">设计 · 工程 · 东京</span>||Independent studio<br><span class="muted">Design &amp; engineering</span>]]</span>
-          <span class="hero__corner hero__corner--tr reveal-up"><span class="dot-live"></span>[[2027 年第一季度 · 可预约||Booking Q1 2027]]</span>
+        <div class="hero__top mono" aria-hidden="true">
+          <span class="hero__meta reveal-up">[[口袋瓜<span class="muted"> · 设计与工程工作室</span>||Pocketmelon<span class="muted"> · Design &amp; engineering</span>]]</span>
+          <span class="hero__meta reveal-up">[[东京<span class="muted"> · 北纬 35°41′</span>||Tokyo<span class="muted"> · 35°41′ N</span>]]</span>
+          <span class="hero__meta hero__meta--r reveal-up"><span class="dot-live"></span>[[2027 年第一季度 · 可预约||Booking Q1 2027]]</span>
         </div>
 
+        <p class="hero__vert reveal-up" aria-hidden="true"><span>[[墨分五色||墨分五色]]</span><span class="hero__vert-sub">[[焦 浓 重 淡 清||jiāo · nóng · zhòng · dàn · qīng]]</span></p>
+
         <div class="hero__content">
+          <p class="hero__kicker mono reveal-up"><span class="hero__num">[[〇一||01]]</span><span class="label__rule"></span><span>[[作品集 · 二〇二六||Portfolio · 2026]]</span></p>
+          <p class="hero__hint mono reveal-up" aria-hidden="true"><span>[[移动 · 落笔||Move · paint]]</span><span>[[停留 · 蘸墨||Rest · re-ink]]</span><span>[[点击 · 滴墨||Click · drop ink]]</span></p>
           <h1 class="hero__title" aria-label="[[让人想咬一口的数字作品。||Digital things worth biting into.]]">
-            <span class="hero__line" aria-hidden="true"><span class="hero__words">[[让人想咬一口的||Digital things]]</span></span>
-            <span class="hero__line" aria-hidden="true"><span class="hero__words">[[数字作品。||worth biting into.]]</span></span>
+            <span class="hero__line" aria-hidden="true"><span class="hero__words">[[让人想咬||Digital things]]</span></span>
+            <span class="hero__line hero__line--2" aria-hidden="true"><span class="hero__words">[[一口的数字作品||<em>worth biting into.</em>]]</span></span>
           </h1>
+          <p class="hero__alt reveal-up" aria-hidden="true">[[Digital things <em>worth biting into.</em>||让人想咬一口的数字作品]]</p>
           <div class="hero__aside">
-            <p class="hero__intro reveal-up">[[东京的一家小型设计与工程工作室。我们为品牌与产品设计并开发网站、应用和视觉系统，在别人忽略的细节上用心，让人愿意一再回来。||A small Tokyo studio designing and building websites, products and brands, with the kind of detail people notice and come back for.]]</p>
+            <p class="hero__intro reveal-up">[[东京的一家小型设计与工程工作室。我们为品牌与产品设计并开发网站、应用和视觉系统，在别人忽略的细节上用心。||A small Tokyo studio designing and building websites, products and brands, with the kind of detail people notice and come back for.]]</p>
             <div class="hero__ctas reveal-up">
               <a href="#work" class="btn btn--ink magnetic" data-cursor="hide">
                 <span class="btn__label">[[查看作品||See the work]]</span>
@@ -53,13 +58,8 @@
         </div>
 
         <a href="#studio" class="hero__scroll mono reveal-up" aria-label="[[向下探索||Scroll to explore]]">
-          <span class="hero__cross" aria-hidden="true"><i></i><i></i></span>
-          <span>[[向下探索||Scroll to explore]]</span>
+          <span class="hero__cross" aria-hidden="true"><i></i><i></i></span><span aria-hidden="true">[[向下||Scroll]]</span>
         </a>
-        <p class="hero__hint mono reveal-up" aria-hidden="true">[[穿过它 <span class="muted">·</span> 点击投喂||Move through it <span class="muted">·</span> Click to feed]]</p>
-        <button class="hero__sound mono reveal-up" type="button" aria-pressed="false" data-sound>
-          <span class="hero__bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span data-sound-label>[[声音 关||Sound off]]</span>
-        </button>
       </div>
     </section>
 
@@ -90,10 +90,11 @@
       </div>
 
       <div class="pin grid">
-        <div class="pin__art">
-          <div class="ink-glyph pin__brush" data-ink="品" data-ink-fill="0.92" data-ink-duration="3" role="img" aria-label="[[“品”字书法||Calligraphy: the character 品 (pǐn)]]"></div>
+        <figure class="pin__art" data-alum data-cursor="[[扫墨||Wash]]" role="img" aria-label="[[一张上过矾的宣纸：墨扫过时，只有“品”字吃墨显形||Alum-sized rice paper: as ink is washed across it, only the character 品 drinks it in and appears]]">
+          <canvas class="pin__ink" aria-hidden="true"></canvas>
+          <figcaption class="pin__how mono"><span>[[矾水显字||Alum resist]]</span><span class="muted">[[用光标把墨扫过纸面——上过矾的地方不吃墨，字会自己浮出来。||Sweep ink across the sheet. Alum-sized paper refuses it, so the character surfaces by itself.]]</span></figcaption>
           <span class="pin__marks mono" aria-hidden="true"><i>口</i><i>口</i><i>口</i></span>
-        </div>
+        </figure>
         <div class="pin__copy">
           <p class="mono pin__k">[[三口成品||Three mouths make 品]]</p>
           <h2 class="pin__title" data-split>[[一口给客户，<br>一口给用户，<br>一口留给我们自己。||One for the client.<br>One for the people who use it.<br>One for us.]]</h2>
@@ -174,20 +175,20 @@
 
       <div class="labs__grid">
         <article class="lab lab--ink" data-reveal>
-          <div class="lab__stage lab__stage--ink">
-            <div class="ink-glyph lab__glyph" data-ink="墨" data-ink-fill="0.78" data-ink-manual role="img" aria-live="polite" aria-label="[[书法：墨||Calligraphy: 墨]]"></div>
-            <form class="inklab" data-ink-lab>
-              <label class="sr-only" for="inklab-input">[[输入一个汉字||Type a Chinese character]]</label>
-              <input id="inklab-input" class="inklab__input" maxlength="2" autocomplete="off" placeholder="[[写一个字||Type a character]]" lang="zh-CN" />
-              <div class="inklab__picks mono" role="group" aria-label="[[试试这些字||Try these]]">
-                <button type="button" data-char="品">品</button><button type="button" data-char="瓜">瓜</button><button type="button" data-char="甜">甜</button><button type="button" data-char="慢">慢</button><button type="button" data-char="福">福</button>
+          <div class="lab__stage lab__stage--ink" data-ink-lab data-cursor="[[按住书写||Hold &amp; write]]">
+            <canvas class="inklab__canvas" aria-hidden="true"></canvas>
+            <div class="inklab__bar">
+              <div class="inklab__tones" role="radiogroup" aria-label="[[墨分五色||Five tones of ink]]">
+                <button type="button" role="radio" aria-checked="false" data-tone="焦" title="[[焦墨||Scorched]]">焦</button><button type="button" role="radio" aria-checked="true" data-tone="浓" title="[[浓墨||Thick]]">浓</button><button type="button" role="radio" aria-checked="false" data-tone="重" title="[[重墨||Heavy]]">重</button><button type="button" role="radio" aria-checked="false" data-tone="淡" title="[[淡墨||Light]]">淡</button><button type="button" role="radio" aria-checked="false" data-tone="清" title="[[清墨||Clear]]">清</button>
               </div>
-            </form>
+              <button type="button" class="inklab__clear mono" data-ink-clear>[[换一张纸||New sheet]]</button>
+            </div>
+            <span class="lab__hint mono inklab__hint">[[按住拖动 · 快则飞白 · 停笔蘸墨 · 轻点滴墨||Drag to write · fast goes dry · rest to re-ink · tap to drop]]</span>
           </div>
           <div class="lab__info">
-            <h3 class="lab__title">[[一笔墨||Ink, written]]</h3>
-            <p class="lab__text">[[写下任意一个汉字，它会被即时“写”成水墨：笔画从中锋向外生长，飞白、洇墨与墨边，全部在 GPU 上实时生成。||Type any Chinese character and it is written in ink on the spot: strokes grow out from the spine, with dry-brush streaks, bleed and pooled edges, all generated live on the GPU.]]</p>
-            <p class="mono lab__tech">WebGL · [[志莽行书||Zhi Mang Xing]] · 3 layers</p>
+            <h3 class="lab__title">[[一笔墨||One brush]]</h3>
+            <p class="lab__text">[[一支有“毛”的笔，一张会吸水的纸。墨随水在纤维里渗开，干处停住、边缘积墨；笔走得快就起飞白，墨用尽了停一停就能再蘸。全部在 GPU 上实时模拟。||A brush with real bristles on paper that drinks. Ink rides the water through the fibres, stops where it dries and pools at the edge; move fast and the brush breaks into flying white, rest and it re-inks. Simulated live on the GPU.]]</p>
+            <p class="mono lab__tech">WebGL2 · [[流体 + 渗透模拟||fluid + percolation]] · [[墨分五色||5 ink tones]]</p>
           </div>
         </article>
 

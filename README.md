@@ -40,46 +40,48 @@ It shows up in the header logo, the loader (it eats the melon as the page loads)
 
 Videos autoplay muted and loop, and pause when off-screen. Use H.264 MP4 at 1440px wide or less, 8–15 s, no audio.
 
-## Art direction (v5): one strong real-time scene, quiet everything else
+## Art direction (v7): one sheet of paper
 
-Researched against Lusion, Active Theory, Immersive Garden and basement.studio. What we took from **Lusion's thinking**, not just its look:
-
-1. **Show, in real time.** The hero is a live scene you can touch before you read a word, not a video.
-2. **Frame the 3D.** The scene lives in a rounded card, so navigation and the headline stay calm, readable HTML (a real `<h1>`, sentence case, short mono labels, a centred crosshair "Scroll to explore").
-3. **Film, not demo.** Depth of field, soft shadows, grain and a gentle vignette.
-4. **One idea, fewer effects.** v4's ghost cursor, artboard grid, selection frames and scroll-flick pixelation were retired so the hero is the single focal point.
-5. **Sound is optional.** A side toggle, off by default.
+The voxel hero (v5–v6) was retired as too busy. v7 is benchmarked against Lusion, Lando Norris, abeto (Messenger, Igloo), Immersive Garden and Garden Eight. The written reflection, in Chinese, is in [`docs/v7-reflection.md`](docs/v7-reflection.md). The rules we took from it:
+- one idea per screen;
+- ink black and paper, plus one cinnabar seal;
+- two type families at poster size;
+- interaction you can actually play with.
 
 | Moment | What happens | Module |
 |---|---|---|
-| Hero | The mascot as ~1,200 glossy rounded voxels (three.js `InstancedMesh`, clearcoat, studio light, soft shadows). A small custom solver (no WASM) treats each voxel as a spring to its home cell. The cursor is a sphere collider that shoves them; a click is a radial impulse and feeds the cat. Bitten melon voxels drop and bounce on the floor. The sprite still blinks, twitches and follows you with its eyes, and changed pixels flip physically. | `src/modules/voxelhero.js` |
-| Hero → scroll | The section pins: the card opens to full bleed, the copy lifts away, the cat comes apart into a cloud and the camera flies into it. Reversible. | `src/pages/home.js` |
-| Post | Depth of field (desktop), film grain, vignette, SMAA or MSAA. | `postprocessing` |
-| Sound | Synthesized WebAudio ticks when voxels are shoved, a soft "nom" per bite. Off by default, remembered per session. | `src/modules/sound.js` |
-| Loader | 000→100 counter; the cat eats the melon as assets arrive (first visit per session). | `src/pages/home.js` |
-| Labs | Elastic type, pixel-resolve on hover, the pet. | `typelab.js`, `mosaic.js` |
-| Services | 12×12 pixel icons. | `pixelicons.js` |
-| Footer | The pixel wordmark. | `pixeltext.js` |
+| Hero | A mounted sheet of xuan paper. Move to paint, rest to re-ink, click to drop ink. It opens with one ensō that runs dry into flying white. The type is set like a magazine opener: a top rule, poster headline, vertical 墨分五色 and a seal. | `inkscenes.js` → `ink/fluid.js` |
+| Hero → scroll | The mounted sheet opens to full bleed and the copy lifts away. | `src/pages/home.js` |
+| 品 (studio) | Alum resist (矾水显字). The sheet is sized everywhere except the character. A wash beads off the sizing and soaks into 品, so the character surfaces under your hand. Touch and reduced motion get the wash laid automatically. | `inkscenes.js` (`initAlum`) |
+| 一笔墨 (labs) | Mouse only, no text input. Drag to write, tap to drop ink. Five tones (焦浓重淡清), plus a new sheet. | `inkscenes.js` (`initInkLab`) |
 
-**Performance and fallbacks**
-- three + postprocessing (~212 kB gzipped) load only on the home page, as a lazy chunk after first paint.
-- Quality tiers: mobile has no DOF, DPR ≤ 1.5 and a smaller shadow map. A frame-time governor sheds resolution, then DOF, if frames run long. Resting voxels sleep, and the loop pauses off-screen.
-- Phones tilt the sculpture with the device (where orientation is available without a prompt).
-- `prefers-reduced-motion`: one settled frame, no simulation, no pin.
-- No WebGL: `public/hero/still.webp`, rendered from the live scene. To regenerate it, screenshot the frame with reduced motion on.
+**Ink engine** (`src/modules/ink/fluid.js`, WebGL2 + `EXT_color_buffer_float`, no three.js), after MoXi (Chu & Tai 2005):
+1. **Stable-fluids velocity:** the brush drags water, and drops push it outward.
+2. **Ink field:** wet pigment, water, fixed pigment and dried water mark.
+   - Paper holds water up to a fibre-dependent capacity, and only the excess percolates. Blooms therefore stop by themselves with feathered edges.
+   - Pigment rides the water upwind and fixes faster at the drying front, which gives edge darkening.
+3. **Procedural paper:** cloudy pulp, curling fibres and grain. It drives permeability (洇), dry-brush skips (飞白) and granulation, and is lit as a surface.
+
+The brush is a bristle model:
+- streaks across the tip;
+- ink load that runs out with distance;
+- thinner and drier when fast;
+- re-inks when resting.
+
+Each canvas sleeps after 9 s idle or when off-screen. Without WebGL2 you get plain paper; the 品 sheet shows the character set in type.
 
 ## Languages (v6): Chinese first
 
 - **中文 is the default** at `/`, English lives at `/en/**`. Each page is written once; copy is inline as `[[中文||English]]` and resolved by the `htmlPartials` plugin in `vite.config.js`, which also sets `<html lang>`, hreflang alternates and prefixes internal links with `/en` on English pages. English entry points are one-line `@page` stubs in `en/`.
 - JS strings use `t('中文', 'English')` from `src/modules/i18n.js`.
-- Chinese typography: Noto Serif SC (headlines, 300–500), system sans + Noto Sans SC (body, 1.8 line-height), Zhi Mang Xing only inside the calligraphy canvases. CJK fonts load from an async chunk (`src/fonts-cjk.js`) so ~300 KB of `@font-face` rules never block render; reveals wait for them.
+- Chinese typography (v7): 京華老宋体 KingHwa OldSong for display, Noto Serif SC for reading text (1.8 line-height), Zhi Mang Xing only inside the footer calligraphy. CJK fonts load from an async chunk (`src/fonts-cjk.js`) so ~300 KB of `@font-face` rules never block render; reveals wait for them.
 - Line breaking follows 避头尾: SplitText gets `Intl.Segmenter` word boundaries with punctuation glued (`splitOpts`), per-character reveals use `splitCJK()`.
 
 ## Ink layer (v6)
 
 Restraint is the rule: one calligraphic artefact per view, cinnabar only for the seal and a single mark.
 
-- `ink/glyph.js`: real-time brush calligraphy (WebGL). Text is rasterised, then written along the reading order with stroke growth, 飞白 dry streaks and 洇 bleed. Used for 品 (studio), the 一笔墨 lab and the vertical 瓜熟蒂落 in the footer.
+- `ink/glyph.js`: real-time brush calligraphy (WebGL). Text is rasterised, then written along the reading order with stroke growth, 飞白 dry streaks and 洇 bleed. Now used only for the vertical 瓜熟蒂落 in the footer.
 - `ink/mountains.js`: the footer scroll painting: five ridges of ink density, mist and cloud bands, a small cinnabar sun.
 - `transition.js`: ink spreads from the click point, the studio seal (口袋瓜印, `#seal` in the header defs) stamps, the next page opens out of the ink.
 - `worklist.js`: the work index; on desktop a floating preview follows the cursor and changes project through an ink blot.
@@ -95,7 +97,9 @@ Restraint is the rule: one calligraphic artefact per view, cinnabar only for the
 | Beads cream | `#FDF9EF` | Mascot stages (from the Beads app) |
 
 Type:
-- **Fraunces** for display (opsz · SOFT · WONK);
+- **Instrument Serif** for Latin display (roman and italic) and **京華老宋体** for Chinese display;
+- **Noto Serif SC** for Chinese reading text;
+- **Fraunces** only inside the elastic-type lab (variable axes);
 - **Geist** for body and **Geist Mono** for labels;
 - **Pixelify Sans** for the pixel wordmark and loader;
 - **PM Glyphs** (`tools/build-glyphs.py`), a 572-byte pixel font for the arrows and symbols, which none of the brand fonts include.

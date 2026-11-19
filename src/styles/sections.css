@@ -58,7 +58,7 @@
 .lab__pet canvas { image-rendering: pixelated; }
 .lab__stage--type { position: relative; background: var(--ink); color: var(--paper); display: grid; place-items: center; overflow: hidden; }
 .typelab__word {
-  font-family: var(--f-display); font-size: clamp(4.5rem, 11vw, 9.5rem); line-height: 1; letter-spacing: -0.03em;
+  font-family: var(--f-fraunces); font-size: clamp(4.5rem, 11vw, 9.5rem); line-height: 1; letter-spacing: -0.03em;
   user-select: none; white-space: nowrap; padding-bottom: .1em;
 }
 .typelab__word span { display: inline-block; }

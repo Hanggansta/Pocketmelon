@@ -96,7 +96,6 @@ export class InkGlyph {
       ...o,
     };
     this.p = 0;
-    el._ink = this;
     this.seed = Math.random() * 50;
     this.canvas = document.createElement('canvas');
     this.canvas.className = 'ink-glyph__gl';

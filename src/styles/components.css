@@ -82,24 +82,42 @@ html[data-theme="dark"] .btn--ink { --btn-bg: var(--paper); --btn-fg: var(--ink)
 html:lang(zh) .section-title { font-family: var(--f-song); font-weight: 350; font-size: clamp(2.6rem, 6.4vw, 7rem); line-height: 1.15; letter-spacing: 0.02em; }
 html:lang(zh) [data-split] .line-mask { padding-bottom: .08em; margin-bottom: -.08em; }
 
-/* ---------- hero, Chinese setting */
+/* ---------- hero, Chinese setting: 京華老宋, set big and tight like a poster */
 html:lang(zh) .hero__title {
-  font-family: var(--f-song); font-weight: 300; letter-spacing: 0.015em; line-height: 1.16;
-  font-size: clamp(2.5rem, min(5.6vw, 10.4svh), 7.6rem);
+  font-family: var(--f-song); font-weight: 400; letter-spacing: -0.02em; line-height: 1.02;
+  font-size: clamp(3.2rem, min(10.4vw, 18svh), 12.5rem);
 }
-html:lang(zh) .hero__line { padding: 0.02em 0 0.1em; margin-bottom: -0.06em; }
-html:lang(zh) .hero__intro { line-height: 1.85; font-size: clamp(.95rem, .9rem + .2vw, 1.08rem); letter-spacing: .03em; }
-html:lang(zh) .hero__corner, html:lang(zh) .hero__scroll, html:lang(zh) .hero__hint, html:lang(zh) .hero__sound { letter-spacing: .16em; }
+html:lang(zh) .hero__line--2 { padding-left: 1.05em; }
+html:lang(zh) .hero__intro { line-height: 1.9; font-size: clamp(.95rem, .9rem + .2vw, 1.06rem); letter-spacing: .04em; }
+html:lang(zh) .hero__meta, html:lang(zh) .hero__hint, html:lang(zh) .hero__scroll, html:lang(zh) .hero__kicker { letter-spacing: .16em; }
+html:lang(zh) .hero__alt { letter-spacing: -0.01em; }
+html:lang(en) .hero__alt { font-family: var(--f-song); letter-spacing: .14em; font-size: clamp(1rem, 1.3vw, 1.4rem); }
 
 /* =========================================================
    Studio: 三口成品
    ========================================================= */
 .pin { margin-top: calc(var(--section) * .75); align-items: center; row-gap: 3rem; }
-.pin__art { grid-column: 1 / 7; position: relative; aspect-ratio: 1; max-height: 78svh; justify-self: center; width: 100%; }
-.pin__brush { position: absolute; inset: 0; }
+/* the alum-sized sheet: a mounted square of paper with a hairline and a caption */
+.pin__art {
+  grid-column: 1 / 7; position: relative; aspect-ratio: 1; max-height: 78svh; justify-self: center; width: 100%; margin: 0;
+  background: #efe8da; box-shadow: 0 0 0 1px rgba(18, 16, 13, .1), 0 30px 60px -40px rgba(18, 16, 13, .35);
+  touch-action: pan-y;
+}
+.pin__ink { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+/* without WebGL2: show the character the paper would have revealed */
+.pin__art.no-ink::before {
+  content: "品"; position: absolute; inset: 0; display: grid; place-items: center; padding-top: 3%;
+  font-family: var(--f-song); font-size: min(30vw, 62svh); line-height: 1; color: #2a2621;
+}
+.pin__how {
+  position: absolute; left: 1.1rem; right: 1.1rem; top: 1rem; display: flex; justify-content: space-between; gap: 1.5rem;
+  color: rgba(18, 16, 13, .72); pointer-events: none; transition: opacity .8s var(--ease-out);
+}
+.pin__how .muted { max-width: 26em; text-align: right; color: rgba(18, 16, 13, .48); }
+.pin__art.is-washed .pin__how .muted { opacity: 0; transition: opacity 1.2s var(--ease-out) 1.5s; }
 .pin__marks {
-  position: absolute; left: 0; bottom: 4%; display: flex; gap: .7rem; color: var(--muted);
-  font-family: var(--f-song); font-size: .95rem; letter-spacing: 0;
+  position: absolute; left: 1.1rem; bottom: 1.1rem; display: flex; gap: .7rem; color: var(--muted);
+  font-family: var(--f-song); font-size: .95rem; letter-spacing: 0; pointer-events: none;
 }
 .pin__marks i { font-style: normal; display: grid; place-items: center; width: 2.1em; height: 2.1em; border: 1px solid var(--line); }
 .pin__copy { grid-column: 8 / 13; display: grid; gap: 1.6rem; align-content: center; }
@@ -185,27 +203,29 @@ html:lang(zh) .wl__row--next .wl__name { font-family: var(--f-song); font-size: 
 /* =========================================================
    Labs: ink
    ========================================================= */
-.lab__stage--ink { background: #f3eee4; }
-.lab__stage--ink::after {
-  /* rice-paper fibres */
-  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .5; mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='.012 .09' numOctaves='3' seed='4'/><feColorMatrix values='0 0 0 0 .55  0 0 0 0 .5  0 0 0 0 .42  0 0 0 .22 0'/></filter><rect width='100%' height='100%' filter='url(%23f)'/></svg>");
+.lab__stage--ink { background: #f0e9dc; touch-action: none; cursor: crosshair; }
+.inklab__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.inklab__bar {
+  position: absolute; left: 1.1rem; right: 1.1rem; bottom: 1rem; z-index: 2;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
 }
-.lab__glyph { position: absolute; inset: 6% 18% 22%; }
-.inklab { position: absolute; left: 1.1rem; right: 1.1rem; bottom: 1rem; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
-.inklab__input {
-  width: 9.5em; font: inherit; font-size: .95rem; color: var(--ink); background: transparent;
-  border: 0; border-bottom: 1px solid rgba(18, 22, 17, .25); padding: .45rem 0; border-radius: 0;
-}
-.inklab__input:focus { outline: none; border-bottom-color: var(--ink); }
-.inklab__input::placeholder { color: rgba(18, 22, 17, .45); }
-.inklab__picks { display: flex; gap: .35rem; }
-.inklab__picks button {
-  width: 2.3rem; height: 2.3rem; border-radius: 50%; border: 1px solid rgba(18, 22, 17, .18);
+.inklab__tones { display: flex; gap: .35rem; }
+.inklab__tones button {
+  position: relative; width: 2.3rem; height: 2.3rem; border-radius: 50%;
   font-family: var(--f-song); font-size: 1rem; letter-spacing: 0; color: var(--ink);
+  border: 1px solid rgba(18, 16, 13, .16); background: rgba(240, 233, 220, .6);
   transition: background-color .4s var(--ease-out), color .4s, border-color .4s;
 }
-.inklab__picks button:hover, .inklab__picks button.is-on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+/* each tone swatch is the ink it lays */
+.inklab__tones button::after { content: ""; position: absolute; right: -1px; top: -1px; width: .55rem; height: .55rem; border-radius: 50%; background: var(--t); box-shadow: 0 0 0 2px #f0e9dc; }
+.inklab__tones [data-tone="焦"] { --t: #0d0c0a; } .inklab__tones [data-tone="浓"] { --t: #2b2824; } .inklab__tones [data-tone="重"] { --t: #4f4a43; }
+.inklab__tones [data-tone="淡"] { --t: #8c857a; } .inklab__tones [data-tone="清"] { --t: #c2bbae; }
+.inklab__tones button:hover, .inklab__tones [aria-checked="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.inklab__clear { color: rgba(18, 16, 13, .62); padding: .6rem 0; border-bottom: 1px solid rgba(18, 16, 13, .22); }
+.inklab__clear:hover { color: var(--ink); border-color: var(--ink); }
+.inklab__hint { position: absolute; left: 1.1rem; top: 1rem; z-index: 2; transition: opacity .8s var(--ease-out); }
+.lab__stage--ink.is-used .inklab__hint { opacity: 0; }
+.lab__stage--ink.no-ink .inklab__bar, .lab__stage--ink.no-ink .inklab__hint { display: none; }
 
 html:lang(zh) .lab__title { font-family: var(--f-song); font-weight: 500; letter-spacing: .06em; line-height: 1.3; }
 
@@ -251,7 +271,6 @@ html:lang(zh) .case-hero__cn { font-family: var(--f-song); }
    Small screens
    ========================================================= */
 @media (max-width: 900px) {
-  .hero__still { object-position: 48% 42%; }
   .pin__art { grid-column: 1 / -1; max-width: 520px; }
   .pin__copy { grid-column: 1 / -1; }
   html:lang(zh) .footer__title { grid-column: 1 / -1; }
