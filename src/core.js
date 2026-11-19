@@ -4,7 +4,6 @@ import '@fontsource/instrument-serif/400.css';
 import '@fontsource/instrument-serif/400-italic.css';
 import '@fontsource-variable/geist';
 import '@fontsource-variable/geist-mono';
-import '@fontsource-variable/pixelify-sans';
 // Chinese: 思源宋体 for display, 思源黑体 as the web fallback behind PingFang / YaHei,
 // 志莽行书 for brush calligraphy. All three are unicode-range sliced, so only the glyphs a page uses download.
 import './style.css';
@@ -18,10 +17,7 @@ import { reduced, finePointer } from './modules/env.js';
 import { initCursor } from './modules/cursor.js';
 import { initMagnetic, initClocks, initCopy } from './modules/ui.js';
 import { initTransitions } from './modules/transition.js';
-import { PixelCat } from './modules/pixelcat.js';
 import { initMosaics } from './modules/mosaic.js';
-import { InkMountains } from './modules/ink/mountains.js';
-import { initInkGlyphs } from './modules/ink/glyph.js';
 import { t, splitOpts } from './modules/i18n.js';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
@@ -49,14 +45,12 @@ export function boot() {
   initClocks();
   initCopy();
   if (finePointer) initCursor();
-  initLogoCats();
   initHeader();
   initMenu();
   initAnchors();
   initMagnetic();
   initMosaics();
   initInquiry();
-  initLandscape();
   // never open the ink onto half-swapped headlines
   const reveal = transitions.reveal;
   transitions.reveal = () => cjkReady.then(reveal);
@@ -109,21 +103,13 @@ export function initSharedScroll() {
 
 }
 
-/* --------------------------------------------------------- footer landscape */
-function initLandscape() {
-  const hills = document.querySelector('[data-mountains]');
-  if (hills) new InkMountains(hills);
-  const footer = document.querySelector('.footer');
-  if (footer) initInkGlyphs(footer);
-}
-
 /** Background breathes between paper and rind as sections pass. Call last. */
 export function initThemes() {
   const meta = document.querySelector('meta[name="theme-color"]');
   const apply = (theme) => {
     if (html.dataset.theme === theme) return;
     html.dataset.theme = theme;
-    meta && (meta.content = theme === 'dark' ? '#15231a' : '#efebe3');
+    meta && (meta.content = theme === 'dark' ? '#0b0c0e' : '#efebe3');
   };
   document.querySelectorAll('[data-theme-section]').forEach((section) => {
     ScrollTrigger.create({
@@ -136,22 +122,6 @@ export function initThemes() {
   });
   ScrollTrigger.refresh();
   document.fonts?.ready.then(() => ScrollTrigger.refresh());
-}
-
-/* --------------------------------------------------------- mascots */
-function initLogoCats() {
-  document.querySelectorAll('[data-cat]').forEach((el) => {
-    const canvas = el.querySelector('canvas') || el.appendChild(document.createElement('canvas'));
-    const mode = el.dataset.cat;
-    el._cat = new PixelCat(canvas, {
-      nibble: mode !== 'logo',
-      interactive: true,
-      track: true,
-    });
-  });
-  // the header mark nibbles whenever you hover the wordmark
-  const logo = document.querySelector('.logo');
-  logo?.addEventListener('pointerenter', () => logo.querySelector('[data-cat]')?._cat?.nibble());
 }
 
 /* --------------------------------------------------------- header */
@@ -221,12 +191,6 @@ function initAnchors() {
 function initInquiry() {
   const form = document.querySelector('[data-inquiry]');
   if (!form) return;
-  const cat = () => document.querySelector('.inquiry [data-cat]')?._cat;
-  form.querySelectorAll('.chip input').forEach((i) =>
-    i.addEventListener('change', () => {
-      cat()?.pop();
-    })
-  );
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const data = new FormData(form);
@@ -244,7 +208,6 @@ function initInquiry() {
       `${data.get('email') || ''}`,
     ].join('\n');
     const subject = `${t('新项目', 'New project')} — ${needs}`;
-    cat()?.nibble();
     form.classList.add('is-sent');
     setTimeout(() => {
       location.href = `mailto:${form.dataset.inquiry}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;

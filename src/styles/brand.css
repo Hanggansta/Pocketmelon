@@ -1,27 +1,26 @@
 /* =========================================================
-   Brand layer: mascot, pixel wordmark, loader, transitions
+   Brand layer: logo, loader, transitions
    ========================================================= */
 :root {
-  --f-pixel: "PM Glyphs", "Pixelify Sans Variable", "Geist Mono Variable", monospace;
   --beads-cream: #fdf9ef;
   --leaf: #6b8a4e;
 }
 
-/* ---------- logo */
-.logo { display: inline-flex; align-items: center; gap: 10px; justify-self: start; }
-.logo__cat { width: 44px; height: 44px; display: grid; place-items: center; flex: none; }
-.logo__cat canvas { display: block; image-rendering: pixelated; }
+/* ---------- logo (v9): the mark is a 口 — four brackets framing a single square.
+   A frame is what a studio makes; the square is the thing inside it. The cursor reuses it. */
+.logo { display: inline-flex; align-items: center; gap: 12px; justify-self: start; }
+.logo__mark { width: 22px; height: 22px; flex: none; overflow: visible; }
+.logo__c { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: square; transition: transform .7s var(--ease-out); }
+.logo__pip { fill: currentColor; transform-origin: 15.5px 15.5px; transition: transform .7s var(--ease-out), fill .3s; }
+.logo:hover .logo__c--tl { transform: translate(3px, 3px); }
+.logo:hover .logo__c--tr { transform: translate(-3px, 3px); }
+.logo:hover .logo__c--br { transform: translate(-3px, -3px); }
+.logo:hover .logo__c--bl { transform: translate(3px, -3px); }
+.logo:hover .logo__pip { transform: translate(-3.5px, -3.5px) scale(.6); }
 .logo__word {
-  font-family: var(--f-pixel); font-weight: 600; font-size: 1.32rem; letter-spacing: 0.01em; line-height: 1;
-  display: inline-flex; align-items: baseline;
+  font-family: var(--f-sans); font-weight: 560; font-size: 1.14rem; letter-spacing: -0.035em; line-height: 1;
+  font-feature-settings: "ss01", "cv11";
 }
-.logo__o { position: relative; display: inline-block; }
-.logo__o::after {
-  content: ""; position: absolute; left: 50%; top: 58%; width: 0.2em; height: 0.2em;
-  background: var(--melon); transform: translate(-50%, -50%);
-  transition: transform .4s var(--ease-out);
-}
-.logo:hover .logo__o::after { transform: translate(-50%, -50%) scale(1.6) rotate(45deg); }
 
 /* ---------- loader */
 .loader {
@@ -29,11 +28,9 @@
   background: var(--rind); color: var(--paper);
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.6rem;
 }
-.loader__cat { display: grid; place-items: center; }
-.loader__cat canvas { image-rendering: pixelated; }
 .loader__meta { position: absolute; left: 0; right: 0; bottom: var(--pad); display: flex; justify-content: space-between; align-items: baseline; padding-inline: var(--pad); }
-.loader__num { font-family: var(--f-pixel); font-size: clamp(2.6rem, 6vw, 5rem); line-height: 1; font-variant-numeric: tabular-nums; }
-.loader__label { font-family: var(--f-pixel); font-size: 1rem; color: var(--rind-light); letter-spacing: .04em; }
+.loader__num { font-family: "Instrument Serif", serif; font-size: clamp(3rem, 7vw, 6rem); line-height: 1; font-variant-numeric: tabular-nums; }
+.loader__label { font-family: var(--f-mono); font-size: .72rem; text-transform: uppercase; color: var(--rind-light); letter-spacing: .14em; }
 
 /* ---------- pixel transition */
 .px-transition { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 996; pointer-events: none; visibility: hidden; }
@@ -52,8 +49,3 @@ html.is-arriving body::before { content: ""; position: fixed; inset: 0; z-index:
 .u-link { background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat; transition: background-size .5s var(--ease-out); }
 .u-link:hover { background-size: 0 1px; background-position: 100% 100%; }
 
-/* ---------- pixel accents */
-.px-badge {
-  font-family: var(--f-pixel); font-size: .85rem; letter-spacing: .02em;
-  display: inline-flex; align-items: center; gap: .5em;
-}

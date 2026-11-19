@@ -2,12 +2,12 @@ import { boot, initSharedScroll, initThemes, lenis, gsap, ScrollTrigger, SplitTe
 import { initHeroFilm } from '../modules/herofilm.js';
 import { initPinInk } from '../modules/pinink.js';
 import { initWorkList } from '../modules/worklist.js';
-import { initInkGlyphs } from '../modules/ink/glyph.js';
 import { t, isZh, splitCJK } from '../modules/i18n.js';
 import { initGrains } from '../modules/labs/grains.js';
 import { initMarble } from '../modules/labs/marble.js';
 import { initSeal } from '../modules/labs/seal.js';
-import { initPixelIcons } from '../modules/pixelicons.js';
+import { initCapabilities } from '../modules/capabilities.js';
+import { initShowcase } from '../modules/cases/showcase.js';
 
 const transitions = boot();
 
@@ -20,9 +20,9 @@ const film = initHeroFilm(document.querySelector('.hero'), { fontsReady: cjkRead
 initGrains(document.querySelector('[data-lab-grains]'), { fontsReady: cjkReady });
 initMarble(document.querySelector('[data-lab-marble]'));
 initSeal(document.querySelector('[data-lab-seal]'), { fontsReady: cjkReady });
-initPixelIcons();
+initCapabilities();
 initWorkList(document.querySelector('[data-worklist]'));
-initInkGlyphs(document.querySelector('main'));
+const showcase = initShowcase(document.querySelector('.showcase'));
 initPinInk(document.querySelector('[data-pin-ink]'), { fontsReady: cjkReady });
 
 lenis?.stop();
@@ -52,7 +52,7 @@ function runLoader() {
   const num = loader.querySelector('.loader__num');
   const seal = loader.querySelector('.loader__seal');
 
-  const sources = ['/work/whisperleaf/hero.webp'];
+  const sources = ['/work/beads/source.webp'];
   let done = 0;
   const total = sources.length + 1;
   const progress = { v: 0, target: 0 };
@@ -90,33 +90,7 @@ function initHomeScroll() {
 
   film.scroll();
 
-  // Feature card expands into full-bleed
-  mm.add({ desktop: '(min-width: 901px)', mobile: '(max-width: 900px)' }, (ctx) => {
-    const from = ctx.conditions.desktop ? 'inset(22% 31% 22% 31% round 28px)' : 'inset(30% 14% 30% 14% round 20px)';
-    const header = document.querySelector('.header');
-    const featureMedia = document.querySelector('.feature__media');
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: '.feature',
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: 1,
-          onUpdate: (self) => {
-            header.classList.toggle('on-media', self.progress > 0.35 && self.progress < 0.995);
-            // a low-res render that sharpens into the product as it fills the screen
-            featureMedia._mosaic?.set(reduced ? 1 : Math.max(14, Math.min(28, innerWidth / 50)) * Math.pow(1 - Math.min(1, self.progress / 0.62), 1.6));
-          },
-          onLeave: () => header.classList.remove('on-media'),
-          onLeaveBack: () => header.classList.remove('on-media'),
-        },
-      })
-      .fromTo('.feature__media', { clipPath: from }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'power2.inOut', duration: 1 }, 0)
-      .fromTo('.feature__media img, .feature__media .mosaic__canvas', { scale: 1.35 }, { scale: 1, ease: 'power2.inOut', duration: 1 }, 0)
-      .to('.feature__shade', { opacity: 1, duration: 0.4 }, 0.6)
-      .fromTo('.feature__copy > *', { y: 40, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.06, duration: 0.35, ease: 'power3.out' }, 0.72)
-      .to({}, { duration: 0.15 });
-  });
+  showcase?.scroll();
 
   // Stages open like a shutter as they arrive, the picture inside settling from a slight push-in
   gsap.utils.toArray('.lab__stage, .pin__art').forEach((st) => {

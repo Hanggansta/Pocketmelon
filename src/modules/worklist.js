@@ -4,8 +4,8 @@ import { reduced, finePointer, pointer } from './env.js';
 
 /**
  * Work list (Lusion-style index): big project rows; on hover a floating preview follows the
- * cursor. Images enter and swap through an ink-bleed mask rather than a fade, and the card
- * leans with the cursor's velocity. Touch screens get inline thumbnails instead (CSS).
+ * cursor. Images open through a rectangular aperture and swap with a banded scan wipe; the
+ * card bends and splits its colour channels with the cursor's velocity. Touch screens get inline thumbnails instead (CSS).
  */
 const FRAG = /* glsl */ `
 ${NOISE}
@@ -22,28 +22,33 @@ vec2 cover(vec2 uv, vec2 img) {
 
 void main() {
   vec2 uv = vUv;
-  vec2 st = uv * uRes / min(uRes.x, uRes.y);
-  float n = fbm(st * 2.2 + uTime * 0.05);
-  float n2 = fbm3(st * 9.0);
+  float asp = uRes.x / uRes.y;
+  float v = clamp(uVel, -1.5, 1.5);
 
-  // velocity smear, like wet ink dragged sideways
-  vec2 off = vec2(uVel * 0.04 * (n - 0.5), 0.0);
-  vec4 a = texture2D(uA, cover(uv + off, uSizeA));
-  vec4 b = texture2D(uB, cover(uv + off * 1.4, uSizeB));
+  // velocity: the quad bends like film pulled sideways (codrops-style sin bend), channels split
+  uv.x -= sin(uv.y * 3.14159) * v * 0.06;
+  float split = v * 0.02;
+  vec2 ofs = vec2(split, 0.0);
+  vec2 ca = cover(uv, uSizeA), cb = cover(uv, uSizeB);
+  vec3 a = vec3(texture2D(uA, ca + ofs).r, texture2D(uA, ca).g, texture2D(uA, ca - ofs).b);
+  vec3 b = vec3(texture2D(uB, cb + ofs).r, texture2D(uB, cb).g, texture2D(uB, cb - ofs).b);
 
-  // swap: B bleeds over A from the bottom-left, ragged
-  float m = smoothstep(uMix - 0.12, uMix + 0.02, (1.0 - (uv.x * 0.4 + uv.y * 0.6)) * 0.7 + n * 0.45 - 0.1);
-  vec3 col = mix(a.rgb, b.rgb, 1.0 - m);
-  if (uMix >= 0.999) col = b.rgb;
+  // swap: a scan wipe sweeps up through horizontal bands, each band offset a little
+  float band = floor(vUv.y * 14.0);
+  float jitter = fract(sin(band * 91.7) * 4375.85) * 0.18;
+  float m = step(vUv.x * 0.25 + jitter + 0.0, uMix * 1.45 - 0.02);
+  vec3 col = mix(a, b, m);
+  if (uMix >= 0.999) col = b;
+  // a hairline at the wipe front
+  float front = abs(vUv.x * 0.25 + jitter - (uMix * 1.45 - 0.02));
+  col += vec3(0.85) * smoothstep(0.006, 0.0, front) * step(0.001, uMix) * step(uMix, 0.999);
 
-  // show / hide through an ink blot from the centre
-  float d = length((uv - 0.5) * vec2(uRes.x / uRes.y, 1.0));
-  float blot = d * 1.3 + (n - 0.5) * 0.5 + (n2 - 0.5) * 0.06;
-  float front = uShow * 1.35;
-  float alpha = smoothstep(front, front - 0.04, blot);
-  // a thin darker wet edge while it spreads
-  float rim = smoothstep(0.06, 0.0, front - blot) * alpha * (1.0 - smoothstep(0.85, 1.0, uShow));
-  col = mix(col, col * 0.55, rim * 0.6);
+  // show / hide: a rectangular aperture opens from the centre, slightly faster vertically
+  vec2 q = abs(vUv - 0.5) * 2.0;
+  float k = uShow;
+  float alpha = step(q.x, k * 1.02) * step(q.y, min(1.0, k * 1.25));
+  // fine scanlines while moving fast
+  col *= 1.0 - abs(v) * 0.08 * step(0.5, fract(gl_FragCoord.y * 0.5));
   gl_FragColor = vec4(col * alpha, alpha);
 }`;
 

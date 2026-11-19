@@ -66,7 +66,6 @@
 .case-demo { padding-block: var(--section); }
 .case-demo__stage { padding-inline: var(--pad); display: grid; justify-items: center; }
 .case-demo__stage > div { width: 100%; }
-.case-demo__stage--beads > div { max-width: 1080px; }
 .case-demo__note { color: var(--muted); padding: 2rem var(--pad) 0; text-align: center; max-width: 70ch; margin-inline: auto; }
 
 .captures { padding-block: var(--section); }
@@ -112,35 +111,6 @@
 .case-next__img img { width: 100%; height: 100%; object-fit: cover; }
 .case-next:hover .case-next__img { transform: translateY(-50%) rotate(-3deg) scale(1); opacity: 1; }
 .case-next:hover .case-next__title { translate: 1.5rem 0; }
-
-/* =========================================================
-   Bead board
-   ========================================================= */
-.bb { display: grid; gap: 1.6rem; grid-template-columns: minmax(0, 1fr); justify-items: center; }
-.bb__stage { width: 100%; max-width: 560px; display: grid; place-items: center; }
-.bb__canvas { display: block; border-radius: 16px; cursor: crosshair; touch-action: none; box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .45); }
-.bb__canvas:focus-visible { outline: 3px solid var(--melon); outline-offset: 6px; }
-.bb__bar { display: grid; gap: 1rem; justify-items: center; width: 100%; }
-.bb__palette { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; }
-.bb__swatch {
-  width: 32px; height: 32px; border-radius: 50%; background: var(--c); position: relative;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .15); transition: transform .35s var(--ease-out);
-}
-.bb__swatch::after { content: ""; position: absolute; inset: 11px; border-radius: 50%; background: rgba(0, 0, 0, .28); }
-.bb__swatch:hover { transform: translateY(-3px); }
-.bb__swatch[aria-checked="true"] { outline: 2px solid var(--fg); outline-offset: 3px; transform: scale(1.08); }
-.bb__tools { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; }
-.bb__btn {
-  padding: .65em 1.15em; border-radius: 999px; border: 1px solid var(--line); font-size: .92rem;
-  transition: background-color .35s, color .35s, border-color .35s;
-}
-.bb__btn:hover { border-color: var(--fg); }
-.bb__btn[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
-.bb__btn--hot { background: var(--melon); border-color: var(--melon); color: var(--paper); }
-.bb__btn--hot:hover { border-color: var(--paper); }
-.bb__count { color: var(--muted); }
-.bb__count b { color: var(--fg); font-weight: 500; }
-.bb--compact .bb__canvas { box-shadow: none; border-radius: 12px; }
 
 /* =========================================================
    Reading desk (Whisperleaf demo)
@@ -208,8 +178,15 @@
 .case-hero__title { font-size: clamp(5rem, 20.5vw, 26rem); }
 .case-hero__row { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--gap); }
 .case-hero__row .case-hero__title { flex: none; }
-.case-hero__cat {
-  width: clamp(120px, 24vw, 340px); aspect-ratio: 1; flex: none; margin: 0 var(--pad) clamp(1.5rem, 3vw, 2.5rem) 0;
-  display: grid; place-items: center; cursor: pointer;
+/* beads: the live engine replaces the hero still (beadstage.js) */
+.case-media--engine { background: var(--rind); padding-bottom: 1.4rem; }
+.case-media--engine .case-media__caption { color: rgba(239, 235, 227, .55); }
+.case-engine { position: absolute; inset: 0; background: #050607; touch-action: pan-y; }
+.case-engine canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.case-engine.no-gl { background: #111 url("/work/beads/stage.webp") center / cover; }
+.case-engine--read.no-gl { background-image: url("/work/whisperleaf/stage.webp"); }
+.case-engine__hud {
+  position: absolute; left: var(--pad); right: var(--pad); bottom: 1.2rem; display: flex; justify-content: space-between; gap: 1rem;
+  font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: #fff; text-shadow: 0 1px 12px rgba(0,0,0,.6); pointer-events: none;
+  font-variant-numeric: tabular-nums;
 }
-.case-hero__cat canvas { image-rendering: pixelated; }

@@ -1,5 +1,7 @@
 import { boot, initSharedScroll, initThemes, lenis, gsap, ScrollTrigger, SplitText, reduced } from '../core.js';
-import { BeadBoard } from '../modules/beadboard.js';
+import { initBeadStage } from '../modules/cases/beadstage.js';
+import { initReadStage } from '../modules/cases/readstage.js';
+import { isZh } from '../modules/i18n.js';
 import { initReader } from '../modules/reader.js';
 import captures from '../data/captures.json';
 
@@ -8,7 +10,56 @@ const transitions = boot();
 
 renderCaptures();
 const demo = document.querySelector('[data-demo]');
-if (demo?.dataset.demo === 'beads') new BeadBoard(demo, { preset: 'cat' });
+
+// beads: the engine runs in the hero frame; scroll drives photo → pattern → beads
+const engineHost = document.querySelector('.case-engine');
+const engine = engineHost && initBeadStage(engineHost, {
+  onStats: ({ cols, rows, beads, colors, palette }) => {
+    const hud = (k) => document.querySelector(`.case-engine__hud [data-hud="${k}"]`);
+    hud('grid').textContent = `${cols} × ${rows} · ${beads.toLocaleString()} ${isZh ? '颗' : 'beads'}`;
+    hud('colors').textContent = `${colors} / ${palette} ${isZh ? '色' : 'colours'} · OKLab`;
+  },
+});
+// whisperleaf: the reading engine grades the page as it scrolls into view
+const readHost = document.querySelector('.case-engine--read');
+if (readHost) {
+  const hud = (k) => document.querySelector(`.case-engine__hud [data-hud="${k}"]`);
+  const reader = initReadStage(readHost, {
+    card: readHost.querySelector('.read-card'),
+    onStats: (s) => (hud('words').textContent = isZh ? `${s.words} 词 · ${s.lemmas} 词元 · ${s.graded} 分级` : `${s.words} WORDS · ${s.lemmas} LEMMAS · ${s.graded} GRADED`),
+  });
+  const setScan = (v) => {
+    if (!reader) return;
+    reader.scan = v;
+    hud('scan').textContent = isZh ? `分级 ${Math.round(v * 100)}%` : `GRADING ${Math.round(v * 100)}%`;
+  };
+  if (reduced) { setScan(1); reader && (reader.lens = 1); }
+  else {
+    setScan(0);
+    ScrollTrigger.create({
+      trigger: '.case-media--engine', start: 'top 75%', end: 'center 40%', scrub: true,
+      onUpdate: (self) => setScan(self.progress),
+      onToggle: (self) => reader && (reader.lens = self.isActive || self.progress >= 1 ? 1 : 0),
+    });
+  }
+}
+if (engine) {
+  const steps = isZh ? ['照片', '图纸', '拼豆'] : ['PHOTO', 'PATTERN', 'BEADS'];
+  const setStage = (v) => {
+    engine.stage = v;
+    const el = document.querySelector('.case-engine__hud [data-hud="step"]');
+    if (el) el.textContent = steps[v < 0.6 ? 0 : v < 1.5 ? 1 : 2];
+  };
+  if (reduced) { setStage(2); engine.lens = 1; }
+  else {
+    setStage(0);
+    ScrollTrigger.create({
+      trigger: '.case-media--engine', start: 'top 70%', end: 'bottom 35%', scrub: true,
+      onUpdate: (self) => setStage(Math.min(2, Math.max(0, (self.progress - 0.1) / 0.75 * 2))),
+      onToggle: (self) => (engine.lens = self.isActive ? 1 : 0),
+    });
+  }
+}
 if (demo?.dataset.demo === 'reader') initReader(demo);
 
 // hero title chars
@@ -45,7 +96,7 @@ function initCaseScroll() {
       scrollTrigger: { trigger: '.case-media', start: 'top 85%', end: 'top 10%', scrub: true },
     }
   );
-  gsap.fromTo('.case-media__frame img, .case-media__frame canvas', { scale: 1.2 }, {
+  gsap.fromTo('.case-media__frame img, .case-media__frame .mosaic__canvas', { scale: 1.2 }, {
     scale: 1,
     ease: 'none',
     scrollTrigger: { trigger: '.case-media', start: 'top bottom', end: 'bottom top', scrub: true },

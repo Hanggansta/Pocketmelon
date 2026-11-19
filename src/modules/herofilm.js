@@ -90,7 +90,7 @@ export function initHeroFilm(section, { fontsReady = Promise.resolve() } = {}) {
 
   const condense = () => {
     if (!ink) return;
-    ink.setGlyph(name.textContent.trim(), { el: name, font: getComputedStyle(name).fontFamily, spacing: 0.04 });
+    ink.setGlyph(name.textContent.trim(), { parts: [...name.children], font: getComputedStyle(name).fontFamily, fieldBlur: 0.022, edge: 2.4, halo: 0.22 });
   };
 
   /** play the opener; resolves when the title is on screen */
@@ -152,6 +152,7 @@ export function initHeroFilm(section, { fontsReady = Promise.resolve() } = {}) {
         scrub: 0.6,
         onUpdate: (self) => header?.classList.toggle('on-media', self.progress > 0.62),
         onLeaveBack: () => header?.classList.remove('on-media'),
+        onLeave: () => header?.classList.remove('on-media'),
       },
     })
       .to(S, { k: 1, duration: 0.55, ease: 'power1.in' }, 0)

@@ -14,8 +14,8 @@
     <section class="case-hero" id="top" data-theme-section="light">
       <div class="case-hero__meta grid mono">
         <a href="/#work" class="case-hero__back roll" data-intro><span data-text="[[← 全部作品||← All work]]">[[← 全部作品||← All work]]</span></a>
-        <span data-intro>[[案例 01 / 02||Case study 01 / 02]]</span>
-        <span data-intro>[[阅读与学习||Reading &amp; learning]]</span>
+        <span data-intro>[[案例 02 / 02||Case study 02 / 02]]</span>
+        <span data-intro>[[阅读引擎 · 语境释义||Reading engine · In-context lookup]]</span>
         <a href="https://whisperleaf.pocketmelon.com" target="_blank" rel="noopener" class="case-hero__live roll" data-intro><span data-text="whisperleaf.pocketmelon.com ↗">whisperleaf.pocketmelon.com ↗</span></a>
       </div>
 
@@ -32,11 +32,23 @@
       </div>
     </section>
 
-    <section class="case-media" aria-label="[[主视觉||Hero image]]">
+    <section class="case-media case-media--engine" data-theme-section="dark" aria-label="[[阅读引擎演示||The reading engine, live]]">
       <div class="case-media__frame">
-        <figure class="mosaic" data-mosaic><img src="/work/whisperleaf/hero.webp" alt="[[一本矢车菊蓝布面、淡粉书脊的书，夹着一片压干的叶子，旁边是一杯茶||A blue cloth-bound book with a soft pink spine and a pressed leaf, next to a cup of tea]]" /></figure>
+        <div class="case-engine case-engine--read" data-cursor="[[查词||Look up]]">
+          <canvas aria-hidden="true"></canvas>
+          <div class="read-card" aria-hidden="true">
+            <p class="read-card__head"><b data-w>truth</b><span class="read-card__lv mono" data-lv>B1</span></p>
+            <p class="read-card__gloss" data-gloss></p>
+            <p class="read-card__n mono" data-n></p>
+          </div>
+        </div>
+        <div class="case-engine__hud mono" aria-hidden="true">
+          <span data-hud="scan">[[分级 0%||GRADING 0%]]</span>
+          <span data-hud="words">—</span>
+          <span>CEFR A1 → C2</span>
+        </div>
       </div>
-      <p class="case-media__caption mono">[[品牌世界：《Between the lines》，矢车菊蓝布面，淡粉书脊||Brand world: the book “Between the lines”, cornflower cloth, blush spine]]</p>
+      <p class="case-media__caption mono">[[引擎本身：按 CEFR 给每个词分级，悬停任意一个词，它在本页的每一次出现都会被串起来，释义就停在原文旁边。||The engine itself: every word graded by CEFR level. Hover one and each of its appearances on the page is threaded together, with the gloss sitting right beside the line.]]</p>
     </section>
 
     <section class="case-brief grid" data-theme-section="light">
@@ -132,9 +144,9 @@
 
     <a href="/work/beads/" class="case-next" data-theme-section="light" data-cursor="[[下一个||Next case]]">
       <span class="case-next__fill" aria-hidden="true"></span>
-      <span class="mono case-next__k">[[下一个案例 · 02||Next case — 02]]</span>
+      <span class="mono case-next__k">[[下一个案例 · 01||Next case — 01]]</span>
       <span class="case-next__title">[[口袋瓜拼豆 <span class="case-next__cn">Beads</span>||Beads <span class="case-next__cn">口袋瓜拼豆</span>]]</span>
-      <span class="case-next__img"><img src="/work/beads/hero.webp" alt="" loading="lazy" /></span>
+      <span class="case-next__img"><img src="/work/beads/stage.webp" alt="" loading="lazy" /></span>
     </a>
   </main>
 

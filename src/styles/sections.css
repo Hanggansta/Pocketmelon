@@ -113,8 +113,6 @@ html:lang(zh) .lab__title { font-family: var(--f-song); font-weight: 400; letter
    ========================================================= */
 .inquiry { margin-top: clamp(4rem, 8vw, 7rem); row-gap: 2rem; align-items: start; }
 .inquiry__aside { grid-column: 1 / 4; display: grid; gap: 1.2rem; justify-items: start; }
-.inquiry__cat { width: 132px; aspect-ratio: 1; display: grid; place-items: center; background: var(--beads-cream); border-radius: 20px; }
-.inquiry__cat canvas { image-rendering: pixelated; }
 .inquiry__note { color: var(--muted); max-width: 30ch; font-size: .95rem; }
 .inquiry__form { grid-column: 4 / 13; display: grid; gap: 1.8rem; }
 .inquiry__group { border: 0; display: flex; flex-wrap: wrap; gap: .55rem; }

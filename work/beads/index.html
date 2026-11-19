@@ -3,9 +3,9 @@
 <head>
   <!-- @include head -->
   <title>[[口袋瓜拼豆 案例 · 口袋瓜 Pocketmelon||Pocketmelon Beads 口袋瓜拼豆 — Case study · Pocketmelon]]</title>
-  <meta name="description" content="[[口袋瓜拼豆是为拼豆爱好者准备的温暖小工作室：整理灵感、制作拼豆图纸、创作像素风图案。||口袋瓜拼豆 Pocketmelon Beads is a warm, cute web studio for fuse-bead makers: collect inspiration, make bead pattern sheets and create pixel-style designs.]]" />
+  <meta name="description" content="[[口袋瓜拼豆：一台在浏览器里实时把任何图像变成可拼图纸的引擎。WebGL2、OKLab 色彩量化、可安装的 PWA。||Pocketmelon Beads: an engine that turns any image into a buildable fuse-bead pattern in real time, in the browser. WebGL2, OKLab colour quantisation, installable PWA.]]" />
   <meta property="og:title" content="[[口袋瓜拼豆 · 口袋瓜案例||Pocketmelon Beads — a Pocketmelon case study]]" />
-  <meta property="og:image" content="/work/beads/hero.webp" />
+  <meta property="og:image" content="/work/beads/stage.webp" />
 </head>
 <body data-page="case" data-slug="beads" class="case case--beads">
   <!-- @include header -->
@@ -14,42 +14,48 @@
     <section class="case-hero" id="top" data-theme-section="light">
       <div class="case-hero__meta grid mono">
         <a href="/#work" class="case-hero__back roll" data-intro><span data-text="[[← 全部作品||← All work]]">[[← 全部作品||← All work]]</span></a>
-        <span data-intro>[[案例 02 / 02||Case study 02 / 02]]</span>
-        <span data-intro>[[手作工具||Craft tools]]</span>
+        <span data-intro>[[案例 01 / 02||Case study 01 / 02]]</span>
+        <span data-intro>[[图像引擎 · WebGL2||Image engine · WebGL2]]</span>
         <a href="https://beads.pocketmelon.com" target="_blank" rel="noopener" class="case-hero__live roll" data-intro><span data-text="beads.pocketmelon.com ↗">beads.pocketmelon.com ↗</span></a>
       </div>
 
       <div class="case-hero__row">
         <h1 class="case-hero__title">[[拼<em>豆</em>||Be<em>ads</em>]]</h1>
-        <span class="case-hero__cat" data-cat="hero" data-cursor="[[喂我||Feed me]]" data-intro role="img" aria-label="[[口袋瓜的小猫，正在啃一片西瓜||The Pocketmelon cat, eating a watermelon slice]]"><canvas></canvas></span>
       </div>
 
       <div class="case-hero__intro grid">
-        <p class="case-hero__lead" data-intro>[[<span class="case-hero__cn">口袋瓜拼豆</span><br /><em>一间为拼豆图纸准备的温暖小工作室。</em>||<span class="case-hero__cn">口袋瓜拼豆</span><br /><em>A warm little studio for fuse-bead patterns.</em>]]</p>
+        <p class="case-hero__lead" data-intro>[[<span class="case-hero__cn">口袋瓜拼豆</span><br /><em>任何图像，实时变成一张能亲手拼出来的图纸。</em>||<span class="case-hero__cn">口袋瓜拼豆</span><br /><em>Any image, turned into a buildable bead pattern in real time.</em>]]</p>
         <dl class="facts" data-intro>
-          <div><dt class="mono">[[角色||Role]]</dt><dd>[[品牌、吉祥物、产品设计与工程||Brand, mascot, product design &amp; engineering]]</dd></div>
+          <div><dt class="mono">[[角色||Role]]</dt><dd>[[产品、设计与工程||Product, design &amp; engineering]]</dd></div>
           <div><dt class="mono">[[平台||Platform]]</dt><dd>[[渐进式网页应用，可安装到手机与桌面||Progressive web app, installable on phone &amp; desktop]]</dd></div>
-          <div><dt class="mono">[[语言||Language]]</dt><dd>简体中文</dd></div>
+          <div><dt class="mono">[[技术||Stack]]</dt><dd>[[WebGL2 · OKLab 色彩量化 · Canvas||WebGL2 · OKLab quantisation · Canvas]]</dd></div>
           <div><dt class="mono">[[为谁||For]]</dt><dd>[[拼豆玩家与像素画爱好者||Fuse-bead (拼豆) makers and pixel-art lovers]]</dd></div>
         </dl>
       </div>
     </section>
 
-    <section class="case-media" aria-label="[[主视觉||Hero image]]">
+    <section class="case-media case-media--engine" data-theme-section="dark" aria-label="[[引擎演示||The engine, live]]">
       <div class="case-media__frame">
-        <figure class="mosaic" data-mosaic><img src="/work/beads/hero.webp" alt="[[亚麻布上用熨好的拼豆拼成的口袋瓜吉祥物，旁边是豆板和镊子||The Pocketmelon mascot made of ironed fuse beads on linen, next to a pegboard and tweezers]]" /></figure>
+        <div class="case-engine" data-stage="beads" data-src="/work/beads/source.webp" data-cursor="[[检视 · 点击换密度||Inspect · click for density]]">
+          <canvas aria-hidden="true"></canvas>
+        </div>
+        <div class="case-engine__hud mono" aria-hidden="true">
+          <span data-hud="step">[[照片||PHOTO]]</span>
+          <span data-hud="grid">GRID — × —</span>
+          <span data-hud="colors">— / 48</span>
+        </div>
       </div>
-      <p class="case-media__caption mono">[[拼出来的吉祥物。标志里的每一个像素，都是你能亲手放下的一颗豆。||The mascot, beaded. Every pixel of the logo is a bead you could place yourself.]]</p>
+      <p class="case-media__caption mono">[[引擎本身，随滚动运行：照片 → 色块平均 → OKLab 最近色 → 熨烫光照。一个片元着色器完成。||The engine itself, run by your scroll: photo → cell average → nearest bead in OKLab → fused-bead lighting. One fragment shader.]]</p>
     </section>
 
     <section class="case-brief grid" data-theme-section="light">
       <p class="mono label col-label"><span class="label__idx">[[壹||01]]</span><span class="label__rule"></span><span>[[命题||The brief]]</span></p>
       <div class="case-brief__body">
-        <p class="case-brief__text" data-split>[[拼豆玩家习惯用方格纸、截图和猜测来做规划。口袋瓜拼豆在浏览器里给他们一间温暖可爱的工作室：收集灵感，转成拼豆图纸，创作像素风图案，然后带着图纸回到豆板前。||Bead makers plan with graph paper, screenshots and guesswork. 口袋瓜拼豆 gives them a warm, cute studio in the browser: gather inspiration, turn it into bead patterns and create pixel-style designs, then take the pattern to the pegboard.]]</p>
+        <p class="case-brief__text" data-split>[[拼豆玩家习惯用方格纸、截图和猜测来做规划。口袋瓜拼豆把这件事交给一台引擎：放进任何图像，它在毫秒内算出每一颗豆的位置和颜色，只用真实存在的豆色，然后让你带着图纸回到豆板前。||Bead makers plan with graph paper, screenshots and guesswork. 口袋瓜拼豆 hands that to an engine: drop in any image and it works out the position and colour of every bead in milliseconds, using only colours that really exist, then sends you back to the pegboard with the sheet.]]</p>
         <div class="case-brief__cols">
-          <div data-reveal><p class="mono">[[难题||Challenge]]</p><p>[[图纸工具往往像电子表格。拼豆是一件温暖、动手的爱好，软件也该有同样的感觉。||Pattern tools tend to feel like spreadsheets. Bead making is a cosy, hands-on hobby, and the software should feel the same.]]</p></div>
-          <div data-reveal><p class="mono">[[思路||Approach]]</p><p>[[奶油色的“手作桌”界面，一只有性格的吉祥物，和一张像真豆板一样的网格。||A soft cream “craft table” interface, a mascot with personality and a grid that behaves like a real pegboard.]]</p></div>
-          <div data-reveal><p class="mono">[[原则||Principle]]</p><p>[[像素就是豆子。标志、图标、动效，全都画在玩家使用的同一张网格上。||The pixel is the bead. Everything (logo, icons, motion) is drawn on the same grid the maker works on.]]</p></div>
+          <div data-reveal><p class="mono">[[难题||Challenge]]</p><p>[[RGB 距离挑出来的颜色常常“算对了却看错了”：肤色发灰，阴影变紫。量化必须按人眼的感知来做。||Matching colours by RGB distance is often right on paper and wrong to the eye: skin turns grey, shadows go purple. Quantisation has to follow perception.]]</p></div>
+          <div data-reveal><p class="mono">[[思路||Approach]]</p><p>[[在 OKLab 感知色彩空间里，对 48 种真实豆色做最近邻匹配；整条管线跑在 GPU 上，拖动、缩放、换密度都是实时的。||Nearest-neighbour matching against 48 real bead colours in the OKLab perceptual space, with the whole pipeline on the GPU, so dragging, zooming and changing density all happen live.]]</p></div>
+          <div data-reveal><p class="mono">[[原则||Principle]]</p><p>[[所见即所拼。屏幕上的每一格都对应豆板上的一颗豆，数量与色号可以直接拿去采购。||What you see is what you build. Every cell on screen is one bead on the board, and the counts and colour codes go straight onto a shopping list.]]</p></div>
         </div>
       </div>
     </section>
@@ -68,8 +74,8 @@
         <p class="chapter__num">02</p>
         <div class="chapter__body">
           <h3 class="chapter__title">[[创||Create]]</h3>
-          <p class="chapter__text">[[一颗一颗地创作像素风图案，画布以豆钉为单位思考，而不是像素。||Design pixel-style artwork (创作像素风图案) bead by bead, on a canvas that thinks in pegs, not pixels.]]</p>
-          <ul class="tags mono"><li>[[像素画||Pixel art]]</li><li>[[豆色板||Bead palette]]</li></ul>
+          <p class="chapter__text">[[在引擎生成的图纸上逐颗修改，画布以豆钉为单位思考，而不是像素。||Refine the generated pattern bead by bead, on a canvas that thinks in pegs, not pixels.]]</p>
+          <ul class="tags mono"><li>[[逐颗编辑||Per-bead editing]]</li><li>[[豆色板||Bead palette]]</li></ul>
         </div>
       </article>
       <article class="chapter grid">
@@ -84,22 +90,10 @@
         <p class="chapter__num">04</p>
         <div class="chapter__body">
           <h3 class="chapter__title">[[随处||Anywhere]]</h3>
-          <p class="chapter__text">[[可以像应用一样安装到手机或桌面，奶油色的界面像一张手作桌。||Installable as an app on phone or desktop, wrapped in a warm cream interface that feels like a craft table.]]</p>
+          <p class="chapter__text">[[可以像应用一样安装到手机或桌面，离线可用；计算全部在本地完成，图像不会离开你的设备。||Installable as an app on phone or desktop and works offline; everything is computed locally, so your images never leave the device.]]</p>
           <ul class="tags mono"><li>PWA</li><li>[[手机与桌面||Mobile &amp; desktop]]</li></ul>
         </div>
       </article>
-    </section>
-
-    <section class="case-demo" data-theme-section="dark" aria-labelledby="demo-title">
-      <div class="section-head grid">
-        <p class="mono label col-label"><span class="label__idx">[[叁||03]]</span><span class="label__rule"></span><span>[[试一试||Try it]]</span></p>
-        <h2 class="section-title" id="demo-title" data-split>[[亲手拼一只<em>吉祥物</em>||Bead the <em>mascot</em>]]</h2>
-        <p class="mono section-meta">[[可交互的缩影||Interactive miniature]]</p>
-      </div>
-      <div class="case-demo__stage case-demo__stage--beads">
-        <div data-demo="beads"></div>
-      </div>
-      <p class="case-demo__note mono">[[受口袋瓜拼豆启发的可玩缩影。涂色，载入吉祥物图纸，熨烫，然后保存你的图纸。||A playable miniature inspired by Beads. Paint, load the mascot pattern, iron it, then save your sheet.]]</p>
     </section>
 
     <section class="captures" data-captures hidden aria-label="[[界面||Screens]]">
@@ -112,22 +106,22 @@
 
     <section class="case-detail" data-theme-section="light">
       <div class="case-detail__grid grid">
-        <figure class="case-detail__media mosaic" data-mosaic><img src="/work/beads/detail.webp" alt="[[镊子把一颗珊瑚色的豆放进豆板上的西瓜图案里||Tweezers placing a coral bead into a watermelon pattern on a pegboard]]" loading="lazy" data-parallax /></figure>
+        <figure class="case-detail__media"><img src="/work/beads/stage.webp" alt="[[引擎渲染的熨烫拼豆肖像特写，76 列网格、24 种豆色||Close-up of a fused-bead portrait rendered by the engine: a 76-column grid in 24 bead colours]]" loading="lazy" data-parallax /></figure>
         <div class="case-detail__copy">
-          <p class="mono label"><span class="label__idx">[[肆||04]]</span><span class="label__rule"></span><span>[[手记||Craft notes]]</span></p>
+          <p class="mono label"><span class="label__idx">[[叁||03]]</span><span class="label__rule"></span><span>[[工程手记||Engineering notes]]</span></p>
           <ul class="notes">
-            <li data-reveal><h4>[[是吉祥物，不只是标志||A mascot, not a logo]]</h4><p>[[口袋里的小猫撑起了整个品牌：它是应用图标，也是许多玩家拼的第一张图纸。||The cat in the pocket carries the brand: it appears in the app icon and it’s the first pattern many makers try.]]</p></li>
-            <li data-reveal><h4>[[处处像素精确||Pixel-true everywhere]]</h4><p>[[图标与插画都在拼豆网格上绘制，屏幕上看到的，就是你能拼出来的。||Icons and illustrations are authored on the bead grid, so what you see on screen is exactly what you can bead.]]</p></li>
-            <li data-reveal><h4>[[天生温暖||Warm by default]]</h4><p>[[奶油色（#fdf9ef）画布，柔和的珊瑚红与叶绿：是阳光下手作桌的配色，而不是设计软件。||A cream (#fdf9ef) canvas, soft coral and leaf green: the palette of a sunny craft table, not a design tool.]]</p></li>
+            <li data-reveal><h4>[[按感知取色||Colour by perception]]</h4><p>[[颜色在 OKLab 中比较，明度权重 1.15。肤色保住温度，暗部不会被挑成紫色。||Colours are compared in OKLab with lightness weighted at 1.15, so skin keeps its warmth and shadows never get matched to purple.]]</p></li>
+            <li data-reveal><h4>[[一个着色器，三种状态||One shader, three states]]</h4><p>[[照片、平面图纸、熨烫后的豆子是同一个片元着色器的三个阶段，可以连续过渡，也可以用放大镜局部预览。||The photo, the flat pattern and the fused beads are three stages of one fragment shader. They blend continuously, and a lens previews the next stage locally.]]</p></li>
+            <li data-reveal><h4>[[只用真实存在的豆||Only beads that exist]]</h4><p>[[色板来自 48 种在售豆色，图纸里的每一种颜色都能买到、数得清。||The palette is 48 bead colours you can actually buy, so every colour in a pattern can be bought and counted.]]</p></li>
           </ul>
         </div>
       </div>
     </section>
 
     <section class="case-credits grid" data-theme-section="light">
-      <p class="mono label col-label"><span class="label__idx">[[伍||05]]</span><span class="label__rule"></span><span>[[署名||Credits]]</span></p>
+      <p class="mono label col-label"><span class="label__idx">[[肆||04]]</span><span class="label__rule"></span><span>[[署名||Credits]]</span></p>
       <dl class="credits">
-        <div><dt class="mono">[[产品、品牌与吉祥物||Product, brand &amp; mascot]]</dt><dd>[[口袋瓜||Pocketmelon]]</dd></div>
+        <div><dt class="mono">[[产品与品牌||Product &amp; brand]]</dt><dd>[[口袋瓜||Pocketmelon]]</dd></div>
         <div><dt class="mono">[[设计与工程||Design &amp; engineering]]</dt><dd>[[口袋瓜||Pocketmelon]]</dd></div>
         <div><dt class="mono">[[状态||Status]]</dt><dd>[[已上线||Live]] · <a href="https://beads.pocketmelon.com" target="_blank" rel="noopener" class="u-link">[[访问口袋瓜拼豆 ↗||Visit Beads ↗]]</a></dd></div>
       </dl>
@@ -135,7 +129,7 @@
 
     <a href="/work/whisperleaf/" class="case-next" data-theme-section="light" data-cursor="[[下一个||Next case]]">
       <span class="case-next__fill" aria-hidden="true"></span>
-      <span class="mono case-next__k">[[下一个案例 · 01||Next case — 01]]</span>
+      <span class="mono case-next__k">[[下一个案例 · 02||Next case — 02]]</span>
       <span class="case-next__title">Whisper<em>leaf</em></span>
       <span class="case-next__img"><img src="/work/whisperleaf/hero.webp" alt="" loading="lazy" /></span>
     </a>

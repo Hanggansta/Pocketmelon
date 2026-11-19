@@ -1,3 +1,10 @@
+/* 平方赖江湖飞扬体 (平方字库, free for commercial use incl. websites), subset to 口袋瓜 only: 4.7 KB */
+@font-face {
+  font-family: "PM Brush";
+  src: url("/fonts/pm-brush.woff2") format("woff2");
+  font-display: block;
+  unicode-range: U+53E3, U+888B, U+74DC;
+}
 @font-face {
   font-family: "PM Glyphs";
   src: url("/fonts/pm-glyphs.woff2") format("woff2");
@@ -11,9 +18,9 @@
   --paper: #efebe3;
   --paper-2: #e5dfd2;
   --ink: #121611;
-  --rind: #15231a;
-  --rind-2: #1c2e22;
-  --rind-light: #b9d98a;
+  --rind: #0b0c0e; /* v9: neutral ink-black (was a green "rind") */
+  --rind-2: #16181b;
+  --rind-light: #d4ff3f; /* v9: one acid signal colour for the digital studio */
   --melon: #ff4f3f;
   --melon-deep: #e23a2b;
 
@@ -170,29 +177,37 @@ html[data-theme="dark"] .grain { opacity: 0.11; mix-blend-mode: screen; filter: 
 /* =========================================================
    Cursor
    ========================================================= */
-.cursor { position: fixed; top: 0; left: 0; z-index: 950; pointer-events: none; }
-.cursor__dot, .cursor__ring {
-  position: fixed; top: 0; left: 0; border-radius: 50%;
-  will-change: transform;
+.cursor { position: fixed; top: 0; left: 0; z-index: 950; pointer-events: none; opacity: 0; mix-blend-mode: difference; color: #fff; }
+.cursor > * { position: fixed; top: 0; left: 0; will-change: transform; }
+/* the frame: four corner brackets drawn with gradients, so any size stays crisp at 1.5 px */
+.cursor__box {
+  --l: 7px; --t: 1.5px;
+  background:
+    linear-gradient(currentColor, currentColor) 0 0 / var(--l) var(--t),
+    linear-gradient(currentColor, currentColor) 0 0 / var(--t) var(--l),
+    linear-gradient(currentColor, currentColor) 100% 0 / var(--l) var(--t),
+    linear-gradient(currentColor, currentColor) 100% 0 / var(--t) var(--l),
+    linear-gradient(currentColor, currentColor) 0 100% / var(--l) var(--t),
+    linear-gradient(currentColor, currentColor) 0 100% / var(--t) var(--l),
+    linear-gradient(currentColor, currentColor) 100% 100% / var(--l) var(--t),
+    linear-gradient(currentColor, currentColor) 100% 100% / var(--t) var(--l);
+  background-repeat: no-repeat;
+  transition: opacity .25s, --l .4s var(--ease-out);
 }
-.cursor__dot {
-  width: 8px; height: 8px; margin: -4px 0 0 -4px;
-  background: var(--paper); mix-blend-mode: difference;
-  transition: width .35s var(--ease-out), height .35s var(--ease-out), margin .35s var(--ease-out), opacity .3s;
+.cursor[data-mode="link"] .cursor__box { --l: 10px; }
+.cursor[data-mode="label"] .cursor__box { --l: 12px; }
+.cursor__pip { width: 2px; height: 2px; margin: -1px 0 0 -1px; background: currentColor; transition: opacity .2s; }
+.cursor[data-mode="link"] .cursor__pip { opacity: 0; }
+.cursor__tag {
+  display: flex; flex-direction: column; gap: .3em; white-space: nowrap;
+  font-family: var(--f-mono); font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; line-height: 1;
+  opacity: 0; transition: opacity .25s;
 }
-.cursor__ring {
-  width: 88px; height: 88px; margin: -44px 0 0 -44px;
-  display: grid; place-items: center;
-  background: var(--ink); color: var(--paper);
-  transform-origin: center;
-}
-.cursor__label {
-  font-family: var(--f-mono); font-size: 0.7rem; letter-spacing: 0.06em;
-  text-transform: uppercase; white-space: nowrap;
-}
-.cursor.is-hidden .cursor__dot { opacity: 0; }
-.cursor.is-hover .cursor__dot { width: 44px; height: 44px; margin: -22px 0 0 -22px; }
+.cursor__xy { opacity: .55; font-variant-numeric: tabular-nums; }
+.cursor[data-mode="label"] .cursor__tag { opacity: 1; }
+.cursor[data-mode="hidden"] .cursor__box, .cursor[data-mode="hidden"] .cursor__pip { opacity: 0; }
 html.no-cursor .cursor { display: none; }
+@property --l { syntax: "<length>"; inherits: true; initial-value: 7px; }
 html.has-cursor, html.has-cursor a, html.has-cursor button { cursor: none; }
 
 /* =========================================================

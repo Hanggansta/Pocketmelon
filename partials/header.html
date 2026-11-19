@@ -1,38 +1,30 @@
 <a class="skip" href="#main">[[跳到正文||Skip to content]]</a>
 
   <div class="cursor" aria-hidden="true">
-    <div class="cursor__dot"></div>
-    <div class="cursor__ring"><span class="cursor__label"></span></div>
+    <div class="cursor__box"></div>
+    <div class="cursor__pip"></div>
+    <div class="cursor__tag"><span class="cursor__label"></span><span class="cursor__xy"></span></div>
   </div>
   <div class="grain" aria-hidden="true"></div>
 
-  <!-- shared SVG: the studio seal 口袋瓜印 (白文, read right column first) -->
+  <!-- shared SVG: the studio mark (a 口: four brackets and the square they hold), used by loader & transitions -->
   <svg class="svg-defs" width="0" height="0" aria-hidden="true" focusable="false">
     <defs>
-      <filter id="seal-rough" x="-4%" y="-4%" width="108%" height="108%" color-interpolation-filters="sRGB">
-        <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="7" result="grain" />
-        <feDisplacementMap in="SourceGraphic" in2="grain" scale="2.4" xChannelSelector="R" yChannelSelector="G" result="rough" />
-        <feTurbulence type="fractalNoise" baseFrequency="0.13" numOctaves="3" seed="11" result="wear" />
-        <feColorMatrix in="wear" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -10 0 0 0 6.9" result="spots" />
-        <feComposite in="rough" in2="spots" operator="in" />
-      </filter>
-      <mask id="seal-cut" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
-        <rect width="100" height="100" fill="#fff" />
-        <g font-family="'Noto Serif SC Variable','Songti SC','STSong',serif" font-weight="800" font-size="41" text-anchor="middle" fill="#000">
-          <text x="70.5" y="45">口</text><text x="70.5" y="88">袋</text>
-          <text x="29.5" y="45">瓜</text><text x="29.5" y="88">印</text>
-        </g>
-      </mask>
       <symbol id="seal" viewBox="0 0 100 100">
-        <g filter="url(#seal-rough)"><rect x="5" y="5" width="90" height="90" rx="4" fill="currentColor" mask="url(#seal-cut)" /></g>
+        <g fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="square"><path d="M8 34V8h26M66 8h26v26M92 66v26H66M34 92H8V66" /></g>
+        <rect x="54" y="54" width="21" height="21" fill="currentColor" />
       </symbol>
     </defs>
   </svg>
 
   <header class="header">
     <a href="/" class="logo" aria-label="[[口袋瓜 Pocketmelon，返回首页||Pocketmelon — home]]">
-      <span class="logo__cat" data-cat="logo" aria-hidden="true"><canvas></canvas></span>
-      <span class="logo__word" aria-hidden="true">P<span class="logo__o">o</span>cketmelon</span>
+      <svg class="logo__mark" viewBox="0 0 24 24" aria-hidden="true">
+        <path class="logo__c logo__c--tl" d="M1 8V1h7" /><path class="logo__c logo__c--tr" d="M16 1h7v7" />
+        <path class="logo__c logo__c--br" d="M23 16v7h-7" /><path class="logo__c logo__c--bl" d="M8 23H1v-7" />
+        <rect class="logo__pip" x="13" y="13" width="5" height="5" />
+      </svg>
+      <span class="logo__word" aria-hidden="true">Pocketmelon</span>
       <span class="logo__cn" aria-hidden="true">口袋瓜</span>
     </a>
 

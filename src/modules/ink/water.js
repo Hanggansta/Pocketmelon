@@ -95,7 +95,7 @@ void main() {
 
 const ADVECT_DYE = HEAD + `
 uniform sampler2D uVel, uDye, uMask, uField; uniform vec2 uTx, uFTx;
-uniform float uDt, uDiss, uAttract, uSource, uTime, uGlyph;
+uniform float uDt, uDiss, uAttract, uSource, uTime, uGlyph, uEdge, uHalo;
 void main() {
   vec2 v = texture(uVel, vUv).xy * uTx;
   vec2 drift = vec2(0.0);
@@ -103,7 +103,9 @@ void main() {
     // climb the blurred glyph field: ink gathers into the character
     float fx = texture(uField, vUv + vec2(uFTx.x, 0)).a - texture(uField, vUv - vec2(uFTx.x, 0)).a;
     float fy = texture(uField, vUv + vec2(0, uFTx.y)).a - texture(uField, vUv - vec2(0, uFTx.y)).a;
-    drift = vec2(fx, fy) * uAttract * 1.1;
+    // only smoke outside the letters is pulled in; inside, ink stays put so thin strokes keep their shape
+    float inside = smoothstep(0.15, 0.75, texture(uMask, vUv).a);
+    drift = vec2(fx, fy) * uAttract * 1.1 * (1.0 - inside);
   }
   vec4 d = texture(uDye, vUv - uDt * (v + drift)) / (1.0 + uDiss * uDt);
   if (uGlyph > 0.5) {
@@ -111,7 +113,7 @@ void main() {
     float breath = 0.55 + 0.9 * fbm(vUv * 9.0 + vec2(uTime * 0.25, -uTime * 0.18));
     d.r += m * uSource * uDt * breath;
     // inside the letters ink settles; outside it disperses a little faster
-    d *= mix(1.0 - 0.8 * uAttract * uDt, 1.0, smoothstep(0.0, 0.6, m + texture(uField, vUv).a * 0.5));
+    d *= mix(1.0 - uEdge * uAttract * uDt, 1.0, smoothstep(0.0, 0.6, m + texture(uField, vUv).a * uHalo));
   }
   o = min(d, vec4(6.0));
 }`;
@@ -311,12 +313,33 @@ export class InkWater {
       x2.textBaseline = 'middle';
       x2.fillStyle = '#fff';
       if (blur) x2.filter = `blur(${blur}px)`;
+      if (opts.parts) {
+        // a composed lockup: each character is placed, sized and turned exactly like its DOM span
+        for (const el of opts.parts) {
+          const er = el.getBoundingClientRect(), cs = getComputedStyle(el);
+          const f = (parseFloat(cs.fontSize) / cr.height) * H;
+          const rot = parseFloat(cs.rotate) || 0;
+          x2.save();
+          x2.font = `${f}px ${opts.font}`;
+          x2.translate(((er.left + er.width / 2 - cr.left) / cr.width) * W, ((er.top + er.height / 2 - cr.top) / cr.height) * H);
+          x2.rotate((rot * Math.PI) / 180);
+          // CSS centres the font's content area in the line box: match that rather than the em middle
+          x2.textBaseline = 'alphabetic';
+          const mt = x2.measureText(el.textContent);
+          x2.fillText(el.textContent, 0, ((mt.fontBoundingBoxAscent ?? f * 0.88) - (mt.fontBoundingBoxDescent ?? f * 0.12)) / 2);
+          x2.restore();
+        }
+        return c;
+      }
       x2.fillText(text, W * x, H * (y + (opts.dy ?? (opts.el ? 0 : 0.04))));
       return c;
     };
     if (this.mask) { gl.deleteTexture(this.mask); gl.deleteTexture(this.field); }
-    this.mask = g.texture(draw(0));
-    this.field = g.texture(draw(Math.max(6, H * 0.05)));
+    const mc = draw(0);
+    if (import.meta.env?.DEV) this._maskCanvas = mc;
+    this.mask = g.texture(mc);
+    // a tight field keeps thin, fast brush strokes from collapsing into their centre of mass
+    this.field = g.texture(draw(Math.max(4, H * (opts.fieldBlur ?? 0.05))));
     this.fieldTx = [2 / W, 2 / H];
   }
   clearGlyph() { this.glyph = null; }
@@ -348,7 +371,7 @@ export class InkWater {
     const glyph = !!(this.glyph && this.mask);
     g.run(p.advDye, this.dye.write, {
       uVel: this.vel, uDye: this.dye, uMask: glyph ? this.mask : this.dye.read.tex, uField: glyph ? this.field : this.dye.read.tex,
-      uTx: tx, uFTx: this.fieldTx || [0, 0], uDt: dt, uDiss: u.dyeDiss, uAttract: u.attract, uSource: u.source, uTime: this.time, uGlyph: glyph ? 1 : 0,
+      uTx: tx, uFTx: this.fieldTx || [0, 0], uDt: dt, uDiss: u.dyeDiss, uAttract: u.attract, uSource: u.source, uTime: this.time, uGlyph: glyph ? 1 : 0, uEdge: this.glyph?.opts.edge ?? 0.8, uHalo: this.glyph?.opts.halo ?? 0.5,
     });
     this.dye.swap();
   }
