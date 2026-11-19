@@ -40,35 +40,27 @@ It shows up in the header logo, the loader (it eats the melon as the page loads)
 
 Videos autoplay muted and loop, and pause when off-screen. Use H.264 MP4 at 1440px wide or less, 8–15 s, no audio.
 
-## Art direction (v7): one sheet of paper
+## Art direction (v8): ink in water, directed like a film
 
-The voxel hero (v5–v6) was retired as too busy. v7 is benchmarked against Lusion, Lando Norris, abeto (Messenger, Igloo), Immersive Garden and Garden Eight. The written reflection, in Chinese, is in [`docs/v7-reflection.md`](docs/v7-reflection.md). The rules we took from it:
-- one idea per screen;
-- ink black and paper, plus one cinnabar seal;
-- two type families at poster size;
-- interaction you can actually play with.
+v7's "one sheet of paper you paint on" was rejected as flat and non-cinematic. v8 rebuilds the hero, the 品 reveal and every lab. Notes on what changed and why are in [`docs/v8-notes.md`](docs/v8-notes.md).
 
 | Moment | What happens | Module |
 |---|---|---|
-| Hero | A mounted sheet of xuan paper. Move to paint, rest to re-ink, click to drop ink. It opens with one ensō that runs dry into flying white. The type is set like a magazine opener: a top rule, poster headline, vertical 墨分五色 and a seal. | `inkscenes.js` → `ink/fluid.js` |
-| Hero → scroll | The mounted sheet opens to full bleed and the copy lifts away. | `src/pages/home.js` |
-| 品 (studio) | Alum resist (矾水显字). The sheet is sized everywhere except the character. A wash beads off the sizing and soaks into 品, so the character surfaces under your hand. Touch and reduced motion get the wash laid automatically. | `inkscenes.js` (`initAlum`) |
-| 一笔墨 (labs) | Mouse only, no text input. Drag to write, tap to drop ink. Five tones (焦浓重淡清), plus a new sheet. | `inkscenes.js` (`initInkLab`) |
+| Hero intro | A GSAP-timed title sequence. Black bars meet on the seam with a credit (口袋瓜 出品) and a running timecode. The bars part to a 2.39:1 letterbox while the camera pulls back. One drop falls and hits the water, then two more follow (one cinnabar). The plumes are drawn into 口袋瓜, the one line of copy resolves out of blur, the letterbox opens and the header slides in. | `herofilm.js` |
+| Hero, live | The name keeps breathing and smoking. Stir it apart with the cursor and it gathers again; click to drop ink. | `ink/water.js` |
+| Hero → feature | A 220svh scrubbed scene. The name dissolves into rising smoke, the camera pushes in, and ink floods the frame to pure black, cutting into the black feature section. | `herofilm.js` (`scroll`) |
+| 品 (studio) | Black water. Three drops of milk-white ink fall, one per 口, then the three plumes condense into 品. Stir it and it re-forms. | `pinink.js` |
+| Labs | **万粒:** 131,072 GPU particles forming characters, with a cursor vortex, feedback trails and click-to-change. **流沙笺:** Song-dynasty marbled paper by exact Jaffer–Lu marbling maths, evaluated per pixel (no resampling blur); hold to drop, drag to comb, four pigments. **玉印:** a ray-marched jade seal with a cinnabar-inked relief face and subsurface scattering; drag to turn, click to change stone. | `labs/grains.js`, `labs/marble.js`, `labs/seal.js` |
+| Stages | Each WebGL stage opens like a shutter on scroll (scrubbed clip-path plus a push-in). | `src/pages/home.js` |
 
-**Ink engine** (`src/modules/ink/fluid.js`, WebGL2 + `EXT_color_buffer_float`, no three.js), after MoXi (Chu & Tai 2005):
-1. **Stable-fluids velocity:** the brush drags water, and drops push it outward.
-2. **Ink field:** wet pigment, water, fixed pigment and dried water mark.
-   - Paper holds water up to a fibre-dependent capacity, and only the excess percolates. Blooms therefore stop by themselves with feathered edges.
-   - Pigment rides the water upwind and fixes faster at the drying front, which gives edge darkening.
-3. **Procedural paper:** cloudy pulp, curling fibres and grain. It drives permeability (洇), dry-brush skips (飞白) and granulation, and is lit as a surface.
-
-The brush is a bristle model:
-- streaks across the tip;
-- ink load that runs out with distance;
-- thinner and drier when fast;
-- re-inks when resting.
-
-Each canvas sleeps after 9 s idle or when off-screen. Without WebGL2 you get plain paper; the 品 sheet shows the character set in type.
+**Ink engine** (`src/modules/ink/water.js`: WebGL2 + float targets, no three.js):
+- **Fluid:** stable fluids (semi-Lagrangian advection, 20 Jacobi pressure iterations) with vorticity confinement for the fine scrolls ink makes in water.
+- **Ink behaviour:** buoyancy (ink sinks and mushrooms) and curl-noise ambient currents.
+- **Glyph condensation:** a drift applied only to the dye climbs a blurred glyph field, while a breathing source keeps strokes alive.
+- **Four dye channels:** rendered by Beer–Lambert absorbance on paper (mode 0) or by scattering in black water (mode 1), with density-gradient lighting, chromatic aberration, vignette, grain and a scroll-driven fbm flood.
+- **Shared helpers:** `src/modules/gl/gl2.js` is the shared WebGL2 kit, and `visibleLoop` only renders on-screen stages.
+- **Fallbacks:** without WebGL2 the hero shows the type in ink, 品 is set in type, and the labs show a placeholder.
+- **Reduced motion:** the hero skips the film and pre-settles the simulation.
 
 ## Languages (v6): Chinese first
 
@@ -81,7 +73,7 @@ Each canvas sleeps after 9 s idle or when off-screen. Without WebGL2 you get pla
 
 Restraint is the rule: one calligraphic artefact per view, cinnabar only for the seal and a single mark.
 
-- `ink/glyph.js`: real-time brush calligraphy (WebGL). Text is rasterised, then written along the reading order with stroke growth, 飞白 dry streaks and 洇 bleed. Now used only for the vertical 瓜熟蒂落 in the footer.
+- `ink/glyph.js`: real-time brush calligraphy (WebGL). Text is rasterised, then written along the reading order with stroke growth, 飞白 dry streaks and 洇 bleed. Used only for the vertical 瓜熟蒂落 in the footer.
 - `ink/mountains.js`: the footer scroll painting: five ridges of ink density, mist and cloud bands, a small cinnabar sun.
 - `transition.js`: ink spreads from the click point, the studio seal (口袋瓜印, `#seal` in the header defs) stamps, the next page opens out of the ink.
 - `worklist.js`: the work index; on desktop a floating preview follows the cursor and changes project through an ink blot.

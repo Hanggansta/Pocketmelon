@@ -22,44 +22,16 @@
   <main id="main">
     <!-- ============ HERO ============ -->
     <section class="hero" id="top" data-theme-section="light">
-      <div class="hero__frame" data-cursor="[[落笔||Paint]]">
+      <div class="hero__frame" data-cursor="[[搅动||Stir]]">
         <canvas class="hero__ink" aria-hidden="true"></canvas>
-        <p class="sr-only">[[首屏是一张宣纸：移动光标就会在纸上留下墨迹，点击会滴下一滴墨。||The opening screen is a sheet of rice paper: move your cursor to paint on it, click to drop ink.]]</p>
-
-        <div class="hero__top mono" aria-hidden="true">
-          <span class="hero__meta reveal-up">[[口袋瓜<span class="muted"> · 设计与工程工作室</span>||Pocketmelon<span class="muted"> · Design &amp; engineering</span>]]</span>
-          <span class="hero__meta reveal-up">[[东京<span class="muted"> · 北纬 35°41′</span>||Tokyo<span class="muted"> · 35°41′ N</span>]]</span>
-          <span class="hero__meta hero__meta--r reveal-up"><span class="dot-live"></span>[[2027 年第一季度 · 可预约||Booking Q1 2027]]</span>
+        <div class="hero__stage">
+          <h1 class="hero__title" aria-label="[[口袋瓜，让人想咬一口的数字作品||Pocketmelon, digital things worth biting into]]"><span class="hero__name" aria-hidden="true">口袋瓜</span></h1>
+          <p class="hero__line" aria-hidden="true">[[让人想咬一口的数字作品||Digital things <em>worth biting into</em>]]</p>
         </div>
-
-        <p class="hero__vert reveal-up" aria-hidden="true"><span>[[墨分五色||墨分五色]]</span><span class="hero__vert-sub">[[焦 浓 重 淡 清||jiāo · nóng · zhòng · dàn · qīng]]</span></p>
-
-        <div class="hero__content">
-          <p class="hero__kicker mono reveal-up"><span class="hero__num">[[〇一||01]]</span><span class="label__rule"></span><span>[[作品集 · 二〇二六||Portfolio · 2026]]</span></p>
-          <p class="hero__hint mono reveal-up" aria-hidden="true"><span>[[移动 · 落笔||Move · paint]]</span><span>[[停留 · 蘸墨||Rest · re-ink]]</span><span>[[点击 · 滴墨||Click · drop ink]]</span></p>
-          <h1 class="hero__title" aria-label="[[让人想咬一口的数字作品。||Digital things worth biting into.]]">
-            <span class="hero__line" aria-hidden="true"><span class="hero__words">[[让人想咬||Digital things]]</span></span>
-            <span class="hero__line hero__line--2" aria-hidden="true"><span class="hero__words">[[一口的数字作品||<em>worth biting into.</em>]]</span></span>
-          </h1>
-          <p class="hero__alt reveal-up" aria-hidden="true">[[Digital things <em>worth biting into.</em>||让人想咬一口的数字作品]]</p>
-          <div class="hero__aside">
-            <p class="hero__intro reveal-up">[[东京的一家小型设计与工程工作室。我们为品牌与产品设计并开发网站、应用和视觉系统，在别人忽略的细节上用心。||A small Tokyo studio designing and building websites, products and brands, with the kind of detail people notice and come back for.]]</p>
-            <div class="hero__ctas reveal-up">
-              <a href="#work" class="btn btn--ink magnetic" data-cursor="hide">
-                <span class="btn__label">[[查看作品||See the work]]</span>
-                <span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M8 3v10M4 9l4 4 4-4" /></svg></span>
-              </a>
-              <a href="#contact" class="btn btn--line">
-                <span class="btn__label">[[开始合作||Start a project]]</span>
-                <span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" /></svg></span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <a href="#studio" class="hero__scroll mono reveal-up" aria-label="[[向下探索||Scroll to explore]]">
-          <span class="hero__cross" aria-hidden="true"><i></i><i></i></span><span aria-hidden="true">[[向下||Scroll]]</span>
-        </a>
+        <i class="hero__drop" aria-hidden="true"></i>
+        <div class="hero__bar hero__bar--t" aria-hidden="true"><span class="hero__credit">[[口袋瓜 出品||A Pocketmelon picture]]</span></div>
+        <div class="hero__bar hero__bar--b" aria-hidden="true"><span class="hero__tc mono">00:00:00:00</span></div>
+        <span class="hero__cue mono" aria-hidden="true"><i></i></span>
       </div>
     </section>
 
@@ -71,13 +43,9 @@
           <span class="feature__shade"></span>
         </a>
         <div class="feature__copy">
-          <p class="mono feature__tag">[[案例 01 — Whisperleaf||Case study 01 — Whisperleaf]]</p>
+          <p class="mono feature__tag">01</p>
           <h2 class="feature__title"><span>Whisper</span><em>leaf</em></h2>
-          <p class="feature__desc">[[为想读得更远的英语学习者打造的阅读桌。读原著，留下真正重要的，再回来时，故事依然在那一页。||A reading desk for people going further in English. Read originals, keep what matters, return with the story still attached.]]</p>
-        </div>
-        <div class="feature__corner mono">
-          <span>[[产品 · 品牌 · 工程||Product · Brand · Engineering]]</span>
-          <span>whisperleaf.pocketmelon.com</span>
+          <p class="feature__desc">[[读原著的阅读桌。||A reading desk for real books.]]</p>
         </div>
       </div>
     </section>
@@ -90,15 +58,13 @@
       </div>
 
       <div class="pin grid">
-        <figure class="pin__art" data-alum data-cursor="[[扫墨||Wash]]" role="img" aria-label="[[一张上过矾的宣纸：墨扫过时，只有“品”字吃墨显形||Alum-sized rice paper: as ink is washed across it, only the character 品 drinks it in and appears]]">
+        <figure class="pin__art" data-pin-ink data-cursor="[[搅动||Stir]]" role="img" aria-label="[[三滴墨落入水中，聚成一个“品”字||Three drops of ink fall into water and gather into the character 品]]">
           <canvas class="pin__ink" aria-hidden="true"></canvas>
-          <figcaption class="pin__how mono"><span>[[矾水显字||Alum resist]]</span><span class="muted">[[用光标把墨扫过纸面——上过矾的地方不吃墨，字会自己浮出来。||Sweep ink across the sheet. Alum-sized paper refuses it, so the character surfaces by itself.]]</span></figcaption>
-          <span class="pin__marks mono" aria-hidden="true"><i>口</i><i>口</i><i>口</i></span>
         </figure>
         <div class="pin__copy">
           <p class="mono pin__k">[[三口成品||Three mouths make 品]]</p>
           <h2 class="pin__title" data-split>[[一口给客户，<br>一口给用户，<br>一口留给我们自己。||One for the client.<br>One for the people who use it.<br>One for us.]]</h2>
-          <p class="pin__text">[[“品”由三个“口”组成，既是品味，也是品质。三方都点头，才算一件作品。我们的中文名“口袋瓜”，恰好也以一个“口”字开头。||The character 品 (pǐn) is three mouths stacked together. It means taste, and it means quality. When all three say yes, the work is ready. Our Chinese name, 口袋瓜, happens to begin with a mouth too.]]</p>
+          <p class="pin__text">[[“品”是三个“口”。三方都点头，才算一件作品。||品 is three mouths. When all three say yes, the work is ready.]]</p>
         </div>
       </div>
 
@@ -106,17 +72,14 @@
         <article class="principle" data-reveal>
           <p class="mono principle__idx">01</p>
           <h3 class="principle__title">[[亲手去做||Makers, not middlemen]]</h3>
-          <p class="principle__text">[[和你沟通的，就是做设计、写代码的人。没有层层转手，也不会在交接里丢掉细节。||You talk to the people designing and writing the code. No account layers, no lost hand-offs.]]</p>
         </article>
         <article class="principle" data-reveal>
           <p class="mono principle__idx">02</p>
           <h3 class="principle__title">[[产品思维||Product-minded]]</h3>
-          <p class="principle__text">[[我们自己也在运营线上产品，所以会考虑新手引导、留存和各种边界情况，而不只是上线那一天。||We run live products of our own, so we think about onboarding, retention and edge cases, not just launch day.]]</p>
         </article>
         <article class="principle" data-reveal>
           <p class="mono principle__idx">03</p>
           <h3 class="principle__title">[[经得起时间||Craft that lasts]]</h3>
-          <p class="principle__text">[[无障碍、够快、易维护。惊喜是最上面的一层，从来不能代替地基。||Accessible, fast, maintainable. Delight is the top layer, never a replacement for the foundations.]]</p>
         </article>
       </div>
     </section>
@@ -126,7 +89,6 @@
       <div class="section-head grid">
         <p class="mono label col-label"><span class="label__idx">[[贰||02]]</span><span class="label__rule"></span><span>[[精选作品||Selected work]]</span></p>
         <h2 class="section-title" data-split>[[新鲜摘下||Fresh from the vine]]</h2>
-        <p class="mono section-meta">[[在线产品||Live products]] <span class="count">/02</span></p>
       </div>
 
       <ol class="wl" data-worklist>
@@ -166,61 +128,46 @@
     </section>
 
     <!-- ============ LABS ============ -->
-    <section class="labs" id="labs" data-theme-section="light">
+    <section class="labs" id="labs" data-theme-section="dark">
       <div class="section-head grid">
         <p class="mono label col-label"><span class="label__idx">[[叁||03]]</span><span class="label__rule"></span><span>[[实验室||Labs]]</span></p>
-        <h2 class="section-title" data-split>[[做着好玩的东西||Things we make for fun]]</h2>
-        <p class="mono section-meta">[[全部可玩，动手试试||All live. Go on, poke them.]]</p>
+        <h2 class="section-title" data-split>[[墨与石||Ink &amp; stone]]</h2>
       </div>
 
       <div class="labs__grid">
-        <article class="lab lab--ink" data-reveal>
-          <div class="lab__stage lab__stage--ink" data-ink-lab data-cursor="[[按住书写||Hold &amp; write]]">
-            <canvas class="inklab__canvas" aria-hidden="true"></canvas>
-            <div class="inklab__bar">
-              <div class="inklab__tones" role="radiogroup" aria-label="[[墨分五色||Five tones of ink]]">
-                <button type="button" role="radio" aria-checked="false" data-tone="焦" title="[[焦墨||Scorched]]">焦</button><button type="button" role="radio" aria-checked="true" data-tone="浓" title="[[浓墨||Thick]]">浓</button><button type="button" role="radio" aria-checked="false" data-tone="重" title="[[重墨||Heavy]]">重</button><button type="button" role="radio" aria-checked="false" data-tone="淡" title="[[淡墨||Light]]">淡</button><button type="button" role="radio" aria-checked="false" data-tone="清" title="[[清墨||Clear]]">清</button>
+        <article class="lab lab--wide" data-reveal>
+          <div class="lab__stage lab__stage--grains" data-lab-grains data-cursor="[[搅散 · 点击换字||Scatter · click]]">
+            <canvas aria-hidden="true"></canvas>
+          </div>
+          <div class="lab__info">
+            <h3 class="lab__title">[[万粒||Grains]]</h3>
+            <p class="mono lab__tech">[[131,072 个 GPU 粒子 · 旋度噪声流场||131,072 GPU particles · curl-noise flow]]</p>
+          </div>
+        </article>
+
+        <article class="lab" data-reveal>
+          <div class="lab__stage lab__stage--marble" data-lab-marble data-cursor="[[按住滴墨 · 拖动成纹||Hold · drag]]">
+            <canvas aria-hidden="true"></canvas>
+            <div class="marble__bar">
+              <div class="marble__pigs" role="radiogroup" aria-label="[[颜料||Pigment]]">
+                <button type="button" role="radio" aria-checked="true" data-pig="0" style="--c:#121214" aria-label="[[墨||Ink]]"></button><button type="button" role="radio" aria-checked="false" data-pig="1" style="--c:#9e9991" aria-label="[[淡墨||Wash]]"></button><button type="button" role="radio" aria-checked="false" data-pig="2" style="--c:#b8332a" aria-label="[[朱砂||Cinnabar]]"></button><button type="button" role="radio" aria-checked="false" data-pig="3" style="--c:#294066" aria-label="[[黛||Indigo]]"></button>
               </div>
-              <button type="button" class="inklab__clear mono" data-ink-clear>[[换一张纸||New sheet]]</button>
+              <button type="button" class="marble__clear mono" data-marble-clear>[[换纸||Reset]]</button>
             </div>
-            <span class="lab__hint mono inklab__hint">[[按住拖动 · 快则飞白 · 停笔蘸墨 · 轻点滴墨||Drag to write · fast goes dry · rest to re-ink · tap to drop]]</span>
           </div>
           <div class="lab__info">
-            <h3 class="lab__title">[[一笔墨||One brush]]</h3>
-            <p class="lab__text">[[一支有“毛”的笔，一张会吸水的纸。墨随水在纤维里渗开，干处停住、边缘积墨；笔走得快就起飞白，墨用尽了停一停就能再蘸。全部在 GPU 上实时模拟。||A brush with real bristles on paper that drinks. Ink rides the water through the fibres, stops where it dries and pools at the edge; move fast and the brush breaks into flying white, rest and it re-inks. Simulated live on the GPU.]]</p>
-            <p class="mono lab__tech">WebGL2 · [[流体 + 渗透模拟||fluid + percolation]] · [[墨分五色||5 ink tones]]</p>
+            <h3 class="lab__title">[[流沙笺||Marbled paper]]</h3>
+            <p class="mono lab__tech">[[Jaffer–Lu 数学流纹 · 保面积映射||Jaffer–Lu marbling · area-preserving maps]]</p>
           </div>
         </article>
 
-        <article class="lab lab--type" data-reveal>
-          <div class="lab__stage lab__stage--type" data-type-lab data-cursor="[[拉伸||Stretch]]">
-            <p class="typelab__word">Juicy</p>
-            <p class="typelab__axes mono" aria-hidden="true"><span>wght <b data-ax="wght">300</b></span><span>opsz <b data-ax="opsz">144</b></span><span>SOFT <b data-ax="SOFT">100</b></span></p>
+        <article class="lab" data-reveal>
+          <div class="lab__stage lab__stage--seal" data-lab-seal data-cursor="[[拖动 · 点击换玉||Turn · click]]" data-stone="羊脂">
+            <canvas aria-hidden="true"></canvas>
           </div>
           <div class="lab__info">
-            <h3 class="lab__title">[[弹性字体||Elastic type]]</h3>
-            <p class="lab__text">[[我们的标题字体有四个可变轴。在这里，每个字母都会读取你的光标，各自决定字重、光学尺寸与柔和度。||Our display face has four variable axes. Here every letter reads your cursor and sets its own weight, optical size and softness.]]</p>
-            <p class="mono lab__tech">Fraunces · [[3 个可变轴||3 live axes]]</p>
-          </div>
-        </article>
-
-        <article class="lab lab--seeds" data-reveal>
-          <div class="lab__stage lab__stage--seeds"><canvas class="lab__seeds" aria-hidden="true"></canvas><span class="lab__hint mono">[[把光标移到这里||Move your cursor here]]</span></div>
-          <div class="lab__info">
-            <h3 class="lab__title">[[瓜子阵||Seed field]]</h3>
-            <p class="lab__text">[[一片会转头看你的西瓜子：它们会膨胀、变红，再给你让路。在触屏上，它们会自己漂动。||A lattice of melon seeds that turn to watch you, swell, ripen red and step aside. On touch screens they drift on their own.]]</p>
-            <p class="mono lab__tech">Canvas 2D · Path2D</p>
-          </div>
-        </article>
-
-        <article class="lab lab--mosaic" data-reveal data-mosaic-host>
-          <div class="lab__stage lab__stage--mosaic">
-            <figure class="mosaic" data-mosaic data-alt="/work/whisperleaf/detail.webp"><img src="/work/whisperleaf/hero.webp" alt="[[一本蓝色布面精装书，粉色书脊，封面压着一片叶子||A blue cloth-bound book with a pink spine and a pressed leaf on the cover]]" loading="lazy" /></figure>
-          </div>
-          <div class="lab__info">
-            <h3 class="lab__title">[[像素显影||Pixel-resolve]]</h3>
-            <p class="lab__text">[[从低分辨率逐步显影的图像。把光标放上去，看它重新渲染一次。||Images that render in from low resolution. Hover to watch it render again.]]</p>
-            <p class="mono lab__tech">Canvas · nearest-neighbour</p>
+            <h3 class="lab__title">[[玉印||Jade seal]]</h3>
+            <p class="mono lab__tech">[[SDF 光线步进 · 次表面散射||SDF ray-marching · subsurface]]</p>
           </div>
         </article>
       </div>
@@ -277,7 +224,6 @@
       <div class="section-head grid">
         <p class="mono label col-label"><span class="label__idx">[[伍||05]]</span><span class="label__rule"></span><span>[[流程||Process]]</span></p>
         <h2 class="section-title" data-split>[[我们如何工作||How we work]]</h2>
-        <p class="mono section-meta">[[48 小时内报价||Quote within 48h]]</p>
       </div>
 
       <div class="process__body grid">
@@ -304,24 +250,6 @@
             <p class="step__text">[[上线、度量、迭代。我们可以继续作为你的产品团队，也可以交付干净、文档齐全的代码。||Launch, measure, iterate. We stay on as your product team, or hand over clean, documented code.]]</p>
           </li>
         </ol>
-      </div>
-
-      <div class="engage grid">
-        <article class="engage__card" data-reveal>
-          <p class="mono engage__k">[[2–4 周||2–4 weeks]]</p>
-          <h3 class="engage__title">[[冲刺||Sprint]]</h3>
-          <p>[[落地页、品牌焕新、交互原型，或是一个会动的吉祥物。||Landing page, brand refresh, interactive prototype or a mascot that moves.]]</p>
-        </article>
-        <article class="engage__card engage__card--hot" data-reveal>
-          <p class="mono engage__k">[[2–4 个月||2–4 months]]</p>
-          <h3 class="engage__title">[[产品打造||Product build]]</h3>
-          <p>[[从第一张草图到正式上线的网站或 Web 应用，设计与工程全部由我们完成。||A website or web app from first sketch to launch, designed and engineered in-house.]]</p>
-        </article>
-        <article class="engage__card" data-reveal>
-          <p class="mono engage__k">[[持续||Ongoing]]</p>
-          <h3 class="engage__title">[[长期合作||Partnership]]</h3>
-          <p>[[为你的团队留出工作室的一部分：设计、工程与持续的改进。||A dedicated slice of the studio for your team: design, engineering and steady improvements.]]</p>
-        </article>
       </div>
     </section>
   </main>

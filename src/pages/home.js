@@ -1,41 +1,36 @@
 import { boot, initSharedScroll, initThemes, lenis, gsap, ScrollTrigger, SplitText, reduced, cjkReady } from '../core.js';
-import { initSeeds } from '../modules/seeds.js';
-import { prepareHero, introHero } from '../modules/hero.js';
-import { initHeroInk, enso, initAlum, initInkLab } from '../modules/inkscenes.js';
+import { initHeroFilm } from '../modules/herofilm.js';
+import { initPinInk } from '../modules/pinink.js';
 import { initWorkList } from '../modules/worklist.js';
 import { initInkGlyphs } from '../modules/ink/glyph.js';
 import { t, isZh, splitCJK } from '../modules/i18n.js';
-import { initTypeLab } from '../modules/typelab.js';
+import { initGrains } from '../modules/labs/grains.js';
+import { initMarble } from '../modules/labs/marble.js';
+import { initSeal } from '../modules/labs/seal.js';
 import { initPixelIcons } from '../modules/pixelicons.js';
 
 const transitions = boot();
-const heroChars = prepareHero();
-const heroEl = document.querySelector('.hero');
-const heroFrame = document.querySelector('.hero__frame');
 
 /* ---------------------------------------------------------
-   Hero: a sheet of xuan paper the visitor paints on (WebGL2 ink sim).
-   No WebGL2 keeps the plain paper and the type.
+   Hero: a title sequence shot in ink and water (see herofilm.js).
    --------------------------------------------------------- */
-const heroInk = initHeroInk(heroFrame);
+const film = initHeroFilm(document.querySelector('.hero'), { fontsReady: cjkReady });
 
 // labs
-const labSeeds = document.querySelector('.lab__seeds');
-if (labSeeds) initSeeds(labSeeds);
-initTypeLab(document.querySelector('[data-type-lab]'));
+initGrains(document.querySelector('[data-lab-grains]'), { fontsReady: cjkReady });
+initMarble(document.querySelector('[data-lab-marble]'));
+initSeal(document.querySelector('[data-lab-seal]'), { fontsReady: cjkReady });
 initPixelIcons();
 initWorkList(document.querySelector('[data-worklist]'));
 initInkGlyphs(document.querySelector('main'));
-initAlum(document.querySelector('[data-alum]'));
-initInkLab(document.querySelector('[data-ink-lab]'));
+initPinInk(document.querySelector('[data-pin-ink]'), { fontsReady: cjkReady });
 
 lenis?.stop();
 if (transitions.arriving) document.querySelector('.loader')?.remove();
 (transitions.arriving ? transitions.reveal() : runLoader()).then(() => {
   document.documentElement.classList.remove('is-loading');
   lenis?.start();
-  setTimeout(() => enso(heroInk), reduced ? 0 : 450);
-  if (!reduced) introHero(heroChars);
+  film.intro();
   initHomeScroll();
   initSharedScroll();
   initThemes();
@@ -93,21 +88,7 @@ function initHomeScroll() {
   if (reduced) return;
   const mm = gsap.matchMedia();
 
-  // Hero: the mounted sheet opens to full bleed as the type lifts away
-  gsap.timeline({
-    scrollTrigger: {
-      trigger: heroEl,
-      start: 'top top',
-      end: '+=85%',
-      pin: true,
-      pinSpacing: true,
-      scrub: 0.8,
-    },
-  })
-    .to(heroEl, { '--k': 0, ease: 'power2.inOut', duration: 0.55 }, 0)
-    .fromTo('.hero__content', { yPercent: 0, opacity: 1 }, { yPercent: -18, opacity: 0, ease: 'power2.in', duration: 0.45, immediateRender: false }, 0)
-    .fromTo('.hero__top, .hero__scroll, .hero__hint, .hero__vert', { opacity: 1 }, { opacity: 0, duration: 0.25, immediateRender: false }, 0)
-    .to({}, { duration: 0.45 });
+  film.scroll();
 
   // Feature card expands into full-bleed
   mm.add({ desktop: '(min-width: 901px)', mobile: '(max-width: 900px)' }, (ctx) => {
@@ -133,8 +114,15 @@ function initHomeScroll() {
       .fromTo('.feature__media', { clipPath: from }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'power2.inOut', duration: 1 }, 0)
       .fromTo('.feature__media img, .feature__media .mosaic__canvas', { scale: 1.35 }, { scale: 1, ease: 'power2.inOut', duration: 1 }, 0)
       .to('.feature__shade', { opacity: 1, duration: 0.4 }, 0.6)
-      .fromTo('.feature__copy > *, .feature__corner > *', { y: 40, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.06, duration: 0.35, ease: 'power3.out' }, 0.72)
+      .fromTo('.feature__copy > *', { y: 40, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.06, duration: 0.35, ease: 'power3.out' }, 0.72)
       .to({}, { duration: 0.15 });
+  });
+
+  // Stages open like a shutter as they arrive, the picture inside settling from a slight push-in
+  gsap.utils.toArray('.lab__stage, .pin__art').forEach((st) => {
+    gsap.timeline({ scrollTrigger: { trigger: st, start: 'top 98%', end: 'top 30%', scrub: 0.7 } })
+      .fromTo(st, { clipPath: 'inset(16% 12% 16% 12%)' }, { clipPath: 'inset(0% 0% 0% 0%)', ease: 'power2.out' }, 0)
+      .fromTo(st.querySelector('canvas'), { scale: 1.18 }, { scale: 1, ease: 'power2.out' }, 0);
   });
 
   // Manifesto words light up
@@ -160,12 +148,6 @@ function initHomeScroll() {
     });
     gsap.fromTo(row, { '--rule': 0 }, { '--rule': 1, duration: 1.4, ease: 'expo.inOut', scrollTrigger: { trigger: row, start: 'top 92%', once: true } });
   });
-
-  // 三口成品: the three mouths stack, then the character is written
-  const marks = gsap.utils.toArray('.pin__marks i');
-  if (marks.length) {
-    gsap.from(marks, { y: 30, autoAlpha: 0, stagger: 0.12, duration: 0.9, ease: 'expo.out', scrollTrigger: { trigger: '.pin', start: 'top 70%', once: true } });
-  }
 
   // Services horizontal (desktop)
   mm.add('(min-width: 901px)', () => {
