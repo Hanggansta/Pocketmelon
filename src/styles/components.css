@@ -233,3 +233,19 @@ html:lang(zh) .case-hero__cn { font-family: var(--f-song); }
   .wl__thumb { display: block; grid-column: 1 / -1; order: 9; border-radius: 14px; overflow: hidden; aspect-ratio: 16 / 10; margin-top: .4rem; }
   .wl__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 }
+
+/* ---------- stage controls: the keyboard door into the live engines.
+   Invisible until focused (mouse users click the stage itself), centred so the
+   showcase's scrubbed clip-path can never crop the focus ring. */
+.stage-key {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 6;
+  padding: .72em 1.35em; border-radius: 999px;
+  border: 1px solid rgba(239, 235, 227, .32);
+  background: rgba(11, 12, 14, .78); color: #efebe3;
+  letter-spacing: .12em;
+  opacity: 0; pointer-events: none;
+  transition: opacity .35s var(--ease-out);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.stage-key:focus-visible { opacity: 1; pointer-events: auto; }

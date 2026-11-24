@@ -66,6 +66,7 @@ export default defineConfig({
         en: resolve(root, 'en/index.html'),
         enBeads: resolve(root, 'en/work/beads/index.html'),
         enWhisperleaf: resolve(root, 'en/work/whisperleaf/index.html'),
+        notFound: resolve(root, '404.html'),
       },
     },
   },

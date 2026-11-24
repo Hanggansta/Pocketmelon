@@ -5,7 +5,8 @@
   <title>[[口袋瓜拼豆 案例 · 口袋瓜 Pocketmelon||Pocketmelon Beads 口袋瓜拼豆 — Case study · Pocketmelon]]</title>
   <meta name="description" content="[[口袋瓜拼豆：一台在浏览器里实时把任何图像变成可拼图纸的引擎。WebGL2、OKLab 色彩量化、可安装的 PWA。||Pocketmelon Beads: an engine that turns any image into a buildable fuse-bead pattern in real time, in the browser. WebGL2, OKLab colour quantisation, installable PWA.]]" />
   <meta property="og:title" content="[[口袋瓜拼豆 · 口袋瓜案例||Pocketmelon Beads — a Pocketmelon case study]]" />
-  <meta property="og:image" content="/work/beads/stage.webp" />
+  <meta property="og:image" content="https://pocketmelon.com/work/beads/stage.webp" />
+  <meta property="og:image:alt" content="[[引擎渲染的熨烫拼豆肖像特写||Close-up of a fused-bead portrait rendered by the engine]]" />
 </head>
 <body data-page="case" data-slug="beads" class="case case--beads">
   <!-- @include header -->
@@ -38,6 +39,8 @@
       <div class="case-media__frame">
         <div class="case-engine" data-stage="beads" data-src="/work/beads/source.webp" data-cursor="[[检视 · 点击换密度||Inspect · click for density]]">
           <canvas aria-hidden="true"></canvas>
+          <button type="button" class="stage-key mono" data-key="density">[[换密度||Change density]]</button>
+          <p class="sr-only" aria-live="polite" data-live></p>
         </div>
         <div class="case-engine__hud mono" aria-hidden="true">
           <span data-hud="step">[[照片||PHOTO]]</span>
@@ -106,7 +109,7 @@
 
     <section class="case-detail" data-theme-section="light">
       <div class="case-detail__grid grid">
-        <figure class="case-detail__media"><img src="/work/beads/stage.webp" alt="[[引擎渲染的熨烫拼豆肖像特写，76 列网格、24 种豆色||Close-up of a fused-bead portrait rendered by the engine: a 76-column grid in 24 bead colours]]" loading="lazy" data-parallax /></figure>
+        <figure class="case-detail__media"><img src="/work/beads/stage.webp" alt="[[引擎渲染的熨烫拼豆肖像特写，76 列网格、24 种豆色||Close-up of a fused-bead portrait rendered by the engine: a 76-column grid in 24 bead colours]]" loading="lazy" decoding="async" data-parallax /></figure>
         <div class="case-detail__copy">
           <p class="mono label"><span class="label__idx">[[叁||03]]</span><span class="label__rule"></span><span>[[工程手记||Engineering notes]]</span></p>
           <ul class="notes">
@@ -131,7 +134,7 @@
       <span class="case-next__fill" aria-hidden="true"></span>
       <span class="mono case-next__k">[[下一个案例 · 02||Next case — 02]]</span>
       <span class="case-next__title">Whisper<em>leaf</em></span>
-      <span class="case-next__img"><img src="/work/whisperleaf/hero.webp" alt="" loading="lazy" /></span>
+      <span class="case-next__img"><img src="/work/whisperleaf/hero.webp" alt="" loading="lazy" decoding="async" /></span>
     </a>
   </main>
 

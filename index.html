@@ -6,6 +6,8 @@
   <meta name="description" content="[[口袋瓜（Pocketmelon）是一家位于东京的小型设计与工程工作室，为品牌与产品设计并开发网站、应用和视觉系统。Whisperleaf 与口袋瓜拼豆都出自这里。||Pocketmelon (口袋瓜) is a small design & engineering studio in Tokyo. We make digital products people keep coming back to — like Whisperleaf and Pocketmelon Beads.]]" />
   <meta property="og:title" content="[[口袋瓜 — 数字设计与创意技术工作室||Pocketmelon — Digital design &amp; creative technology studio]]" />
   <meta property="og:description" content="[[东京的小型设计与工程工作室。Whisperleaf 与口袋瓜拼豆的出品方。||A small design & engineering studio in Tokyo. Makers of Whisperleaf and Pocketmelon Beads.]]" />
+  <meta property="og:image" content="https://pocketmelon.com/brand/og.png" />
+  <meta property="og:image:alt" content="[[口袋瓜 Pocketmelon — 口 视角框标志||Pocketmelon — the 口 viewfinder mark]]" />
 </head>
 <body data-page="home">
   <!-- LOADER: a count while the page loads, then the mark lands and the ink opens -->
@@ -41,6 +43,8 @@
         <div class="sc__pin">
           <div class="sc__stage" data-stage="beads" data-src="/work/beads/source.webp" data-cursor="[[检视 · 点击换密度||Inspect · click for density]]" data-cursor-frame="0.34">
             <canvas aria-hidden="true"></canvas>
+            <button type="button" class="stage-key mono" data-key="density">[[换密度||Change density]]</button>
+            <p class="sr-only" aria-live="polite" data-live></p>
           </div>
           <div class="sc__hud mono" aria-hidden="true">
             <span class="sc__hud-tl"><b>PM—01</b> / 02</span>
@@ -71,6 +75,8 @@
               <p class="read-card__gloss" data-gloss></p>
               <p class="read-card__n mono" data-n></p>
             </div>
+            <button type="button" class="stage-key mono" data-key="next">[[下一个词||Next word]]</button>
+            <p class="sr-only" aria-live="polite" data-live></p>
           </div>
           <div class="sc__hud mono" aria-hidden="true">
             <span class="sc__hud-tl"><b>PM—02</b> / 02</span>
@@ -142,7 +148,7 @@
             <span class="wl__kind">[[图像 → 拼豆图纸||Image → bead pattern]]</span>
             <span class="wl__tags mono">[[产品 • WebGL2 • 色彩科学 • PWA||Product • WebGL2 • Colour science • PWA]]</span>
             <span class="wl__status mono"><i class="dot-live"></i>[[已上线||Live]]</span>
-            <span class="wl__thumb"><img src="/work/beads/stage.webp" alt="" loading="lazy" /></span>
+            <span class="wl__thumb"><img src="/work/beads/stage.webp" alt="" loading="lazy" decoding="async" /></span>
             <span class="wl__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6" /></svg></span>
           </a>
         </li>
@@ -153,7 +159,7 @@
             <span class="wl__kind">[[英文原著阅读||Reading &amp; learning]]</span>
             <span class="wl__tags mono">[[产品 • 品牌 • 设计 • 开发||Product • Brand • Design • Engineering]]</span>
             <span class="wl__status mono"><i class="dot-live"></i>[[已上线||Live]]</span>
-            <span class="wl__thumb"><img src="/work/whisperleaf/stage.webp" alt="" loading="lazy" /></span>
+            <span class="wl__thumb"><img src="/work/whisperleaf/stage.webp" alt="" loading="lazy" decoding="async" /></span>
             <span class="wl__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6" /></svg></span>
           </a>
         </li>

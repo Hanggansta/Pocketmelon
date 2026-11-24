@@ -28,6 +28,8 @@
   background: var(--rind); color: var(--paper);
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.6rem;
 }
+/* boot safety net (see the inline watchdog in partials/head.html) */
+html.boot-failed .loader { display: none; }
 .loader__meta { position: absolute; left: 0; right: 0; bottom: var(--pad); display: flex; justify-content: space-between; align-items: baseline; padding-inline: var(--pad); }
 .loader__num { font-family: "Instrument Serif", serif; font-size: clamp(3rem, 7vw, 6rem); line-height: 1; font-variant-numeric: tabular-nums; }
 .loader__label { font-family: var(--f-mono); font-size: .72rem; text-transform: uppercase; color: var(--rind-light); letter-spacing: .14em; }

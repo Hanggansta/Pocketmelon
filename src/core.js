@@ -1,11 +1,9 @@
-import '@fontsource-variable/fraunces/full.css';
-import '@fontsource-variable/fraunces/full-italic.css';
 import '@fontsource/instrument-serif/400.css';
 import '@fontsource/instrument-serif/400-italic.css';
 import '@fontsource-variable/geist';
 import '@fontsource-variable/geist-mono';
-// Chinese: 思源宋体 for display, 思源黑体 as the web fallback behind PingFang / YaHei,
-// 志莽行书 for brush calligraphy. All three are unicode-range sliced, so only the glyphs a page uses download.
+// Chinese: 京華老宋体 for display, 思源宋体 for reading text, 思源黑体 as the web fallback
+// behind PingFang / YaHei. All unicode-range sliced, so only the glyphs a page uses download.
 import './style.css';
 
 import gsap from 'gsap';
@@ -162,14 +160,33 @@ function initMenu() {
       document.querySelector('.header').classList.remove('is-hidden');
       lenis?.stop();
       tl.timeScale(1).play();
+      // move focus into the menu so keyboard users land inside it
+      requestAnimationFrame(() => menu.querySelector('a')?.focus({ preventScroll: true }));
     } else {
       lenis?.start();
       tl.timeScale(1.6).reverse();
+      btn.focus({ preventScroll: true });
     }
   };
   btn.addEventListener('click', () => toggle());
   links.forEach((a) => a.addEventListener('click', () => toggle(false)));
   window.addEventListener('keydown', (e) => e.key === 'Escape' && open && toggle(false));
+  // keep Tab inside the open menu (burger + menu links form the loop)
+  window.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab' || !open) return;
+    const focusables = [btn, ...menu.querySelectorAll('a')];
+    const first = focusables[0], last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    } else if (!focusables.includes(document.activeElement)) {
+      e.preventDefault();
+      first.focus();
+    }
+  });
 }
 
 /* --------------------------------------------------------- anchors */
@@ -180,9 +197,19 @@ function initAnchors() {
     const url = new URL(a.href, location.href);
     if (url.pathname !== location.pathname || !url.hash) return;
     e.preventDefault();
-    const target = url.hash === '#top' ? 0 : document.querySelector(url.hash);
+    const target = url.hash === '#top' ? 0 : document.getElementById(decodeURIComponent(url.hash.slice(1)));
     if (target === null) return;
+    // keep the URL honest: the section becomes linkable and survives a reload
+    history.pushState(null, '', url.hash === '#top' ? location.pathname + location.search : url.hash);
     if (lenis) lenis.scrollTo(target, { duration: 1.8, easing: (t) => 1 - Math.pow(1 - t, 4) });
+    else target === 0 ? window.scrollTo(0, 0) : target.scrollIntoView();
+  });
+
+  // back / forward between the sections we pushed above
+  window.addEventListener('popstate', () => {
+    const target = !location.hash || location.hash === '#top' ? 0 : document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (target === null) return;
+    if (lenis) lenis.scrollTo(target, { duration: 1.2, easing: (t) => 1 - Math.pow(1 - t, 4), force: true });
     else target === 0 ? window.scrollTo(0, 0) : target.scrollIntoView();
   });
 }

@@ -5,7 +5,8 @@
   <title>[[Whisperleaf 案例 · 口袋瓜 Pocketmelon||Whisperleaf — Case study · Pocketmelon]]</title>
   <meta name="description" content="[[Whisperleaf 是为想读原版英文书的人准备的阅读桌：读原著，查词与句子 XRay，留下真正重要的内容，并在故事语境里复习。||Whisperleaf is a reading desk for people going further in English: read originals, look up and XRay sentences, keep what matters and review with the story still attached.]]" />
   <meta property="og:title" content="[[Whisperleaf · 口袋瓜案例||Whisperleaf — a Pocketmelon case study]]" />
-  <meta property="og:image" content="/work/whisperleaf/hero.webp" />
+  <meta property="og:image" content="https://pocketmelon.com/work/whisperleaf/hero.webp" />
+  <meta property="og:image:alt" content="[[Whisperleaf 阅读界面：一页被分级着色的原文||The Whisperleaf reading interface: a page of graded source text]]" />
 </head>
 <body data-page="case" data-slug="whisperleaf" class="case case--whisperleaf">
   <!-- @include header -->
@@ -41,6 +42,8 @@
             <p class="read-card__gloss" data-gloss></p>
             <p class="read-card__n mono" data-n></p>
           </div>
+          <button type="button" class="stage-key mono" data-key="next">[[下一个词||Next word]]</button>
+          <p class="sr-only" aria-live="polite" data-live></p>
         </div>
         <div class="case-engine__hud mono" aria-hidden="true">
           <span data-hud="scan">[[分级 0%||GRADING 0%]]</span>
@@ -121,7 +124,7 @@
 
     <section class="case-detail" data-theme-section="light">
       <div class="case-detail__grid grid">
-        <figure class="case-detail__media mosaic" data-mosaic><img src="/work/whisperleaf/detail.webp" alt="[[一本打开的小说，铅笔划线，一片压叶和一枚粉色书签||An open novel with pencil underlines, a pressed leaf and a pink bookmark]]" loading="lazy" data-parallax /></figure>
+        <figure class="case-detail__media mosaic" data-mosaic><img src="/work/whisperleaf/detail.webp" alt="[[一本打开的小说，铅笔划线，一片压叶和一枚粉色书签||An open novel with pencil underlines, a pressed leaf and a pink bookmark]]" loading="lazy" decoding="async" data-parallax /></figure>
         <div class="case-detail__copy">
           <p class="mono label"><span class="label__idx">[[肆||04]]</span><span class="label__rule"></span><span>[[手记||Craft notes]]</span></p>
           <ul class="notes">
@@ -146,7 +149,7 @@
       <span class="case-next__fill" aria-hidden="true"></span>
       <span class="mono case-next__k">[[下一个案例 · 01||Next case — 01]]</span>
       <span class="case-next__title">[[口袋瓜拼豆 <span class="case-next__cn">Beads</span>||Beads <span class="case-next__cn">口袋瓜拼豆</span>]]</span>
-      <span class="case-next__img"><img src="/work/beads/stage.webp" alt="" loading="lazy" /></span>
+      <span class="case-next__img"><img src="/work/beads/stage.webp" alt="" loading="lazy" decoding="async" /></span>
     </a>
   </main>
 

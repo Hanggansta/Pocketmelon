@@ -6,6 +6,5 @@
  */
 import '@fontsource-variable/noto-serif-sc';
 import '@fontsource-variable/noto-sans-sc';
-import '@fontsource/zhi-mang-xing';
 // 京華老宋体 (KingHwa OldSong): the display face, a letterpress Song with real ink traps
 import '@chinese-fonts/jhlst/dist/京華老宋体v2_002/result.css';

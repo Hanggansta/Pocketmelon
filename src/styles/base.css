@@ -33,10 +33,8 @@
   --f-display: "PM Glyphs", "Instrument Serif", "KingHwa_OldSong", "Noto Serif SC Variable", "Songti SC", "STSong", serif;
   --f-song: "KingHwa_OldSong", "Noto Serif SC Variable", "Songti SC", "STSong", serif;
   --f-text: "Geist Variable", "Noto Serif SC Variable", "Songti SC", "STSong", serif;
-  --f-fraunces: "Fraunces Variable", serif;
   --f-sans: "PM Glyphs", "Geist Variable", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC Variable", system-ui, sans-serif;
   --f-mono: "PM Glyphs", "Geist Mono Variable", ui-monospace, "SF Mono", Menlo, "PingFang SC", "Noto Sans SC Variable", monospace;
-  --f-brush: "Zhi Mang Xing", "Noto Serif SC Variable", serif;
 
   /* fluid scale (min @ 360px → max @ 1920px) */
   --fs-hero: clamp(3.6rem, 13.4vw, 17rem);
@@ -75,6 +73,8 @@ html[data-theme="dark"] {
    ========================================================= */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { -webkit-text-size-adjust: 100%; text-rendering: optimizeLegibility; }
+/* anchor landings clear the fixed header (native hash jumps and lenis.scrollTo both honour this) */
+html { scroll-padding-top: calc(var(--header-h) + 12px); }
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-stopped { overflow: hidden; }
@@ -156,7 +156,6 @@ html:lang(zh) h1 em, html:lang(zh) h2 em, html:lang(zh) h3 em, html:lang(zh) em 
 html:lang(zh) .mono { text-transform: none; letter-spacing: 0.14em; }
 /* 壹贰叁: Chinese numerals in Song, the classical way to count sections */
 html:lang(zh) .label__idx { font-family: var(--f-song); font-size: 1.15em; letter-spacing: 0; font-weight: 500; }
-.zh-brush { font-family: var(--f-brush); font-weight: 400; }
 
 /* =========================================================
    Grain

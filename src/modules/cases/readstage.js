@@ -108,6 +108,7 @@ export function initReadStage(host, { onStats, card } = {}) {
   const hc = document.createElement('canvas');
   let words = [], texT = null, texH = null, scale = 1;
   const state = { scan: 0, lens: 0, lensTarget: 0, mouse: null, auto: true, t: 0, hover: null, nextAuto: 0, autoIdx: 0 };
+  const live = host.querySelector('[data-live]');
   const font = '"Instrument Serif", "Times New Roman", serif';
 
   function layout() {
@@ -211,10 +212,21 @@ export function initReadStage(host, { onStats, card } = {}) {
     gl.generateMipmap(gl.TEXTURE_2D);
   }
 
-  function setHover(lemma, w) {
-    if (lemma === state.hover) return;
+  function say(lemma, w) {
+    if (!live || !lemma || !LEX[lemma] || !w) return;
+    const [lv, zh, en] = LEX[lemma];
+    const n = words.filter((x) => x.lemma === lemma).length;
+    live.textContent = `${w.t.replace(/[^A-Za-z]/g, '')}, ${lv}. ${isZh ? zh : en} ${isZh ? `本页出现 ${n} 次` : `${n}× on this page`}`;
+  }
+
+  function setHover(lemma, w, announce = false) {
+    if (lemma === state.hover) {
+      if (announce) say(lemma, w);
+      return;
+    }
     state.hover = lemma;
     drawHi();
+    if (announce) say(lemma, w);
     if (!card) return;
     if (!lemma || !LEX[lemma]) { card.classList.remove('is-on'); return; }
     const [lv, zh, en] = LEX[lemma];
@@ -243,6 +255,31 @@ export function initReadStage(host, { onStats, card } = {}) {
     else if (!w) setHover(null);
   }, { passive: true });
   host.addEventListener('pointerleave', () => { state.auto = true; setHover(null); });
+
+  // keyboard door: the stage-key button and ← → step the lens word by word
+  let kbIdx = -1;
+  const stepWord = (dir = 1) => {
+    if (state.scan < 0.98) return;
+    const graded = words.filter((w) => w.level && w.level !== 'A2');
+    if (!graded.length) return;
+    kbIdx = (kbIdx + dir + graded.length) % graded.length;
+    const w = graded[kbIdx];
+    state.auto = false;
+    state.autoW = null;
+    state.mouse = [w.x + w.w / 2, w.y + w.h / 2];
+    state.lensTarget = 1;
+    setHover(w.lemma, w, true);
+  };
+  host.querySelector('[data-key="next"]')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    stepWord(1);
+  });
+  host.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      e.preventDefault();
+      stepWord(e.key === 'ArrowRight' ? 1 : -1);
+    }
+  });
 
   let resized = true;
   new ResizeObserver(() => (resized = true)).observe(canvas);

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://pocketmelon.com/</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://pocketmelon.com/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://pocketmelon.com/en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pocketmelon.com/" />
+  </url>
+  <url>
+    <loc>https://pocketmelon.com/en/</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://pocketmelon.com/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://pocketmelon.com/en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pocketmelon.com/" />
+  </url>
+  <url>
+    <loc>https://pocketmelon.com/work/whisperleaf/</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://pocketmelon.com/work/whisperleaf/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://pocketmelon.com/en/work/whisperleaf/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pocketmelon.com/work/whisperleaf/" />
+  </url>
+  <url>
+    <loc>https://pocketmelon.com/en/work/whisperleaf/</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://pocketmelon.com/work/whisperleaf/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://pocketmelon.com/en/work/whisperleaf/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pocketmelon.com/work/whisperleaf/" />
+  </url>
+  <url>
+    <loc>https://pocketmelon.com/work/beads/</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://pocketmelon.com/work/beads/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://pocketmelon.com/en/work/beads/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pocketmelon.com/work/beads/" />
+  </url>
+  <url>
+    <loc>https://pocketmelon.com/en/work/beads/</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://pocketmelon.com/work/beads/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://pocketmelon.com/en/work/beads/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pocketmelon.com/work/beads/" />
+  </url>
+</urlset>

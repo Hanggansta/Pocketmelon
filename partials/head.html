@@ -1,9 +1,11 @@
 <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#efebe3" />
+  <meta name="color-scheme" content="light dark" />
   <link rel="preload" href="/fonts/pm-glyphs.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/pm-brush.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="canonical" href="https://pocketmelon.com[[||/en]]%PATH%" />
   <link rel="alternate" hreflang="zh-CN" href="https://pocketmelon.com%PATH%" />
   <link rel="alternate" hreflang="en" href="https://pocketmelon.com/en%PATH%" />
@@ -11,9 +13,50 @@
   <meta property="og:site_name" content="[[口袋瓜 Pocketmelon||Pocketmelon]]" />
   <meta property="og:locale" content="[[zh_CN||en_US]]" />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="/brand/og.png" />
+  <meta property="og:url" content="https://pocketmelon.com[[||/en]]%PATH%" />
   <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "name": "[[口袋瓜 Pocketmelon||Pocketmelon]]",
+        "alternateName": "Pocketmelon",
+        "url": "https://pocketmelon.com/",
+        "logo": "https://pocketmelon.com/brand/og.png",
+        "image": "https://pocketmelon.com/brand/og.png",
+        "email": "hello@pocketmelon.com",
+        "description": "[[位于东京的小型设计与工程工作室，为品牌与产品设计并开发网站、应用和视觉系统。||A small design & engineering studio in Tokyo, making websites, apps and visual systems for brands and products.]]",
+        "address": { "@type": "PostalAddress", "addressLocality": "Tokyo", "addressCountry": "JP" },
+        "sameAs": ["https://github.com/Hanggansta"]
+      },
+      {
+        "@type": "WebSite",
+        "name": "[[口袋瓜 Pocketmelon||Pocketmelon]]",
+        "url": "https://pocketmelon.com/",
+        "inLanguage": ["zh-CN", "en"],
+        "publisher": { "@type": "Organization", "name": "[[口袋瓜 Pocketmelon||Pocketmelon]]", "url": "https://pocketmelon.com/" }
+      }
+    ]
+  }
+  </script>
   <script>
     // page-transition guard: start covered if we arrived through an ink transition
     try { if (sessionStorage.getItem('pm:transition') === '1') document.documentElement.classList.add('is-arriving'); } catch (e) {}
+    // boot safety net: if the module graph fails, never leave the visitor trapped behind the loader
+    setTimeout(function () {
+      if (document.documentElement.classList.contains('is-loading')) {
+        document.documentElement.classList.remove('is-loading');
+        document.documentElement.classList.add('boot-failed');
+        document.querySelector('.loader')?.remove();
+      }
+    }, 6000);
   </script>
+  <noscript>
+    <style>
+      .loader, .cursor { display: none !important; }
+      html.is-loading body { overflow: auto !important; }
+      html.is-arriving body::before { content: none !important; }
+    </style>
+  </noscript>

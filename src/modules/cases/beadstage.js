@@ -1,4 +1,5 @@
 import { GL, HEAD, visibleLoop } from '../gl/gl2.js';
+import { t } from '../i18n.js';
 
 /**
  * Case 01 · 口袋瓜拼豆 — the pattern engine, live.
@@ -135,6 +136,8 @@ export function initBeadStage(host, { onStats } = {}) {
   const prog = g.program(FS);
   const GRIDS = innerWidth < 700 ? [36, 52, 76] : [52, 76, 112];
   const state = { stage: 0, grid: GRIDS[1], lens: 0, lensTarget: 0, mouse: null, auto: true, t: 0, ready: false };
+  const live = host.querySelector('[data-live]');
+  let announce = false;
   const pal = new Float32Array(PAL_RGB.flat());
   const lab = new Float32Array(PAL_LAB.flat());
   // uniform arrays aren't handled by GL.run; they live on the program, so set them once
@@ -158,7 +161,7 @@ export function initBeadStage(host, { onStats } = {}) {
 
   /** honest numbers for the HUD: quantize the board on the CPU once per density */
   function stats() {
-    if (!state.ready) return;
+    if (!state.ready) { announce = false; return; }
     const r = canvas.getBoundingClientRect();
     const cols = state.grid, rows = Math.max(1, Math.round((cols * r.height) / Math.max(1, r.width)));
     const c = document.createElement('canvas');
@@ -180,6 +183,10 @@ export function initBeadStage(host, { onStats } = {}) {
       used.add(bi);
     }
     onStats?.({ cols, rows, beads: cols * rows, colors: used.size, palette: PALETTE.length });
+    if (announce && live) {
+      live.textContent = t(`豆板密度：${cols} 列 × ${rows} 行，共 ${cols * rows} 颗`, `Board density: ${cols} × ${rows}, ${cols * rows} beads`);
+      announce = false;
+    }
   }
 
   const toLocal = (e) => {
@@ -188,9 +195,25 @@ export function initBeadStage(host, { onStats } = {}) {
   };
   host.addEventListener('pointermove', (e) => { state.mouse = toLocal(e); state.auto = false; state.lensTarget = 1; }, { passive: true });
   host.addEventListener('pointerleave', () => { state.auto = true; });
-  host.addEventListener('click', () => {
-    state.grid = GRIDS[(GRIDS.indexOf(state.grid) + 1) % GRIDS.length];
+
+  const cycle = (dir = 1) => {
+    state.grid = GRIDS[(GRIDS.indexOf(state.grid) + dir + GRIDS.length) % GRIDS.length];
+    announce = true;
     stats();
+  };
+  host.addEventListener('click', () => cycle(1));
+  // keyboard door: the stage-key button (and ← →) do what a click does
+  host.querySelector('[data-key="density"]')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    state.lensTarget = 1;
+    cycle(1);
+  });
+  host.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      e.preventDefault();
+      state.lensTarget = 1;
+      cycle(e.key === 'ArrowRight' ? 1 : -1);
+    }
   });
 
   const cur = [0, 0];

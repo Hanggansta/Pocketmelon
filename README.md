@@ -93,12 +93,25 @@ Restraint is the rule. Ink lives only in the hero film, the 品 reveal and the �
 Type:
 - **Instrument Serif** for Latin display (roman and italic) and **京華老宋体** for Chinese display;
 - **Noto Serif SC** for Chinese reading text;
-- **Fraunces** only inside the elastic-type lab (variable axes);
 - **Geist** for body and **Geist Mono** for labels;
 - **PM Brush** (FeiYang subset) only for the hero name;
 - **PM Glyphs** (`tools/build-glyphs.py`), a 572-byte pixel font for the arrows and symbols, which none of the brand fonts include.
 
-Styles are split by concern in `src/styles/`: base, brand, home, sections, case, footer, responsive.
+Styles are split by concern in `src/styles/`: base, brand, home, sections, case, footer, components, ink, showcase, responsive.
+
+## v9.1: fundamentals
+A pass over everything the art direction sits on — no visual changes, just fewer traps:
+
+| Piece | What |
+|---|---|
+| Boot safety net | A watchdog in `<head>` (plus `<noscript>` styles) means a failed module graph or disabled JS can never leave the visitor trapped behind the loader. |
+| Keyboard access | Each live engine has a focus-revealed control (`.stage-key`): the beads board changes density on Enter, the reading engine steps its lookups word by word (←/→ too), and a polite live region announces the result. |
+| Menu a11y | The mobile menu traps Tab while open, moves focus in on open and returns it to the burger on close. |
+| Anchors | `scroll-padding-top` keeps section landings clear of the fixed header (native jumps and Lenis both honour it), and in-page anchors now write the hash to the URL, with back/forward support. |
+| SEO & sharing | Absolute `og:image` per page (with `og:image:alt` and `og:url`), Organization + WebSite JSON-LD, `robots.txt`, an hreflang-annotated `sitemap.xml`, and a branded bilingual `404.html` (wired into the Vite build). |
+| Touch icon | `public/apple-touch-icon.png` rasterises the 口 mark from the favicon geometry; regenerate with `python3 tools/build-touch-icon.py`. |
+| Dead weight | Unused Fraunces and 志莽行书 Zhi Mang Xing font stacks removed (the CJK stylesheet drops ~66 KB gzipped). |
+| Real bug | On the Whisperleaf case page the beads engine was initialising on the reading stage (`.case-engine` matched both), firing a 404 for `undefined` and compiling a shader that never ran. Engines are now selected by `data-stage`. |
 
 ## Benchmark, extended
 On top of the Awwwards criteria (design, usability, creativity, content), the site is held to:

@@ -12,7 +12,8 @@ renderCaptures();
 const demo = document.querySelector('[data-demo]');
 
 // beads: the engine runs in the hero frame; scroll drives photo → pattern → beads
-const engineHost = document.querySelector('.case-engine');
+// (select by data-stage: the read engine shares the .case-engine class)
+const engineHost = document.querySelector('.case-engine[data-stage="beads"]');
 const engine = engineHost && initBeadStage(engineHost, {
   onStats: ({ cols, rows, beads, colors, palette }) => {
     const hud = (k) => document.querySelector(`.case-engine__hud [data-hud="${k}"]`);
