@@ -44,7 +44,7 @@ feature is unsupported:
 - **Hover crop** (`.fxD-crop`), underline draw (`.fxD-link`), spreadsheet-thin focus sweeps on
   form fields, chip check dots, a seal that stamps itself (`.fx-stamp`).
 - **Typography details**: `text-wrap: balance/pretty`, optical sizing, a real hairline scrollbar.
-- **A loader hairline**: the 000→100 counter also drives a 1 px rule (a CSS variable written by
+- **A loader hairline**: the 000→100 counter also drives a 2 px rule (a CSS variable written by
   one `requestAnimationFrame` loop), so the wait has a measure.
 
 Reduced motion: every loop freezes at a composed frame, the services wrap instead of dying on a
@@ -57,7 +57,7 @@ The `<noscript>` block in `partials/head.html` is not a banner: it rebuilds the 
 - The hero becomes a single screen: letterbox bars and the loader disappear, the brush name keeps
   its ink colour, and the dot field stays.
 - The pinned showcase opens its window (`--in: 0`) onto the real engine stills, with the HUD and
-  copy band intact.
+  copy band intact; on desktop each case becomes one screen instead of 250 vh of sticky scroll.
 - Capabilities stack into a column; progress rail hidden.
 - Labs become CSS-only stills — a halftone dot field over a spectral gradient for Grains, layered
   conic/radial ink for Marbled paper, a jade disc for the seal — and the dead controls are hidden.
