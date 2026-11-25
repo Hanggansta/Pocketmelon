@@ -29,8 +29,12 @@
       .hero__frame { position: relative !important; height: 100svh; }
       .hero__name { color: var(--hero-ink) !important; }
 
-      /* the film opens on the still itself */
+      /* the film opens on the still itself, one screen per case */
       .sc__pin { --in: 0 !important; }
+      @media (min-width: 901px) {
+        .sc { height: 100svh !important; }
+        .sc__pin { position: relative !important; }
+      }
       .sc__stage { background: #050607 url("/work/beads/stage.webp") center / cover !important; }
       [data-sc="whisperleaf"] .sc__stage { background-image: url("/work/whisperleaf/stage.webp") !important; }
 
