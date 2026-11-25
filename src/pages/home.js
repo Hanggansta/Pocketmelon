@@ -66,6 +66,7 @@ function runLoader() {
       progress.v += (progress.target - progress.v) * 0.07;
       if (progress.target >= 1 && performance.now() > minTime && progress.v > 0.985) progress.v = 1;
       num.textContent = String(Math.round(progress.v * 100)).padStart(3, '0');
+      loader.style.setProperty('--load', progress.v.toFixed(3));
       if (progress.v < 1) return requestAnimationFrame(tick);
       // press the seal, hold a beat, then open the ink
       gsap.timeline()
@@ -127,10 +128,27 @@ function initHomeScroll() {
   mm.add('(min-width: 901px)', () => {
     const track = document.querySelector('.services__track');
     const distance = () => track.scrollWidth - window.innerWidth;
+    // the cards lean into the sideways scroll, then settle
+    const cards = gsap.utils.toArray('.svc');
+    const lean = cards.map((card) => gsap.quickTo(card, 'skewX', { duration: 0.6, ease: 'power3' }));
+    const settle = () => lean.forEach((set) => set(0));
     const tween = gsap.to(track, {
       x: () => -distance(),
       ease: 'none',
-      scrollTrigger: { trigger: '.services__pin', start: 'top top', end: () => '+=' + distance(), pin: true, scrub: 0.8, invalidateOnRefresh: true },
+      scrollTrigger: {
+        trigger: '.services__pin',
+        start: 'top top',
+        end: () => '+=' + distance(),
+        pin: true,
+        scrub: 0.8,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          const v = gsap.utils.clamp(-1.5, 1.5, self.getVelocity() / -2800);
+          lean.forEach((set) => set(v));
+        },
+        onLeave: settle,
+        onLeaveBack: settle,
+      },
     });
     gsap.to('.services__progress span', {
       scaleX: 1,

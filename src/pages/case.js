@@ -3,12 +3,14 @@ import { initBeadStage } from '../modules/cases/beadstage.js';
 import { initReadStage } from '../modules/cases/readstage.js';
 import { isZh } from '../modules/i18n.js';
 import { initReader } from '../modules/reader.js';
+import { initMockups } from '../modules/mockups.js';
 import captures from '../data/captures.json';
 
 const slug = document.body.dataset.slug;
 const transitions = boot();
 
 renderCaptures();
+initMockups();
 const demo = document.querySelector('[data-demo]');
 
 // beads: the engine runs in the hero frame; scroll drives photo → pattern → beads

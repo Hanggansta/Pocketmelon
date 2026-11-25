@@ -19,16 +19,41 @@
 
   <!-- @include header -->
 
+  <!-- side index: the page read as a measured object -->
+  <nav class="rail mono" aria-hidden="true">
+    <ol class="rail__list">
+      <li data-rail="top"><b></b><span>序</span></li>
+      <li data-rail="work"><b></b><span>作</span></li>
+      <li data-rail="studio"><b></b><span>室</span></li>
+      <li data-rail="index"><b></b><span>览</span></li>
+      <li data-rail="labs"><b></b><span>验</span></li>
+      <li data-rail="services"><b></b><span>能</span></li>
+      <li data-rail="process"><b></b><span>流</span></li>
+      <li data-rail="contact"><b></b><span>信</span></li>
+    </ol>
+  </nav>
+
   <main id="main">
     <!-- ============ HERO ============ -->
-    <section class="hero" id="top" data-theme-section="light">
+    <section class="hero" id="top" data-theme-section="light" data-rail-section="top">
       <div class="hero__frame" data-cursor="[[搅动||Stir]]">
         <canvas class="hero__ink" aria-hidden="true"></canvas>
+        <div class="hero__grid" aria-hidden="true"></div>
         <div class="hero__stage">
           <h1 class="hero__title" aria-label="[[口袋瓜：数字设计与创意技术工作室||Pocketmelon: a digital design and creative technology studio]]"><span class="hero__name" aria-hidden="true"><span>口</span><span>袋</span><span>瓜</span></span></h1>
           <p class="hero__line" aria-hidden="true">[[数字设计 · 创意技术||Digital design &amp; <em>creative technology</em>]]</p>
         </div>
         <i class="hero__drop" aria-hidden="true"></i>
+
+        <!-- film chrome: corner data, side rails, crop dots -->
+        <div class="hero__chrome mono" aria-hidden="true">
+          <span class="hero__tag hero__tag--tl">PM—00<br />[[开场影片||OPENING FILM]]</span>
+          <span class="hero__tag hero__tag--tr">TOKYO 35.68°N<br />139.69°E</span>
+          <span class="hero__tag hero__tag--bl"><i class="hero__tick"></i>[[向下滚动||SCROLL TO PLAY]]</span>
+          <span class="hero__tag hero__tag--br">[[自有产品 02 件在售||02 PRODUCTS LIVE]]<br />© 2026</span>
+        </div>
+        <span class="hero__side hero__side--r mono" aria-hidden="true">[[设计 × 工程 × 实时图形||DESIGN × ENGINEERING × REAL-TIME]]</span>
+
         <div class="hero__bar hero__bar--t" aria-hidden="true"><span class="hero__credit">[[口袋瓜 出品||A Pocketmelon picture]]</span></div>
         <div class="hero__bar hero__bar--b" aria-hidden="true"><span class="hero__tc mono">00:00:00:00</span></div>
         <span class="hero__cue mono" aria-hidden="true"><i></i></span>
@@ -36,7 +61,7 @@
     </section>
 
     <!-- ============ SHOWCASE: two cases straight out of the film ============ -->
-    <section class="showcase" id="work" data-theme-section="dark" aria-label="[[精选作品||Selected work]]">
+    <section class="showcase" id="work" data-theme-section="dark" data-rail-section="work" aria-label="[[精选作品||Selected work]]">
       <article class="sc" data-sc="beads">
         <div class="sc__pin">
           <div class="sc__stage" data-stage="beads" data-src="/work/beads/source.webp" data-cursor="[[检视 · 点击换密度||Inspect · click for density]]" data-cursor-frame="0.34">
@@ -44,10 +69,11 @@
           </div>
           <div class="sc__hud mono" aria-hidden="true">
             <span class="sc__hud-tl"><b>PM—01</b> / 02</span>
-            <span class="sc__hud-tr" data-hud="grid">GRID — × —</span>
+            <span class="sc__hud-tr" data-hud="grid">GRID 40 × 22</span>
             <span class="sc__hud-bl"><span data-hud="step">[[照片||PHOTO]]</span><i class="sc__bar"><i></i></i>[[照片 → 图纸 → 拼豆||PHOTO → PATTERN → BEADS]]</span>
-            <span class="sc__hud-br" data-hud="colors">— / 48 · OKLab ΔE</span>
+            <span class="sc__hud-br" data-hud="colors">29 / 48 · OKLab ΔE</span>
           </div>
+          <span class="sc__axis mono" aria-hidden="true">[[案例研究||CASE STUDY]] — 01</span>
           <div class="sc__copy">
             <p class="sc__idx mono">01</p>
             <h2 class="sc__title" data-sc-title>[[口袋瓜拼豆||Pocketmelon Beads]]</h2>
@@ -57,7 +83,7 @@
               <div><dt>[[技术||Stack]]</dt><dd>WebGL2 · OKLab · PWA</dd></div>
               <div><dt>[[状态||Status]]</dt><dd><i class="dot-live"></i>[[已上线||Live]]</dd></div>
             </dl>
-            <a class="sc__cta" href="/work/beads/" data-cursor="[[查看案例||View case]]"><span>[[查看案例||View case]]</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6" /></svg></a>
+            <a class="sc__cta fx-frame" href="/work/beads/" data-cursor="[[查看案例||View case]]"><span>[[查看案例||View case]]</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6" /></svg></a>
           </div>
         </div>
       </article>
@@ -78,6 +104,7 @@
             <span class="sc__hud-bl"><span data-hud="scan">[[分级 0%||GRADING 0%]]</span><i class="sc__bar"><i></i></i>CEFR A1 → C2</span>
             <span class="sc__hud-br sc__legend"><i style="--c:#6e80ff"></i>B1<i style="--c:#3ee0c0"></i>B2<i style="--c:#e6ff4a"></i>C1<i style="--c:#ff6b4a"></i>C2</span>
           </div>
+          <span class="sc__axis mono" aria-hidden="true">[[案例研究||CASE STUDY]] — 02</span>
           <div class="sc__copy">
             <p class="sc__idx mono">02</p>
             <h2 class="sc__title" data-sc-title lang="en">Whisper<em>leaf</em></h2>
@@ -87,51 +114,111 @@
               <div><dt>[[技术||Stack]]</dt><dd>[[语境释义 · 间隔复习||In-context lookup · Spaced review]]</dd></div>
               <div><dt>[[状态||Status]]</dt><dd><i class="dot-live"></i>[[已上线||Live]]</dd></div>
             </dl>
-            <a class="sc__cta" href="/work/whisperleaf/" data-cursor="[[查看案例||View case]]"><span>[[查看案例||View case]]</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6" /></svg></a>
+            <a class="sc__cta fx-frame" href="/work/whisperleaf/" data-cursor="[[查看案例||View case]]"><span>[[查看案例||View case]]</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6" /></svg></a>
           </div>
         </div>
       </article>
     </section>
 
+    <!-- ============ BAND: a change of air between the film and the studio ============ -->
+    <section class="band" aria-hidden="true">
+      <div class="band__row">
+        <div class="band__track" data-band="main">
+          <div class="band__set">
+            <span class="band__item">[[做能被记住的东西||Make things worth remembering]]<i>✺</i></span>
+            <span class="band__item">[[设计 × 工程||Design × engineering]]<i>✺</i></span>
+            <span class="band__item">[[东京制造||Made in Tokyo]]<i>✺</i></span>
+            <span class="band__item">[[为屏幕而作||Built for screens]]<i>✺</i></span>
+          </div>
+          <div class="band__set">
+            <span class="band__item">[[做能被记住的东西||Make things worth remembering]]<i>✺</i></span>
+            <span class="band__item">[[设计 × 工程||Design × engineering]]<i>✺</i></span>
+            <span class="band__item">[[东京制造||Made in Tokyo]]<i>✺</i></span>
+            <span class="band__item">[[为屏幕而作||Built for screens]]<i>✺</i></span>
+          </div>
+        </div>
+      </div>
+      <div class="band__row band__row--sub">
+        <div class="band__track band__track--rev" data-band="sub">
+          <div class="band__set">
+            <span>PM—STUDIO / TOKYO</span><em></em><span>[[接受 2027 Q1 项目||BOOKING Q1 2027]]</span><em></em><span>WEBGL · SHADERS · TYPE · MOTION</span><em></em><span>HELLO@POCKETMELON.COM</span><em></em>
+          </div>
+          <div class="band__set">
+            <span>PM—STUDIO / TOKYO</span><em></em><span>[[接受 2027 Q1 项目||BOOKING Q1 2027]]</span><em></em><span>WEBGL · SHADERS · TYPE · MOTION</span><em></em><span>HELLO@POCKETMELON.COM</span><em></em>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ STUDIO ============ -->
-    <section class="studio" id="studio" data-theme-section="light">
+    <section class="studio" id="studio" data-theme-section="light" data-rail-section="studio">
       <div class="grid studio__head">
         <p class="mono label col-label"><span class="label__idx">[[壹||01]]</span><span class="label__rule"></span><span>[[工作室||Studio]]</span></p>
-        <p class="studio__lead" data-words>[[我们是一支小而固执的设计师与工程师团队，相信软件应当是“活”的：有手感，有节奏，经得起细看。我们先为自己做产品，所以每个客户项目，都会得到我们对待自己作品的那份用心。||We’re a small, stubborn studio of designers and engineers who believe software should feel alive: crafted, tactile and built to be looked at closely. We build our own products first, so every client project gets the care we give our own.]]</p>
+        <div class="studio__creed">
+          <p class="studio__lead" data-words>[[我们是一支小而固执的设计师与工程师团队，相信软件应当是“活”的：有手感，有节奏，经得起细看。我们先为自己做产品，所以每个客户项目，都会得到我们对待自己作品的那份用心。||We’re a small, stubborn studio of designers and engineers who believe software should feel alive: crafted, tactile and built to be looked at closely. We build our own products first, so every client project gets the care we give our own.]]</p>
+          <p class="studio__aside mono" data-reveal>[[不做交接，不做传话游戏。<br>同一张桌子，从第一张草图到最后一帧。||No hand-offs. No telephone game.<br>One table, from first sketch to final frame.]]</p>
+        </div>
       </div>
+
+      <dl class="ledger mono">
+        <div><dt>[[基地||Base]]</dt><dd>[[东京 · 服务全球||Tokyo · worldwide]]</dd></div>
+        <div><dt>[[规模||Size]]</dt><dd>[[小而固定||Small by design]]</dd></div>
+        <div><dt>[[模式||Model]]</dt><dd>[[自有产品 + 客户合作||Own products + client work]]</dd></div>
+        <div><dt>[[回复||Reply]]</dt><dd>[[两个工作日内||Within two working days]]</dd></div>
+      </dl>
 
       <div class="pin grid">
         <figure class="pin__art" data-pin-ink data-cursor="[[搅动||Stir]]" role="img" aria-label="[[三滴墨落入水中，聚成一个“品”字||Three drops of ink fall into water and gather into the character 品]]">
           <canvas class="pin__ink" aria-hidden="true"></canvas>
+          <span class="pin__corner pin__corner--tl" aria-hidden="true"></span>
+          <span class="pin__corner pin__corner--br" aria-hidden="true"></span>
+          <figcaption class="pin__cap mono" aria-hidden="true">[[墨 · 三口成品||INK · THREE MOUTHS MAKE 品]]</figcaption>
         </figure>
         <div class="pin__copy">
           <p class="mono pin__k">[[三口成品||Three mouths make 品]]</p>
           <h2 class="pin__title" data-split>[[一口给客户，<br>一口给用户，<br>一口留给我们自己。||One for the client.<br>One for the people who use it.<br>One for us.]]</h2>
           <p class="pin__text">[[“品”是三个“口”。三方都点头，才算一件作品。||品 is three mouths. When all three say yes, the work is ready.]]</p>
+          <p class="pin__sig mono">[[— 口袋瓜，东京||— Pocketmelon, Tokyo]]</p>
         </div>
       </div>
 
-      <div class="principles grid">
-        <article class="principle" data-reveal>
-          <p class="mono principle__idx">01</p>
-          <h3 class="principle__title">[[亲手去做||Makers, not middlemen]]</h3>
-        </article>
-        <article class="principle" data-reveal>
-          <p class="mono principle__idx">02</p>
-          <h3 class="principle__title">[[产品思维||Product-minded]]</h3>
-        </article>
-        <article class="principle" data-reveal>
-          <p class="mono principle__idx">03</p>
-          <h3 class="principle__title">[[经得起时间||Craft that lasts]]</h3>
-        </article>
+      <div class="section-head grid creed__head">
+        <p class="mono label col-label"><span class="label__idx">01.2</span><span class="label__rule"></span><span>[[信条||Operating principles]]</span></p>
+        <h2 class="section-title" data-split>[[三条不妥协||Three things<br />we don’t bend]]</h2>
       </div>
+
+      <ol class="creed">
+        <li class="creed__item" data-reveal>
+          <span class="creed__num">01</span>
+          <h3 class="creed__title">[[亲手去做||Makers, not middlemen]]</h3>
+          <p class="creed__text">[[设计与工程在同一张桌子上。没有交接，没有传话游戏，也没有“那不是我的部分”。||Design and engineering share one table. No hand-offs, no telephone game, no “that’s not my part”.]]</p>
+          <span class="creed__mark" aria-hidden="true">✺</span>
+        </li>
+        <li class="creed__item" data-reveal>
+          <span class="creed__num">02</span>
+          <h3 class="creed__title">[[产品思维||Product-minded]]</h3>
+          <p class="creed__text">[[我们先为自己做产品：要留存、要付费、要在真实设备上跑得动。客户的网站也按这个标准验收。||We build products first: for retention, for paying users, for real devices. Client work is held to the same bar.]]</p>
+          <span class="creed__mark" aria-hidden="true">✺</span>
+        </li>
+        <li class="creed__item" data-reveal>
+          <span class="creed__num">03</span>
+          <h3 class="creed__title">[[经得起时间||Craft that lasts]]</h3>
+          <p class="creed__text">[[潮流会过期，结构不会。我们留出空白、写清规范，让三年后的你仍然改得动它。||Trends expire, structure doesn’t. We leave room, document the rules, and make sure you can still edit it in three years.]]</p>
+          <span class="creed__mark" aria-hidden="true">✺</span>
+        </li>
+      </ol>
     </section>
 
     <!-- ============ WORK (index list) ============ -->
-    <section class="work" id="index" data-theme-section="light">
+    <section class="work" id="index" data-theme-section="light" data-rail-section="index">
       <div class="section-head grid">
         <p class="mono label col-label"><span class="label__idx">[[贰||02]]</span><span class="label__rule"></span><span>[[全部作品||Index]]</span></p>
         <h2 class="section-title" data-split>[[作品索引||All work]]</h2>
+        <p class="mono section-meta"><span class="count">02</span> [[已上线||live]]<br />[[01 档期待开放||01 slot open]]</p>
+      </div>
+
+      <div class="wl__head mono" aria-hidden="true">
+        <span>[[序号||No.]]</span><span>[[项目||Project]]</span><span>[[类型||Type]]</span><span>[[技术||Stack]]</span><span>[[状态||Status]]</span><span></span>
       </div>
 
       <ol class="wl" data-worklist>
@@ -171,16 +258,24 @@
     </section>
 
     <!-- ============ LABS ============ -->
-    <section class="labs" id="labs" data-theme-section="dark">
+    <section class="labs" id="labs" data-theme-section="dark" data-rail-section="labs">
       <div class="section-head grid">
         <p class="mono label col-label"><span class="label__idx">[[叁||03]]</span><span class="label__rule"></span><span>[[实验室||Labs]]</span></p>
         <h2 class="section-title" data-split>[[墨与石||Ink &amp; stone]]</h2>
+        <p class="mono section-meta">[[三件可上手||03 playable]]<br />[[全部原生 WebGL2||ALL NATIVE WEBGL2]]</p>
       </div>
+
+      <p class="labs__intro grid" data-reveal>
+        <span class="mono label__idx">[[注||NOTE]]</span>
+        <span>[[实验室不是作品集。它更像是我们的练习本：试一种手感，验证一项技术，偶尔也会失手。下面三件都可以直接上手，不要客气。||The labs aren’t a portfolio. They’re closer to a sketchbook: testing a touch, proving a technique, sometimes missing. All three are playable — don’t be polite.]]</span>
+      </p>
 
       <div class="labs__grid">
         <article class="lab lab--wide" data-reveal>
           <div class="lab__stage lab__stage--grains" data-lab-grains data-cursor="[[搅散 · 点击换字||Scatter · click]]">
             <canvas aria-hidden="true"></canvas>
+            <span class="lab__idx mono" aria-hidden="true">01 / 03</span>
+            <span class="lab__hint mono" aria-hidden="true">[[移动指针 · 点击换字||MOVE · CLICK TO CHANGE]]</span>
           </div>
           <div class="lab__info">
             <h3 class="lab__title">[[万粒||Grains]]</h3>
@@ -191,6 +286,7 @@
         <article class="lab" data-reveal>
           <div class="lab__stage lab__stage--marble" data-lab-marble data-cursor="[[按住滴墨 · 拖动成纹||Hold · drag]]">
             <canvas aria-hidden="true"></canvas>
+            <span class="lab__idx mono" aria-hidden="true">02 / 03</span>
             <div class="marble__bar">
               <div class="marble__pigs" role="radiogroup" aria-label="[[颜料||Pigment]]">
                 <button type="button" role="radio" aria-checked="true" data-pig="0" style="--c:#121214" aria-label="[[墨||Ink]]"></button><button type="button" role="radio" aria-checked="false" data-pig="1" style="--c:#9e9991" aria-label="[[淡墨||Wash]]"></button><button type="button" role="radio" aria-checked="false" data-pig="2" style="--c:#b8332a" aria-label="[[朱砂||Cinnabar]]"></button><button type="button" role="radio" aria-checked="false" data-pig="3" style="--c:#294066" aria-label="[[黛||Indigo]]"></button>
@@ -207,6 +303,7 @@
         <article class="lab" data-reveal>
           <div class="lab__stage lab__stage--seal" data-lab-seal data-cursor="[[拖动 · 点击换玉||Turn · click]]" data-stone="羊脂">
             <canvas aria-hidden="true"></canvas>
+            <span class="lab__idx mono" aria-hidden="true">03 / 03</span>
           </div>
           <div class="lab__info">
             <h3 class="lab__title">[[玉印||Jade seal]]</h3>
@@ -217,13 +314,17 @@
     </section>
 
     <!-- ============ SERVICES (horizontal) ============ -->
-    <section class="services" id="services" data-theme-section="dark">
+    <section class="services" id="services" data-theme-section="dark" data-rail-section="services">
       <div class="services__pin">
         <div class="services__head grid">
           <p class="mono label col-label"><span class="label__idx">[[肆||04]]</span><span class="label__rule"></span><span>[[能力||Capabilities]]</span></p>
           <h2 class="section-title" data-split>[[让想法跑起来||Ideas, built to run]]</h2>
           <div class="services__progress" aria-hidden="true"><span></span></div>
         </div>
+        <p class="services__intro grid" data-reveal>
+          <span class="mono label__idx">[[四项能力，一条流水线||FOUR DISCIPLINES, ONE PIPELINE]]</span>
+          <span>[[从第一个问题到最后一帧动画，一项接一项，都在同一间屋子里完成。||From the first question to the final frame, one discipline after another, all under one roof.]]</span>
+        </p>
 
         <div class="services__track">
           <article class="svc">
@@ -267,34 +368,54 @@
     </section>
 
     <!-- ============ PROCESS ============ -->
-    <section class="process" id="process" data-theme-section="light">
+    <section class="process" id="process" data-theme-section="light" data-rail-section="process">
       <div class="section-head grid">
         <p class="mono label col-label"><span class="label__idx">[[伍||05]]</span><span class="label__rule"></span><span>[[流程||Process]]</span></p>
         <h2 class="section-title" data-split>[[我们如何工作||How we work]]</h2>
+        <p class="mono section-meta">[[平均 6–10 周||6–10 weeks typical]]<br />[[固定报价||Fixed quote]]</p>
       </div>
 
       <div class="process__body grid">
-        <div class="process__rail" aria-hidden="true"><span></span></div>
+        <aside class="process__aside">
+          <p class="process__note">[[固定报价，双周节奏。你随时知道钱花到哪，进度到哪；每一周都能点开一个真实的预览链接。||A fixed quote and a two-week rhythm. You always know where the budget went and where the work is; every week opens with a real preview link.]]</p>
+          <p class="mono process__meta">[[不设中间人<br>不卖模板||No middlemen<br>No templates]]</p>
+        </aside>
         <ol class="process__steps">
           <li class="step">
-            <p class="mono step__when">[[第 0 周||Week 0]]</p>
-            <h3 class="step__title">[[倾听||Listen]]</h3>
-            <p class="step__text">[[一次免费的 45 分钟通话。了解你在做什么、为谁而做，以及怎样才算成功。||A free 45-minute call. We learn what you’re making, who it’s for and what success looks like.]]</p>
+            <span class="step__num mono" aria-hidden="true">01</span>
+            <div class="step__main">
+              <p class="mono step__when">[[第 0 周||Week 0]]</p>
+              <h3 class="step__title">[[倾听||Listen]]</h3>
+              <p class="step__text">[[一次免费的 45 分钟通话。了解你在做什么、为谁而做，以及怎样才算成功。||A free 45-minute call. We learn what you’re making, who it’s for and what success looks like.]]</p>
+            </div>
+            <ul class="step__out mono"><li>[[目标对齐||Align on goals]]</li><li>[[范围初判||Scope first read]]</li><li>[[坦诚建议||Honest advice]]</li></ul>
           </li>
           <li class="step">
-            <p class="mono step__when">[[第 1–2 周||Weeks 1–2]]</p>
-            <h3 class="step__title">[[塑形||Shape]]</h3>
-            <p class="step__text">[[调研、一两次工作坊，然后是一份清晰的计划：范围、里程碑和固定报价。之后不会有意外。||Research, a workshop or two and a clear plan: scope, milestones and a fixed quote. No surprises later.]]</p>
+            <span class="step__num mono" aria-hidden="true">02</span>
+            <div class="step__main">
+              <p class="mono step__when">[[第 1–2 周||Weeks 1–2]]</p>
+              <h3 class="step__title">[[塑形||Shape]]</h3>
+              <p class="step__text">[[调研、一两次工作坊，然后是一份清晰的计划：范围、里程碑和固定报价。之后不会有意外。||Research, a workshop or two and a clear plan: scope, milestones and a fixed quote. No surprises later.]]</p>
+            </div>
+            <ul class="step__out mono"><li>[[体验地图||Experience map]]</li><li>[[视觉方向||Art direction]]</li><li>[[固定报价||Fixed quote]]</li></ul>
           </li>
           <li class="step">
-            <p class="mono step__when">[[第 2–10 周||Weeks 2–10]]</p>
-            <h3 class="step__title">[[制作||Make]]</h3>
-            <p class="step__text">[[设计与工程并肩推进。从第一周起就有可访问的预览链接，每一周都能看到它的进展。||Design and engineering side by side, with a live staging link from week one so you see progress every week.]]</p>
+            <span class="step__num mono" aria-hidden="true">03</span>
+            <div class="step__main">
+              <p class="mono step__when">[[第 2–10 周||Weeks 2–10]]</p>
+              <h3 class="step__title">[[制作||Make]]</h3>
+              <p class="step__text">[[设计与工程并肩推进。从第一周起就有可访问的预览链接，每一周都能看到它的进展。||Design and engineering side by side, with a live staging link from week one so you see progress every week.]]</p>
+            </div>
+            <ul class="step__out mono"><li>[[双周演示||Fortnightly demo]]</li><li>[[设计系统||Design system]]</li><li>[[真实设备测试||Real-device tests]]</li></ul>
           </li>
           <li class="step">
-            <p class="mono step__when">[[持续||Ongoing]]</p>
-            <h3 class="step__title">[[迭代||Evolve]]</h3>
-            <p class="step__text">[[上线、度量、迭代。我们可以继续作为你的产品团队，也可以交付干净、文档齐全的代码。||Launch, measure, iterate. We stay on as your product team, or hand over clean, documented code.]]</p>
+            <span class="step__num mono" aria-hidden="true">04</span>
+            <div class="step__main">
+              <p class="mono step__when">[[持续||Ongoing]]</p>
+              <h3 class="step__title">[[迭代||Evolve]]</h3>
+              <p class="step__text">[[上线、度量、迭代。我们可以继续作为你的产品团队，也可以交付干净、文档齐全的代码。||Launch, measure, iterate. We stay on as your product team, or hand over clean, documented code.]]</p>
+            </div>
+            <ul class="step__out mono"><li>[[上线检查||Launch audit]]</li><li>[[性能预算||Performance budget]]</li><li>[[文档交付||Documented handover]]</li></ul>
           </li>
         </ol>
       </div>

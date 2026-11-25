@@ -19,6 +19,26 @@ npm run dev      # http://localhost:5173
 npm run build    # production build → dist/
 ```
 
+## v10: direction, chrome and interface studies
+
+The v9 ingredients were right, the direction was flat. v10 adds an instrument layer and a
+product layer, and pushes the motion and CSS craft. Notes: [`docs/v10-notes.md`](docs/v10-notes.md).
+
+| Piece | What | Module |
+|---|---|---|
+| Instrument chrome | A CSS scroll read-out, four fixed crop marks, a side index that names the current section, and corner data around the hero film. | `fx.css`, `motion.js`, `header.html` |
+| Marquee band | A light band between the dark film and the studio: four scale statements, a reversed technical line, seamless CSS loop, pauses on hover, leans with scroll velocity. | `index.html`, `fx.css`, `motion.js` |
+| Studio ledger + creed | Base / size / model / reply as a printed ledger; the three principles became three ledger rows that invert to ink on hover. | `v10.css` |
+| Interface studies | The Beads app rebuilt in HTML/CSS: 880 CSS beads sampled from the real photograph and quantised in OKLab, palette, counts, export. The Whisperleaf app: shelf, Austen, gloss popover, CEFR rail, kept words, review card. | `mockups.js`, `v10.css` |
+| Proof strip | Four facts between the engine and the brief on each case, so the claims sit next to the work. | case pages |
+| Footer sign-off | POCKETMELON fills left to right with scroll (`background-clip: text`, `animation-timeline: view()`); availability line above the footer. | `footer.html`, `v10.css` |
+| CSS effects layer | Scroll-driven rules, masked captions, conic edge, tilt + glare, hover crop, underline draw, stamp, form sweeps — all with a finished state when unsupported and a frozen frame under reduced motion. | `src/styles/fx.css` |
+| No-JS composition | With script off, `<noscript>` turns the hero into one still, opens the showcase window onto the engine stills, stacks capabilities, replaces the labs with CSS-only stills and keeps the case engines and figure captions. | `partials/head.html` |
+
+GSAP work is now continuous rather than a stack of identical reveals: masked line rises with a
+slight rotation, staggered ledger cells, scroll-velocity lean on the marquee and capability
+cards, counters on the proof strips, and a clip-opening CTA. `motion.js` owns that layer.
+
 ## v9: a digital studio, not a melon
 The name is 口袋瓜, but the motif is the craft itself. v9 drops every melon, pixel-cat and bead motif from the brand layer and replaces it with live demonstrations of digital capability. Notes are in [`docs/v9-notes.md`](docs/v9-notes.md).
 

@@ -10,8 +10,23 @@
 <body data-page="case" data-slug="whisperleaf" class="case case--whisperleaf">
   <!-- @include header -->
 
+  <!-- side index: this case, read as a measured object -->
+  <nav class="rail mono" aria-hidden="true">
+    <ol class="rail__list">
+      <li data-rail="hero"><b></b><span>题</span></li>
+      <li data-rail="engine"><b></b><span>演</span></li>
+      <li data-rail="brief"><b></b><span>述</span></li>
+      <li data-rail="chapters"><b></b><span>节</span></li>
+      <li data-rail="demo"><b></b><span>试</span></li>
+      <li data-rail="interface"><b></b><span>面</span></li>
+      <li data-rail="notes"><b></b><span>记</span></li>
+      <li data-rail="next"><b></b><span>下</span></li>
+      <li data-rail="contact"><b></b><span>信</span></li>
+    </ol>
+  </nav>
+
   <main id="main">
-    <section class="case-hero" id="top" data-theme-section="light">
+    <section class="case-hero" data-rail-section="hero" id="top" data-theme-section="light">
       <div class="case-hero__meta grid mono">
         <a href="/#work" class="case-hero__back roll" data-intro><span data-text="[[← 全部作品||← All work]]">[[← 全部作品||← All work]]</span></a>
         <span data-intro>[[案例 02 / 02||Case study 02 / 02]]</span>
@@ -30,9 +45,11 @@
           <div><dt class="mono">[[模式||Model]]</dt><dd>[[注册免费 · Pro 会员||Free with an account · Pro membership]]</dd></div>
         </dl>
       </div>
+      <svg class="case-hero__stamp seal fx-stamp" viewBox="0 0 100 100" aria-hidden="true"><use href="#seal" /></svg>
+      <span class="case-hero__vert mono" aria-hidden="true">CASE STUDY — 02 / 2026</span>
     </section>
 
-    <section class="case-media case-media--engine" data-theme-section="dark" aria-label="[[阅读引擎演示||The reading engine, live]]">
+    <section class="case-media case-media--engine" data-rail-section="engine" data-theme-section="dark" aria-label="[[阅读引擎演示||The reading engine, live]]">
       <div class="case-media__frame">
         <div class="case-engine case-engine--read" data-cursor="[[查词||Look up]]">
           <canvas aria-hidden="true"></canvas>
@@ -51,7 +68,16 @@
       <p class="case-media__caption mono">[[引擎本身：按 CEFR 给每个词分级，悬停任意一个词，它在本页的每一次出现都会被串起来，释义就停在原文旁边。||The engine itself: every word graded by CEFR level. Hover one and each of its appearances on the page is threaded together, with the gloss sitting right beside the line.]]</p>
     </section>
 
-    <section class="case-brief grid" data-theme-section="light">
+    <section class="case-stats" data-theme-section="dark" aria-label="[[关键事实||Key facts]]">
+      <dl class="case-stats__grid">
+        <div data-reveal><dt class="mono">[[分级||Grading]]</dt><dd><b>A1–C2</b><span>[[每个词的 CEFR 难度||CEFR level, word by word]]</span></dd></div>
+        <div data-reveal><dt class="mono">[[循环||The loop]]</dt><dd><b data-count="4">4</b><span>[[读 · 懂 · 留 · 回||read · understand · keep · return]]</span></dd></div>
+        <div data-reveal><dt class="mono">[[上传||Uploads]]</dt><dd><b>0</b><span>[[原文留在你的设备上||books stay on your device]]</span></dd></div>
+        <div data-reveal><dt class="mono">[[导入||Import]]</dt><dd><b>3</b><span>EPUB · PDF · TXT</span></dd></div>
+      </dl>
+    </section>
+
+    <section class="case-brief grid" data-rail-section="brief" data-theme-section="light">
       <p class="mono label col-label"><span class="label__idx">[[壹||01]]</span><span class="label__rule"></span><span>[[命题||The brief]]</span></p>
       <div class="case-brief__body">
         <p class="case-brief__text" data-split>[[从教材到真正的原版书之间，隔着一堵墙。Whisperleaf 让读者留在原著里（盖茨比、奥斯汀、福尔摩斯），需要多少帮助就给多少，不多给一分。||English learners hit a wall between textbooks and real books. Whisperleaf lets them stay inside an original (Gatsby, Austen, Holmes) and get exactly as much help as they ask for, and nothing they didn’t.]]</p>
@@ -63,7 +89,7 @@
       </div>
     </section>
 
-    <section class="case-chapters" aria-label="[[使用方式||How it works]]">
+    <section class="case-chapters" data-rail-section="chapters" aria-label="[[使用方式||How it works]]">
       <div class="grid"><p class="mono label col-label"><span class="label__idx">[[贰||02]]</span><span class="label__rule"></span><span>[[读 · 留 · 回||Read · Keep · Return]]</span></p></div>
       <article class="chapter grid">
         <p class="chapter__num">01</p>
@@ -99,7 +125,7 @@
       </article>
     </section>
 
-    <section class="case-demo" data-theme-section="dark" aria-labelledby="demo-title">
+    <section class="case-demo" data-rail-section="demo" data-theme-section="dark" aria-labelledby="demo-title">
       <div class="section-head grid">
         <p class="mono label col-label"><span class="label__idx">[[叁||03]]</span><span class="label__rule"></span><span>[[试一试||Try it]]</span></p>
         <h2 class="section-title" id="demo-title" data-split>[[一个循环，<em>缩成掌心大小</em>||The loop, <em>in miniature</em>]]</h2>
@@ -111,19 +137,66 @@
       <p class="case-demo__note mono">[[Whisperleaf「读 → 懂 → 留 → 回」循环的可玩缩影。文本：简·奥斯汀《傲慢与偏见》（公有领域），保留英文原文。||A playable miniature of Whisperleaf’s Read → Understand → Keep → Return loop. Text: Pride and Prejudice, Jane Austen (public domain).]]</p>
     </section>
 
-    <section class="captures" data-captures hidden aria-label="[[界面||Screens]]">
+    <section class="shots" data-rail-section="interface" data-theme-section="dark" aria-label="[[界面研究||Interface study]]">
       <div class="section-head grid">
-        <p class="mono label col-label"><span class="label__idx">✺</span><span class="label__rule"></span><span>[[界面||Screens]]</span></p>
-        <h2 class="section-title" data-split>[[产品，<em>近看</em>||The product, <em>up close</em>]]</h2>
+        <p class="mono label col-label"><span class="label__idx">[[肆||04]]</span><span class="label__rule"></span><span>[[界面||Interface]]</span></p>
+        <h2 class="section-title" data-split>[[一页之内，<em>读与学</em>||Reading and learning, <em>on one page</em>]]</h2>
+        <p class="mono section-meta">PM—02<br />[[界面研究||INTERFACE STUDY]]</p>
       </div>
-      <div class="captures__grid"></div>
+
+      <div class="shots__stage">
+        <div class="app-wrap">
+          <figure class="app app--read" data-tilt>
+            <div class="app__chrome">
+              <span class="app__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="app__url mono">whisperleaf.pocketmelon.com</span>
+              <span class="app__live mono"><i class="dot-live"></i>[[已上线||LIVE]]</span>
+            </div>
+            <div class="app__body">
+              <aside class="shelf" aria-hidden="true">
+                <p class="mono">[[书架||SHELF]]</p>
+                <div class="spines">
+                  <span class="spine spine--1"><b>The Great Gatsby</b><i>Fitzgerald</i></span>
+                  <span class="spine spine--2"><b>Pride and Prejudice</b><i>Austen</i></span>
+                  <span class="spine spine--3"><b>The Hound of the Baskervilles</b><i>Doyle</i></span>
+                </div>
+                <div class="shelf__meta mono"><span>3 [[本||BOOKS]]</span><span>62%</span></div>
+              </aside>
+
+              <div class="readui">
+                <div class="readui__top mono"><span>Pride and Prejudice</span><span>[[第一章 · 62%||CHAPTER 1 · 62%]]</span></div>
+                <p class="readui__text" lang="en">It is a <mark class="readui__word">truth</mark> universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.</p>
+                <div class="readui__pop" aria-hidden="true">
+                  <div class="readui__pop-head"><b>truth</b><span class="mono">B1 · NOUN</span></div>
+                  <p>that which is true or in accordance with fact or reality</p>
+                  <span class="readui__pop-foot mono">[[本章 3 次出现 · 收藏 →||3 OCCURRENCES · KEEP →]]</span>
+                </div>
+                <div class="readui__foot mono"><span>A1</span><span>A2</span><span class="is-on">B1</span><span>B2</span><span>C1</span><span>C2</span></div>
+              </div>
+
+              <aside class="kept" aria-hidden="true">
+                <p class="mono">[[已留||KEPT]] — 12</p>
+                <ul><li>truth</li><li>possession</li><li>acknowledged</li><li>fortune</li></ul>
+                <div class="kept__card">
+                  <span class="mono">[[复习 · 待答||REVIEW · DUE]]</span>
+                  <p>“It is a <mark>truth</mark> universally…”</p>
+                  <span class="mono">[[揭开原文语境||REVEAL CONTEXT]]</span>
+                </div>
+              </aside>
+            </div>
+            <figcaption class="app__foot mono"><span>CEFR A1 → C2</span><span>[[原文语境||SOURCE-LINKED]]</span><span>[[离线可用||OFFLINE]]</span></figcaption>
+          </figure>
+        </div>
+        <p class="shots__cap mono fx-rise" data-fig="FIG. 02">[[界面示意：读、查、留、回落在同一页上。释义、词级与出处从不离开原文，复习时也能回到那一句。||An interface study: read, look up, keep and return on one page. Gloss, level and source never leave the passage, and review always leads back to the line.]]</p>
+      </div>
     </section>
 
-    <section class="case-detail" data-theme-section="light">
+
+    <section class="case-detail" data-rail-section="notes" data-theme-section="light">
       <div class="case-detail__grid grid">
-        <figure class="case-detail__media mosaic" data-mosaic><img src="/work/whisperleaf/detail.webp" alt="[[一本打开的小说，铅笔划线，一片压叶和一枚粉色书签||An open novel with pencil underlines, a pressed leaf and a pink bookmark]]" loading="lazy" data-parallax /></figure>
+        <figure class="case-detail__media mosaic fxD-crop" data-mosaic><img src="/work/whisperleaf/detail.webp" alt="[[一本打开的小说，铅笔划线，一片压叶和一枚粉色书签||An open novel with pencil underlines, a pressed leaf and a pink bookmark]]" loading="lazy" data-parallax /></figure>
         <div class="case-detail__copy">
-          <p class="mono label"><span class="label__idx">[[肆||04]]</span><span class="label__rule"></span><span>[[手记||Craft notes]]</span></p>
+          <p class="mono label"><span class="label__idx">[[伍||05]]</span><span class="label__rule"></span><span>[[手记||Craft notes]]</span></p>
           <ul class="notes">
             <li data-reveal><h4>[[文学气质的品牌||A literary identity]]</h4><p>[[一本蓝色布面、淡粉书脊、名为 <em>Between the lines</em> 的书，定下安静的基调，从不打扰阅读。||A cloth-bound blue book with a blush spine, titled <em>Between the lines</em>, sets a calm tone that stays out of the reader’s way.]]</p></li>
             <li data-reveal><h4>[[默认私密||Private by default]]</h4><p>[[原书、阅读进度和学习计划都留在设备上。Pro 会为你保存的内容提供自动私密同步。||Original books, reading positions and learning plans stay on the device. Pro adds automatic private sync for what you save.]]</p></li>
@@ -134,7 +207,7 @@
     </section>
 
     <section class="case-credits grid" data-theme-section="light">
-      <p class="mono label col-label"><span class="label__idx">[[伍||05]]</span><span class="label__rule"></span><span>[[署名||Credits]]</span></p>
+      <p class="mono label col-label"><span class="label__idx">[[陆||06]]</span><span class="label__rule"></span><span>[[署名||Credits]]</span></p>
       <dl class="credits">
         <div><dt class="mono">[[产品与品牌||Product &amp; brand]]</dt><dd>[[口袋瓜||Pocketmelon]]</dd></div>
         <div><dt class="mono">[[设计与工程||Design &amp; engineering]]</dt><dd>[[口袋瓜||Pocketmelon]]</dd></div>
@@ -142,7 +215,7 @@
       </dl>
     </section>
 
-    <a href="/work/beads/" class="case-next" data-theme-section="light" data-cursor="[[下一个||Next case]]">
+    <a href="/work/beads/" data-rail-section="next" class="case-next" data-theme-section="light" data-cursor="[[下一个||Next case]]">
       <span class="case-next__fill" aria-hidden="true"></span>
       <span class="mono case-next__k">[[下一个案例 · 01||Next case — 01]]</span>
       <span class="case-next__title">[[口袋瓜拼豆 <span class="case-next__cn">Beads</span>||Beads <span class="case-next__cn">口袋瓜拼豆</span>]]</span>

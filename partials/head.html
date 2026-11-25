@@ -17,3 +17,54 @@
     // page-transition guard: start covered if we arrived through an ink transition
     try { if (sessionStorage.getItem('pm:transition') === '1') document.documentElement.classList.add('is-arriving'); } catch (e) {}
   </script>
+
+  <noscript>
+    <style>
+      /* No JavaScript: the page still has to be a page. Every effect below is CSS-only. */
+      html.is-loading body { overflow: auto; }
+      .loader, .rail, .scroll-progress, .hero__bar, .hero__cue { display: none !important; }
+      .cursor, .px-transition { display: none !important; }
+      [data-reveal], [data-split] { opacity: 1 !important; transform: none !important; }
+      .hero { height: 100svh !important; }
+      .hero__frame { position: relative !important; height: 100svh; }
+      .hero__name { color: var(--hero-ink) !important; }
+
+      /* the film opens on the still itself */
+      .sc__pin { --in: 0 !important; }
+      .sc__stage { background: #050607 url("/work/beads/stage.webp") center / cover !important; }
+      [data-sc="whisperleaf"] .sc__stage { background-image: url("/work/whisperleaf/stage.webp") !important; }
+
+      /* the index stacks instead of tracking sideways */
+      .services__pin { height: auto !important; padding-block: var(--section) !important; }
+      .services__track { flex-direction: column !important; width: auto !important; gap: var(--gap) !important; padding-inline: var(--pad) !important; }
+      .svc { width: 100% !important; height: auto !important; min-height: 22rem; }
+      .services__progress { display: none !important; }
+
+      /* labs: CSS-only stills, no dead controls */
+      .lab__hint, .marble__bar { display: none !important; }
+      .lab__stage--grains {
+        background:
+          radial-gradient(circle, rgba(255, 255, 255, 0.55) 0 0.6px, transparent 1.1px) 0 0 / 5px 5px,
+          linear-gradient(100deg, #1b1f3a, #6e80ff 18%, #3ee0c0 40%, #e6ff4a 66%, #ff6b4a 88%, #2a120c) !important;
+      }
+      .lab__stage--marble {
+        background:
+          radial-gradient(90% 70% at 28% 38%, rgba(239, 235, 227, 0.95), rgba(239, 235, 227, 0) 60%),
+          radial-gradient(70% 60% at 70% 62%, rgba(158, 153, 145, 0.9), rgba(158, 153, 145, 0) 65%),
+          radial-gradient(50% 40% at 55% 30%, #b8332a, rgba(184, 51, 42, 0) 70%),
+          conic-gradient(from 20deg at 50% 50%, #efebe3, #9e9991, #294066, #efebe3, #9e9991, #efebe3) !important;
+      }
+      .lab__stage--seal {
+        background:
+          radial-gradient(circle at 50% 48%, #f1f2e9 0 16%, #b9c7ae 16% 26%, #62765f 26% 31%, rgba(98, 118, 95, 0) 31.4%),
+          radial-gradient(120% 100% at 50% 30%, #2c302a, #0b0c0e 72%) !important;
+      }
+
+      /* case engines hold their still frame */
+      .case-engine { background: #050607 url("/work/beads/source.webp") center / cover !important; }
+      [data-slug="whisperleaf"] .case-engine { background-image: url("/work/whisperleaf/hero.webp") !important; }
+      .beadcanvas { background: #0b0c0e url("/work/beads/source.webp") center / cover !important; }
+      .beadcanvas__grid { display: none !important; }
+      .beadcanvas__scan { display: none !important; }
+    </style>
+  </noscript>

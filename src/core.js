@@ -18,6 +18,7 @@ import { initCursor } from './modules/cursor.js';
 import { initMagnetic, initClocks, initCopy } from './modules/ui.js';
 import { initTransitions } from './modules/transition.js';
 import { initMosaics } from './modules/mosaic.js';
+import { initMotion } from './modules/motion.js';
 import { t, splitOpts } from './modules/i18n.js';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
@@ -50,6 +51,7 @@ export function boot() {
   initAnchors();
   initMagnetic();
   initMosaics();
+  initMotion({ lenis });
   initInquiry();
   // never open the ink onto half-swapped headlines
   const reveal = transitions.reveal;
@@ -61,6 +63,7 @@ export function boot() {
 export function initSharedScroll() {
   if (reduced) return;
 
+  // display lines rise out of a mask; the rotation keeps them from feeling stamped
   document.querySelectorAll('[data-split]').forEach((el) => {
     SplitText.create(el, {
       ...splitOpts,
@@ -70,37 +73,61 @@ export function initSharedScroll() {
       autoSplit: true,
       onSplit: (self) =>
         gsap.from(self.lines, {
-          yPercent: 115,
-          rotate: 3,
+          yPercent: 112,
+          rotate: 2,
           transformOrigin: '0 100%',
-          duration: 1.4,
+          duration: 1.15,
           ease: 'expo.out',
-          stagger: 0.1,
-          scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+          stagger: 0.085,
+          scrollTrigger: { trigger: el, start: 'top 86%', once: true },
         }),
     });
   });
 
+  // labels and meta drift in a beat before the content they label
   gsap.utils.toArray('.label, .section-meta').forEach((el) => {
-    gsap.from(el, { y: 16, autoAlpha: 0, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 92%', once: true } });
+    gsap.from(el, { y: 14, autoAlpha: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 94%', once: true } });
   });
 
   ScrollTrigger.batch('[data-reveal]', {
     start: 'top 90%',
     once: true,
-    onEnter: (els) => gsap.from(els, { y: 50, autoAlpha: 0, duration: 1.2, ease: 'expo.out', stagger: 0.08 }),
+    onEnter: (els) => gsap.from(els, { y: 36, autoAlpha: 0, duration: 1.15, ease: 'power3.out', stagger: { each: 0.07, from: 'start' } }),
   });
 
-  if (document.querySelector('.cta')) {
-    gsap.from('.cta', {
-      scale: 0,
-      rotate: -90,
-      duration: 1.4,
-      ease: 'expo.out',
-      scrollTrigger: { trigger: '.cta', start: 'top 90%', once: true },
+  // the ledger cells land on their own beat
+  if (document.querySelector('.ledger')) {
+    gsap.from('.ledger > div', {
+      y: 20,
+      autoAlpha: 0,
+      duration: 1,
+      ease: 'power3.out',
+      stagger: 0.07,
+      scrollTrigger: { trigger: '.ledger', start: 'top 90%', once: true },
     });
   }
 
+  // process steps read as one ledger, not four unrelated cards
+  if (document.querySelector('.step')) {
+    gsap.from('.step', {
+      y: 40,
+      autoAlpha: 0,
+      duration: 1.1,
+      ease: 'power3.out',
+      stagger: 0.1,
+      scrollTrigger: { trigger: '.process__steps', start: 'top 82%', once: true },
+    });
+  }
+
+  if (document.querySelector('.cta')) {
+    gsap.from('.cta', {
+      clipPath: 'inset(50% 50% 50% 50%)',
+      rotate: 18,
+      duration: 1.2,
+      ease: 'expo.out',
+      scrollTrigger: { trigger: '.cta', start: 'top 92%', once: true },
+    });
+  }
 }
 
 /** Background breathes between paper and rind as sections pass. Call last. */
