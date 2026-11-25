@@ -100,6 +100,10 @@ export function initChroma(figure, { reduced = false } = {}) {
     return null;
   }
   figure.classList.add('has-gl');
+  canvas.addEventListener('webglcontextlost', (e) => {
+    e.preventDefault();
+    figure.classList.add('no-gl');
+  });
 
   const mouse = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5 };
   let pulse = 1;
