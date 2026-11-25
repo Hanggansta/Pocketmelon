@@ -6,6 +6,7 @@ import { t, isZh, splitCJK } from '../modules/i18n.js';
 import { initGrains } from '../modules/labs/grains.js';
 import { initMarble } from '../modules/labs/marble.js';
 import { initSeal } from '../modules/labs/seal.js';
+import { initChroma } from '../modules/labs/chroma.js';
 import { initCapabilities } from '../modules/capabilities.js';
 import { initShowcase } from '../modules/cases/showcase.js';
 
@@ -17,6 +18,7 @@ const transitions = boot();
 const film = initHeroFilm(document.querySelector('.hero'), { fontsReady: cjkReady });
 
 // labs
+initChroma(document.querySelector('[data-chroma]'), { reduced });
 initGrains(document.querySelector('[data-lab-grains]'), { fontsReady: cjkReady });
 initMarble(document.querySelector('[data-lab-marble]'));
 initSeal(document.querySelector('[data-lab-seal]'), { fontsReady: cjkReady });
@@ -52,12 +54,10 @@ function runLoader() {
   const num = loader.querySelector('.loader__num');
   const seal = loader.querySelector('.loader__seal');
 
-  const sources = ['/work/beads/source.webp'];
   let done = 0;
-  const total = sources.length + 1;
+  const total = 1;
   const progress = { v: 0, target: 0 };
   const bump = () => (progress.target = ++done / total);
-  sources.forEach((src) => Object.assign(new Image(), { onload: bump, onerror: bump, src }));
   cjkReady.then(bump);
 
   return new Promise((resolve) => {

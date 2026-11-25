@@ -91,7 +91,23 @@ The `<noscript>` block in `partials/head.html` is not a banner: it rebuilds the 
 - **Renumbered chapters** and a seal stamp in the hero margin; both cases now read as one
   argument instead of a gallery.
 
-### 5. Editorial furniture on the home page
+### 5. A practice, not a product
+
+The first v10 pass over-corrected. Every "premium" moment leaned on the Beads engine — the
+busiest CSS plate, the loader, the first case — so a studio with two products and four studies
+read like a bead product site. That is the wrong hierarchy. Beads is one project, not the house
+style.
+
+- Beads now stays inside its own case. The 880-bead plate is product documentation, not the
+  site's art direction.
+- Whisperleaf opens Selected work: paper, type and a reading engine instead of a pixel grid.
+- Labs became **Studies** (练习), and the set is **墨、纸、玉、光**: a new full-bleed Chroma
+  shader opens it, followed by Grains, Marbled paper and Jade seal. The section says it plainly:
+  no client, no deadline, just touch.
+- The loader, hero chrome and meta description no longer lead with the product: they count
+  works and studies, not products.
+
+### 6. Editorial furniture on the home page
 
 - A light **marquee band** between the dark film and the studio: four statements, an asterisk
   from the site's own pixel face, and a reversed technical line.
@@ -99,7 +115,7 @@ The `<noscript>` block in `partials/head.html` is not a banner: it rebuilds the 
   concrete rather than adjectival.
 - **Three things we don't bend** is now a ledger of rules, not three cards. Hover inverts the
   whole row to ink.
-- The work index gained a real table header and a status column.
+- The work index gained a real table header, a status column, and a direct line to the studies.
 - Labs and capabilities got introductions; the process became a sticky note beside a four-step
   ledger with deliverables.
 
@@ -107,8 +123,9 @@ The `<noscript>` block in `partials/head.html` is not a banner: it rebuilds the 
 
 - `npx vite build` is clean.
 - HTML checked for balanced tags and unresolved `[[zh||en]]` strings in zh and en.
-- No new dependency; no three.js; all canvases still pause off-screen.
+- No new dependency; no three.js; all canvases still pause off-screen; the new Chroma GLSL parses cleanly and falls back to a CSS study if WebGL is unavailable.
 - Visual QA checklist for a browser pass: 1440 × 900 and 390 × 844, the hero intro, the pinned
-  showcase, the horizontal capabilities at 700 px viewport height, both interface studies,
-  reduced motion, and no-JS (hero still, showcase stills, stacked capabilities, CSS lab stills,
-  case engine stills, study caption).
+  showcase (Whisperleaf first, Beads second), the new Chroma study and its pointer/click, the
+  horizontal capabilities at 700 px viewport height, both interface studies, reduced motion,
+  and no-JS (hero still, showcase stills, stacked capabilities, CSS study stills, case engine
+  stills, study caption).
